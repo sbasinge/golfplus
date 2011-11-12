@@ -1,0 +1,73 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pf="http://primefaces.prime.com.tr/ui"
+                xmlns:p="http://java.sun.com/jsf/composite/components/property"
+                xmlns:cc="http://java.sun.com/jsf/composite">
+
+    <cc:interface>
+        <cc:attribute name="value" required="true"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <p:output label="Course" value="#{cc.attrs.value.teeSet.course.name}"/>
+        <h:outputLink target="tel:" value="tel:#{cc.attrs.value.teeSet.course.facility.phone}">Call</h:outputLink>
+        
+        <div class="entry" id="dateLabel">
+            <span class="label">Date:</span>
+         <span class="output">
+			<h:outputText id="date" value="#{cc.attrs.value.date}">
+				<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yyyy hh:mm a"/>
+			</h:outputText>
+         </span>
+        </div>
+        
+        <p:output label="Open Spots" value="#{cc.attrs.value.numOpenSpots}" />
+		        
+        <h:panelGroup id="players">
+            <div class="section">
+                <h:outputText id="noPlayersMsg" value="No Players Committed" rendered="#{empty cc.attrs.value.participants}"/>
+                <h:form id="teeSelectionForm">
+                    <h:dataTable id="members" value="#{cc.attrs.value.participants}" var="_participant" rendered="#{not empty cc.attrs.value.participants}"
+                                 columnClasses=",,,,action">
+                        <h:column id="typeCol">
+                            <f:facet id="typeFct" name="header">Name</f:facet>
+                            #{_participant.user.name}
+                        </h:column>
+                        <h:column id="handicapCol">
+                            <f:facet id="handicapFct" name="header">Handicap</f:facet>
+                            <h:outputText value="#{_participant.user.handicap}">
+                            	<f:convertNumber minFractionDigits="1" maxFractionDigits="1"/>
+                            </h:outputText>
+                            
+                        </h:column>
+                        <h:column id="courseIndexCol">
+                            <f:facet id="ciFct" name="header">Course Index</f:facet>
+                            <h:outputText value="#{_participant.courseIndex}">
+                            	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
+                            </h:outputText>
+                            
+                        </h:column>
+                        <h:column id="bestBallIndexCol">
+                            <f:facet id="bbFct" name="header">BestBall Index</f:facet>
+                            <h:outputText value="#{_participant.bestBallIndex}">
+                            	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/> 
+                            </h:outputText>              
+                        </h:column>
+                        <h:column id="actCol">
+                            <f:facet id="actFct" name="header">Action</f:facet>
+                            <h:link id="view" value="View" outcome="/user/member" style="white-space: nowrap;">
+                                <f:param name="username" value="#{_participant.user.username}"/>
+                            </h:link>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </h:panelGroup>
+        
+    </cc:implementation>
+
+</ui:composition>

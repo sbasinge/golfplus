@@ -1,0 +1,80 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pf="http://primefaces.prime.com.tr/ui"
+                xmlns:p="http://java.sun.com/jsf/composite/components/property"
+                xmlns:cc="http://java.sun.com/jsf/composite">
+
+    <cc:interface>
+        <cc:attribute name="value" required="true"/>
+        <cc:attribute name="showUser" required="false" default="true"/>
+        <cc:attribute name="rowClasses" required="false"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:panelGroup id="scoreList">
+            <div class="section">
+                <h:outputText id="noScoresMsg" value="No Scores Found" rendered="#{empty cc.attrs.value}"/>
+                <pf:dataTable id="scores" value="#{cc.attrs.value}" var="_score" rendered="#{not empty cc.attrs.value}"
+                             columnClasses=",,,,,,,,action" rowClasses="#{cc.attrs.rowClasses}">
+                    <pf:column id="memberNameCol" rendered="#{identity.ableToModifyOthersScores and cc.attrs.showUser}">
+                        <f:facet id="nameFct" name="header">Member</f:facet>
+                        <h:outputText value="#{_score.user.name}" />
+                    </pf:column>
+                    <pf:column id="dateCol">
+                        <f:facet id="nameFct" name="header">Date</f:facet>
+                        <h:outputText value="#{_score.date}">
+                        	<f:convertDateTime dateStyle="short"/>
+                        </h:outputText>
+                    </pf:column>
+                    <pf:column id="nameCol">
+                        <f:facet id="nameFct" name="header">Course Name</f:facet>
+                        <h:outputText value="#{_score.teeSet.course.name}" />
+                    </pf:column>
+                    <pf:column id="courseRatingCol">
+                        <f:facet id="nameFct" name="header">Rating</f:facet>
+                        <h:outputText value="#{_score.teeSet.courseRating}">
+                        	<f:convertNumber minFractionDigits="1" maxFractionDigits="1"/>
+                        </h:outputText>
+                    </pf:column>
+                    <pf:column id="courseSlopeCol">
+                        <f:facet id="nameFct" name="header">Slope</f:facet>
+                        <h:outputText value="#{_score.teeSet.slopeRating}">
+                        	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
+                        </h:outputText>
+                    </pf:column>
+                    <pf:column id="grossCol">
+                        <f:facet id="nameFct" name="header">Gross</f:facet>
+                        <h:outputText value="#{_score.grossScore}" />
+                    </pf:column>
+                    <pf:column id="netCol">
+                        <f:facet id="nameFct" name="header">Adjusted</f:facet>
+                        <h:outputText value="#{_score.netScore}" />
+                    </pf:column>
+                    <pf:column id="diffCol">
+                        <f:facet id="nameFct" name="header">Differential</f:facet>
+                        <h:outputText value="#{_score.differential}" />
+                    </pf:column>
+                    <pf:column id="actCol">
+                        <f:facet id="actFct" name="header">Action</f:facet>
+                        <h:link id="view" value="View" outcome="/scores/viewScore" style="white-space: nowrap;">
+                            <f:param name="id" value="#{_score.id}"/>
+                        </h:link>
+                        &nbsp;
+                        <h:link id="edit" value="Edit" outcome="/scores/editScore" style="white-space: nowrap;">
+                            <f:param name="id" value="#{_score.id}"/>
+                        </h:link>
+                        &nbsp;
+                        <h:commandLink id="deleteScore" value="Delete" action="#{scoreList.deleteScore(_score.id)}" />
+                        
+                    </pf:column>
+                </pf:dataTable>
+            </div>
+        </h:panelGroup>
+    
+    </cc:implementation>
+
+</ui:composition>

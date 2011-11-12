@@ -1,0 +1,45 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://java.sun.com/jsf/composite/components/property"
+	template="/WEB-INF/layout/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{clubList.find}" />
+		    <s:viewAction action="#{siteMessageList.find}"/>
+		</f:metadata>
+	</ui:define>
+
+	<ui:param name="pageClass" value="home" />
+
+	<ui:define name="content">
+		<div class="section">
+
+			<h1>#{msg.home_header}</h1>
+
+			<p>#{msg.home_body}</p>
+
+			<p>#{msg.home_note}</p>
+
+			<h:form id="selectClub" rendered="#{not identity.clubSelected}">
+				<fieldset>
+					<p:input id="selectedClub" label="Select Club">
+						<h:selectOneMenu id="type" value="#{identity.clubSelected}">
+							<f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true" />
+							<f:selectItems value="#{clubs}" var="_club" itemValue="#{_club.name}" />
+						</h:selectOneMenu>
+					</p:input>
+					<div class="buttonBox">
+						<h:button id="proceed" value="Proceed" outcome="/home/xhtml"/>
+					</div>
+
+				</fieldset>
+			</h:form>
+
+		</div>
+	</ui:define>
+
+
+</ui:composition>
+

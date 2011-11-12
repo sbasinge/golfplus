@@ -1,0 +1,71 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.org/seam/faces"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function controlSpinner(behavior) {
+                if (behavior.status == 'begin') {
+                    document.getElementById('spinner').style.display = 'inline';
+                }
+                else if (behavior.status == 'complete') {
+                    document.getElementById('spinner').style.display = 'none';
+                }
+            }
+        </script>
+    </ui:define>
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{tournamentList.find}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+
+         <span class="errors">
+            <h:messages id="messages" globalOnly="true"/>
+         </span>
+
+            <h1>List Tournaments</h1>
+
+        </div>
+
+		<h:form id="tournamanetListForm">
+           	<h:commandButton value="New Tournament" action="#{tournamentList.addTournament}"/>
+        	<h:panelGroup id="searchResults">
+            	<div class="section">
+                	<h:outputText id="noTournamentsMsg" value="No Tournaments Found" rendered="#{empty tournaments}"/>
+                   	<h:dataTable id="hotels" value="#{tournaments}" var="_tournament" rendered="#{not empty tournaments}"
+                                 columnClasses=",,,,action">
+                       	<h:column id="nameCol">
+                           	<f:facet id="nameFct" name="header">Name</f:facet>
+                            <h:outputText value="${_tournament.name}" />
+                        </h:column>
+                        <h:column id="actCol">
+                            <f:facet id="actFct" name="header">Action</f:facet>
+                            <h:link id="view" value="View" outcome="tournament" style="white-space: nowrap;">
+                                <f:param name="id" value="#{_tournament.id}"/>
+                            </h:link>
+                            
+	                        <h:outputText value="&nbsp;" rendered="#{identity.teeTimeListDeleteable and tournamentList.isAvailableForDelete(_tournament.id)}"/>
+	                        <h:commandLink id="deleteTeeTime" value="Delete" action="#{tournamentList.deleteTournament(_tournament.id)}" rendered="#{identity.teeTimeListDeleteable and tournamentList.isAvailableForDelete(_tournament.id)}"/>
+                            
+                        </h:column>
+                    </h:dataTable>
+    	        </div>
+	        </h:panelGroup>
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>

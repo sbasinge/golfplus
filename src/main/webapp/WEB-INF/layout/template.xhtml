@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces"
+      xmlns:s="http://jboss.org/seam/faces"
+      xmlns:pf="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<f:view>
+    <ui:insert name="metadata"/>
+    
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>#{msg.template_title}</title>
+        <meta name="description=" content="#{msg.home_body}"/>
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+
+        <h:outputStylesheet library="css" name="golfplus.css"/>
+        <ui:insert name="head"/>
+    </h:head>
+    <h:body styleClass="#{empty pageClass ? 'page' : 'home'}">
+        <div id="document">
+            <div id="header">
+                <div id="title">
+	                <h1>#{msg.home_title}</h1>
+                </div>
+                <h:form id="menuForm">
+                    <div id="status">
+                        <h:outputText value="(#{currentUser.name})" rendered="#{identity.loggedIn}" styleClass="user"/>
+                        #{' '}
+                        <pretty:link mappingId="home">#{msg.template_linkHome}</pretty:link>
+                        <h:panelGroup rendered="#{not identity.loggedIn}">
+                            #{' | '}
+                            <pretty:link mappingId="home">#{msg.template_linkLogin}</pretty:link>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{identity.loggedIn}">
+	                        <h:outputText value="#{' | '}" rendered="#{identity.clubListVisible}" />
+	                        <h:link id="clubList" outcome="/clubs/clubList.xhtml" value="#{msg.template_linkClubs}" rendered="#{identity.clubListVisible}"/>
+	                        <h:outputText value="#{' | '}" rendered="#{identity.memberListVisible}" />
+	                        <h:link id="memberList" outcome="/user/memberList.xhtml" value="#{msg.template_linkMembers}" rendered="#{identity.memberListVisible}"/>
+	                        <h:outputText value="#{' | '}" rendered="#{identity.courseListVisible}"/>
+	                        <h:link id="courseList" outcome="/courses/courseList.xhtml" value="#{msg.template_linkCourses}" rendered="#{identity.courseListVisible}"/>
+	                        <h:outputText value="#{' | '}" rendered="#{identity.teeTimeListVisible}"/>
+	                        <h:link id="teeTimeList" outcome="/teetimes/teetimeList.xhtml" value="#{msg.template_linkTeeTimes}" rendered="#{identity.teeTimeListVisible}"/>
+	                        <h:outputText value="#{' | '}" rendered="#{identity.scoreListVisible}"/>
+	                        <h:link id="scoreList" outcome="/scores/scoreList.xhtml" value="#{msg.template_linkScores}" rendered="#{identity.scoreListVisible}"/>
+	                        <h:outputText value="#{' | '}" rendered="#{identity.tournamentListVisible}"/>
+	                        <h:link id="tournamentList" outcome="/tournaments/tournamentList.xhtml" value="#{msg.template_linkTournaments}" rendered="#{identity.tournamentListVisible}"/>
+	                        <h:outputText value="#{' | '}" />
+	                        <h:link id="account" outcome="/user/account.xhtml" value="#{msg.template_linkAccount}"/>
+	                        <h:outputText value="#{' | '}" />
+			                <h:commandLink id="logout" value="#{msg.template_linkLogout}" action="#{identity.logout}" />
+                        </h:panelGroup>
+                    </div>
+                </h:form>
+            </div>
+            <div id="container">
+                <div id="sidebar">
+                    <ui:insert name="sidebar"/>
+			        <h:form id="siteMessagesForm" rendered="#{identity.loggedIn}" prependId="false">
+			        	<h:dataTable id="siteMessageTable" value="#{siteMessages}" var="_siteMessage" rendered="#{not empty siteMessages}" rows="5">
+				            <h:column id="messageCol">
+				                <f:facet id="nameFct" name="header">Messages</f:facet>
+				                <h:outputText value="#{_siteMessage.messageText}" />
+				                <br/>
+				                <h:commandLink id="readMessageLink" value="Mark as Read" action="#{siteMessageList.markMessageRead(_siteMessage.id)}" >
+				                	<f:ajax render="@form"/>
+				                </h:commandLink>
+				                <br/>
+				            </h:column>
+				            <pf:separator/>
+			        	</h:dataTable>
+					</h:form>
+                </div>
+                <div id="content">
+					<span class="errors">
+						<pf:messages autoUpdate="true" globalOnly="true" />
+					</span>
+                    <ui:insert name="content"/>
+                </div>
+            </div>
+            <div id="footer">
+                #{msg.template_createdWith}<br/>
+                #{msg.template_projectStage}: #{initParam['javax.faces.PROJECT_STAGE']}
+                #{' | '}
+                #{msg.template_currentConversation}:
+                #{conversation.transient ? 'transient' : 'long-running, id: '.concat(conversation.id)}
+                <br/>
+                Selected Club: #{identity.selectedClub.name}
+            </div>
+        </div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2820260-6']);
+  _gaq.push(['_trackPageview']);
+  _gaq.push(['_trackPageLoadTime']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>        
+    </h:body>
+</f:view>
+
+</html>

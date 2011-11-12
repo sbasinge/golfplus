@@ -1,0 +1,68 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.org/seam/faces"
+                xmlns:m="http://java.sun.com/jsf/composite/components/model"
+                xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="id" value="#{_teetimeId}"/>
+            <s:viewAction action="#{teetimeHome.selectTeetime(_teetimeId)}"/>
+            <s:viewAction action="#{teetimeHome.createScores}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+            <h1>Tee Time Details</h1>
+        </div>
+
+		<h:form>
+			<p:input label="Course" value="#{teetime.teeSet}">
+				<h:selectOneMenu id="type" value="#{teetime.teeSet}" >
+				    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
+				    <f:selectItems id="teesetCombo" value="#{teetime.course.teeSets}" var="_teeset" itemValue="#{_teeset}" itemLabel="#{_teeset.name}"/>
+				    <f:converter for="teesetCombo" converterId="teesetConverter"/>
+				</h:selectOneMenu>
+	        </p:input>
+		
+	        <h:dataTable id="members" value="#{teetimeHome.scores}" var="_score" rendered="#{not empty teetimeHome.scores}"
+	                     columnClasses=",,,,action">
+	            <h:column id="typeCol">
+	                <f:facet id="typeFct" name="header">Name</f:facet>
+	                #{_score.user.name}
+	            </h:column>
+	            <h:column id="grossScoreCol">
+	                <f:facet id="grossScoreFct" name="header">Gross Score</f:facet>
+					<h:inputText value="#{_score.grossScore}" />
+	            </h:column>
+	            <h:column id="netScoreCol">
+	                <f:facet id="netScoreFct" name="header">Net Score</f:facet>
+					<h:inputText value="#{_score.netScore}" />
+	            </h:column>
+	        </h:dataTable>
+			<h:commandButton id="saveButton" action="#{teetimeHome.saveScores}" value="Save" />
+			#{' '}
+			<h:commandButton id="cancelButton" action="#{teetimeHome.cancel}" value="Cancel" immediate="true"/>
+		</h:form>        
+
+        <div class="section">
+            <div class="buttonBox">
+                <h:panelGroup rendered="#{not identity.loggedIn}">
+                    <p style="text-align: center;">You must login to view a tee time.</p>
+                </h:panelGroup>
+            </div>
+
+        </div>
+
+    </ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" version="2.0">
+
+	<name>GolfPlus</name>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+
+		<navigation-case>
+			<from-action>#{identity.logout}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{clubHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/clubs/clubList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{clubHome.save}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/clubs/clubList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{courseHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/courses/courseList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{courseHome.save}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/courses/courseList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{scoreHome.save}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/scores/scoreList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{scoreHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/scores/scoreList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{teetimeHome.save}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{teetimeHome.saveScores}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{teetimeHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tournamentHome.save}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/tournaments/tournamentList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tournamentHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/tournaments/tournamentList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userHome.save}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/home.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{identity.login}</from-action>
+			<if>#{identity.loggedIn}</if>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/courses/courseList.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{courseList.addCourse}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/courses/addCourse.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/scores/scoreList.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{scoreList.addScore}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/scores/addScore.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/teetimes/teetimeList.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{teetimeList.addTeeTime}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/addTeetime.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/tournaments/tournamentList.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{tournamentList.addTournament}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/tournaments/addTournament.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+	
+    <navigation-rule>
+        <from-view-id>/user/register.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-action>#{registrar.register}</from-action>
+            <if>#{registrar.registered}</if>
+            <to-view-id>/home.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/user/password.xhtml</from-view-id>
+
+        <navigation-case>
+            <from-action>#{passwordManager.changePassword}</from-action>
+            <if>#{passwordManager.changed}</if>
+            <to-view-id>/user/account.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+
+    </navigation-rule>
+
+	<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msg</var>
+		</resource-bundle>
+	</application>
+
+</faces-config>

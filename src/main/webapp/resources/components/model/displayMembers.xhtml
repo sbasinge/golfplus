@@ -1,0 +1,51 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pf="http://primefaces.prime.com.tr/ui"
+                xmlns:p="http://java.sun.com/jsf/composite/components/property"
+                xmlns:cc="http://java.sun.com/jsf/composite">
+
+    <cc:interface>
+        <cc:attribute name="value" required="true"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:panelGroup id="memberList">
+            <div class="section">
+	            <h1>Members</h1>
+	        </div>
+        
+            <div class="section">
+                <h:outputText id="noMembersMsg" value="No Members Found" rendered="#{empty cc.attrs.value}"/>
+                <h:form id="memberSelectionForm">
+                    <pf:dataTable id="members" value="#{cc.attrs.value}" var="_member" rendered="#{not empty cc.attrs.value}" columnClasses=",,action">
+                        <pf:column id="nameCol">
+                            <f:facet id="nameFct" name="header">Member name</f:facet>
+                            #{_member.name}
+                        </pf:column>
+                        <pf:column id="handicapCol">
+                            <f:facet id="nameFct" name="header">Handicap</f:facet>
+                            <h:outputText value="#{_member.handicap}" rendered="#{_member.handicap != null}">
+								<f:convertNumber maxFractionDigits="1"/>                            
+                            </h:outputText>
+                            <h:outputText value="Not Calculated" rendered="#{_member.handicap == null}"/>
+                        </pf:column>
+                        <pf:column id="actCol">
+                            <f:facet id="actFct" name="header">Action</f:facet>
+                            <h:link id="view" value="View" outcome="/user/member" style="white-space: nowrap;">
+                                <f:param name="username" value="#{_member.username}"/>
+                            </h:link>
+                            &nbsp;&nbsp;
+                            <h:commandLink id="calc" value="Calculate" action="#{clubHome.calculateHandicap(_member)}"/>
+                        </pf:column>
+                    </pf:dataTable>
+                </h:form>
+            </div>
+        </h:panelGroup>
+    
+    </cc:implementation>
+
+</ui:composition>

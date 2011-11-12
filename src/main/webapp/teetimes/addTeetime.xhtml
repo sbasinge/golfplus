@@ -1,0 +1,86 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.prime.com.tr/ui"
+                xmlns:m="http://java.sun.com/jsf/composite/components/model"
+                xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <s:viewAction action="#{teetimeHome.newTeetime}"/>
+            <s:viewAction action="#{courseList.find}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+            <h1>Tee Time Details</h1>
+        </div>
+        
+		<h:form >
+			<div class="entry">
+				<h:outputLabel value="Course:*" for="courseSelect" class="label"/>
+				<span class="input">
+					<h:selectOneMenu id="courseSelect" value="#{teetime.course}" required="true">
+					    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
+					    <f:selectItems id="courseCombo" value="#{courses}" var="_course" itemValue="#{_course}" itemLabel="#{_course.name}"/>
+					    <f:converter for="courseCombo" converterId="courseConverter"/>
+					    <f:ajax event="change" execute="courseSelect" render="teeSetSelect"/>
+					</h:selectOneMenu>
+				</span>
+			</div>
+			<br/>
+			<div class="entry">
+				<h:outputLabel value="Tee Set:" for="teeSetSelect" class="label"/>
+				<span class="input">
+					<h:selectOneMenu id="teeSetSelect" value="#{teetime.teeSet}" >
+					    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
+					    <f:selectItems id="teesetCombo" value="#{teetime.course.teeSets}" var="_teeset" itemValue="#{_teeset}" itemLabel="#{_teeset.name}"/>
+					    <f:converter for="teesetCombo" converterId="teesetConverter"/>
+					</h:selectOneMenu>
+				</span>
+			</div>
+			<br/>
+	        <p:input label="Date" value="#{teetime.date}" >
+	        	<pf:calendar showOn="button" value="#{teetime.date}" pattern="MM/dd/yyyy HH:mm"/>
+	        </p:input>
+	        <p:input label="Number of Spots" value="#{teetime.notificationOn}">
+				<h:inputText id="input" value="#{teetime.numPlayers}" >
+					<f:convertNumber integerOnly="true"/>
+				</h:inputText>
+	        </p:input>
+	        <p:input label="Notifications?">
+	        	<h:selectBooleanCheckbox value="#{teetime.notificationOn}"/>
+	        </p:input>
+			<br/>
+			<br/>
+		
+            <h:dataTable id="members" value="#{teetime.participants}" var="_player" rendered="#{not empty teetime.participants}" columnClasses=",action">
+                <h:column id="typeCol">
+                    <f:facet id="typeFct" name="header">Name</f:facet>
+                    <h:outputText value="#{_player.user.name}" />
+                </h:column>
+                <h:column id="actCol">
+                    <f:facet id="actFct" name="header">Action</f:facet>
+                    <h:link id="view" value="View" outcome="/user/user" style="white-space: nowrap;">
+                        <f:param name="username" value="#{_player.username}"/>
+                    </h:link>
+                </h:column>
+            </h:dataTable>
+			<h:commandButton id="saveButton" action="#{teetimeHome.save}" value="Save"/>
+			#{' '}
+			<h:commandButton id="cancelButton" action="#{teetimeHome.cancel}" value="Cancel" immediate="true"/>
+		</h:form>        
+
+
+    </ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,50 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://java.sun.com/jsf/composite/components/property"
+                xmlns:cc="http://java.sun.com/jsf/composite">
+
+    <cc:interface>
+        <cc:attribute name="value" required="true"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:panelGroup id="teeList">
+            <div class="section">
+                <h:outputText id="noTeesMsg" value="No Tees Found" rendered="#{empty cc.attrs.value.teeSets}"/>
+                <h:form id="teeSelectionForm">
+                    <h:dataTable id="members" value="#{cc.attrs.value.teeSets}" var="_tee" rendered="#{not empty cc.attrs.value.teeSets}"
+                                 columnClasses=",,,,action">
+                        <h:column id="typeCol">
+                            <f:facet id="typeFct" name="header">Type</f:facet>
+                            #{_tee.teeType}
+                        </h:column>
+                        <h:column id="ratingCol">
+                            <f:facet id="ratingFct" name="header">Course Rating</f:facet>
+                            <h:outputText value="#{_tee.courseRating}" >
+								<f:convertNumber maxFractionDigits="1"/>                            
+                            </h:outputText>
+                        </h:column>
+                        <h:column id="slopeCol">
+                            <f:facet id="slopeFct" name="header">Slope</f:facet>
+                            <h:outputText value="#{_tee.slopeRating}" >
+								<f:convertNumber maxFractionDigits="1"/>                            
+                            </h:outputText>
+                        </h:column>
+                        <h:column id="actCol">
+                            <f:facet id="actFct" name="header">Action</f:facet>
+                            <h:link id="view" value="View" outcome="/user/user" style="white-space: nowrap;">
+                                <f:param name="username" value="#{_member.username}"/>
+                            </h:link>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </h:panelGroup>
+    
+    </cc:implementation>
+
+</ui:composition>

@@ -1,0 +1,51 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:m="http://java.sun.com/jsf/composite/components/model"
+                xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
+                xmlns:s="http://jboss.org/seam/faces"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <s:viewAction action="#{tournamentHome.newTournament}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+            <h1>Tournament Details</h1>
+        </div>
+
+        <div class="section">
+		<h:form >
+	        <p:input label="Name" >
+				<h:inputText id="input" value="#{tournament.name}" />
+	        </p:input>
+			<h:outputLabel value="Type*" for="typeSelect"/>
+			<h:selectOneMenu id="typeSelect" value="#{tournament.type}" required="true">
+			    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
+			    <f:selectItems id="typeCombo" value="#{tournamentTypes}" var="_type" itemValue="#{_type}" itemLabel="#{_type.label}"/>
+			</h:selectOneMenu>
+	        <br/>
+	        
+	        <h:selectManyCheckbox value="#{tournamentHome.selectedTeeTimes}"  label="Tee Times" layout="pageDirection">
+			    <f:selectItems id="teetimeCombo" value="#{tournamentHome.availableTeeTimes}" var="_teetime" itemValue="#{_teetime}" itemLabel="#{_teetime.course.name}"/>
+			    <f:converter for="teetimeCombo" converterId="teetimeConverter"/>
+	        </h:selectManyCheckbox>
+	        
+			<h:commandButton id="saveButton" action="#{tournamentHome.save}" value="Save"/>
+			#{' '}
+			<h:commandButton id="cancelButton" action="#{tournamentHome.cancel}" value="Cancel" immediate="true"/>
+		</h:form>        
+        </div>
+
+    </ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,48 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.prime.com.tr/ui"
+                xmlns:m="http://java.sun.com/jsf/composite/components/model"
+                xmlns:p="http://java.sun.com/jsf/composite/components/property"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="id" value="#{_clubId}"/>
+            <s:viewAction action="#{clubHome.selectClub(_clubId)}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+        	<h:form>
+        		<pf:fieldset legend="Club Details">
+	        		<p:input id="name" label="Name">
+	        			<pf:inputText value="#{club.name}"/>
+	        		</p:input>
+	        		<p:input id="website" label="Web Site">
+	        			<pf:inputText value="#{club.websiteUrl}" size="45"/>
+	        		</p:input>
+	        		<p:input id="rssfeed" label="RSS Feed">
+	        			<pf:inputText value="#{club.rssFeedUrl}" size="45"/>
+	        		</p:input>
+        		</pf:fieldset>
+        		<br/>
+        		<pf:outputPanel>
+	        		<h:commandButton id="saveButton" action="#{clubHome.save}" value="Save"/>
+					#{' '}
+					<h:commandButton id="cancelButton" action="#{clubHome.cancel}" value="Cancel" immediate="true"/>
+        		</pf:outputPanel>
+        		
+        	</h:form>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

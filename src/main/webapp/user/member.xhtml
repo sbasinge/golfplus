@@ -1,0 +1,33 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.org/seam/faces"
+                xmlns:m="http://java.sun.com/jsf/composite/components/model"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="username" value="#{_username}"/>
+            <s:viewAction action="#{userHome.selectUser(_username)}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+            <h1>#{user.name}'s Scores</h1>
+        </div>
+
+        <div class="section">
+			<h:form id="memberScoresForm">
+				<m:displayScores value="#{user.last20Scores}" showUser="false" rowClasses="#{user.last20ScoreRowClasses}"/>
+			</h:form>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

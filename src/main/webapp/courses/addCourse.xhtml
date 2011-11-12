@@ -1,0 +1,85 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.org/seam/faces"
+                xmlns:m="http://java.sun.com/jsf/composite/components/model"
+                xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+        	<s:viewAction action="#{courseHome.newCourse}"/>
+        	<s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+            <h1>Add Course</h1>
+        </div>
+
+        <div class="section">
+        	<h:form id="newCourseForm">
+	        	<fieldset>
+			        <p:input label="Name" value="#{course.name}">
+						<h:inputText id="input" value="#{course.name}" />
+			        </p:input>
+			        <p:input label="Facility" value="#{course.facility.name}">
+						<h:inputText id="input" value="#{course.name}" />
+			        </p:input>
+			        <p:input label="Address" value="#{course.facility.address.addressLine1}">
+						<h:inputText id="input" value="#{course.facility.address.addressLine1}" />
+			        </p:input>
+			        <p:input label="Address" value="#{course.facility.address.addressLine2}">
+						<h:inputText id="input" value="#{course.facility.address.addressLine2}" />
+			        </p:input>
+			        <p:input label="City" value="#{course.facility.address.city}">
+						<h:inputText id="input" value="#{course.facility.address.city}" />
+			        </p:input>
+			        <p:input label="Course" value="#{course.facility.address.state}">
+						<h:selectOneMenu id="type" value="#{course.facility.address.state}" >
+						    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
+						    <f:selectItems id="stateCombo" value="#{states}" var="_state" itemValue="#{_state}" itemLabel="#{_state.name}"/>
+						</h:selectOneMenu>
+					</p:input>
+			        <p:input label="Zip" value="#{course.facility.address.zipCode}">
+						<h:inputText id="input" value="#{course.facility.address.zipCode}" />
+			        </p:input>
+			        <h:panelGroup id="teeList">
+			            <div class="section">
+		                    <h:dataTable id="members" value="#{courseHome.teeSets}" var="_tee" columnClasses=",,,,action">
+		                        <h:column id="typeCol">
+		                            <f:facet id="typeFct" name="header">Type</f:facet>
+		                            #{_tee.teeType}
+		                        </h:column>
+		                        <h:column id="ratingCol">
+		                            <f:facet id="ratingFct" name="header">Course Rating</f:facet>
+		                            <h:inputText value="#{_tee.courseRating}" >
+										<f:convertNumber maxFractionDigits="1"/>                            
+		                            </h:inputText>
+		                        </h:column>
+		                        <h:column id="slopeCol">
+		                            <f:facet id="slopeFct" name="header">Slope</f:facet>
+		                            <h:inputText value="#{_tee.slopeRating}" >
+										<f:convertNumber maxFractionDigits="1"/>                            
+		                            </h:inputText>
+		                        </h:column>
+		                    </h:dataTable>
+			            </div>
+			        </h:panelGroup>
+	        	</fieldset>
+				<h:commandButton id="saveButton" action="#{courseHome.save}" value="Save"/>
+				#{' '}
+				<h:commandButton id="cancelButton" action="#{courseHome.cancel}" value="Cancel" immediate="true"/>
+        	</h:form>
+
+        </div>
+
+    </ui:define>
+
+
+</ui:composition>

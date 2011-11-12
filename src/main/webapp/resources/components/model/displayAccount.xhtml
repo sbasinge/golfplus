@@ -1,0 +1,59 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://http://java.sun.com/jsf/composite/components/property" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:pf="http://primefaces.prime.com.tr/ui" 
+	xmlns:cc="http://java.sun.com/jsf/composite">
+
+	<cc:interface>
+		<cc:attribute name="value" required="true" />
+		<cc:attribute name="showEmail" required="false" default="false" />
+	</cc:interface>
+
+	<cc:implementation>
+		<pf:fieldset legend="Personal Info">
+			<p:output label="Full name" value="#{cc.attrs.value.name}" />
+			<p:output label="Username" value="#{cc.attrs.value.username}" />
+			<p:output label="Email address" value="#{cc.attrs.value.email}" rendered="#{cc.attrs.showEmail}" />
+		</pf:fieldset>
+		<br />
+		<br />
+		<pf:fieldset legend="Notifications">
+			<div style="clear: both">
+				<h:outputLabel value="Handicap:" />
+				<h:outputText value="Email?" for="emailHandicap" dir="ltr" />
+				<pf:spacer width="10" />
+				<h:selectBooleanCheckbox id="emailHandicap" value="#{cc.attrs.value.handicapCalculateNotificationType.notifyByEmail}" />
+				<pf:spacer width="20" />
+				<h:outputText value="Text?" for="textHandicap" dir="ltr" />
+				<pf:spacer width="10" />
+				<h:selectBooleanCheckbox id="textHandicap" value="#{cc.attrs.value.handicapCalculateNotificationType.notifyByText}" />
+				<pf:spacer width="20" />
+				<h:outputText value="On Site?" for="siteHandicap" dir="ltr" />
+				<pf:spacer width="10" />
+				<h:selectBooleanCheckbox id="siteHandicap" value="#{cc.attrs.value.handicapCalculateNotificationType.notifyOnSite}" />
+				<pf:spacer width="20" />
+			</div>
+			<div style="clear: both">
+				<h:outputLabel value="Tee Times:" />
+				<h:outputText value="Email?" for="emailTeeTime" dir="ltr" />
+				<pf:spacer width="10" />
+				<h:selectBooleanCheckbox id="emailTeeTime" value="#{cc.attrs.value.newTeeTimeNotificationType.notifyByEmail}" />
+				<pf:spacer width="20" />
+				<h:outputText value="Text?" for="textTeeTime" dir="ltr" />
+				<pf:spacer width="10" />
+				<h:selectBooleanCheckbox id="textTeeTime" value="#{cc.attrs.value.newTeeTimeNotificationType.notifyByText}" />
+				<pf:spacer width="20" />
+				<h:outputText value="On Site?" for="siteTeeTime" dir="ltr" />
+				<pf:spacer width="10" />
+				<h:selectBooleanCheckbox id="siteTeeTime" value="#{cc.attrs.value.newTeeTimeNotificationType.notifyOnSite}" />
+				<pf:spacer width="20" />
+			</div>
+		</pf:fieldset>
+
+	</cc:implementation>
+
+</ui:composition>

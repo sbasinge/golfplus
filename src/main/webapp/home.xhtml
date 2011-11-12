@@ -1,0 +1,87 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pf="http://primefaces.prime.com.tr/ui"
+                xmlns:p="http://java.sun.com/jsf/composite/components/property"
+                xmlns:s="http://jboss.org/seam/faces"
+                template="/WEB-INF/layout/template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{clubList.find}" />
+		    <s:viewAction action="#{siteMessageList.find}"/>
+		</f:metadata>
+	</ui:define>
+
+    <ui:param name="pageClass" value="home"/>
+
+    <ui:define name="content">
+        <div class="section">
+
+            <h1>#{msg.home_header}</h1>
+
+            <p>#{msg.home_body}</p>
+
+            <p>#{msg.home_note}</p>
+            
+			<h:form id="webfeed" rendered="#{identity.clubSelected and identity.loggedIn and not empty currentClub.rssFeedUrl}">
+				<pf:feedReader value="#{currentClub.rssFeedUrl}" var="feed" size="2">  
+				    <h:outputText value="#{feed.title}" style="font-weight: bold"/>  
+				    <br />  
+	    			<h:outputText value="#{feed.contents[0].value}" escape="false"/>  
+				    <pf:separator />  
+				</pf:feedReader>
+				<a href="#{currentClub.websiteUrl}" target="_blank">See WebSite</a>
+			</h:form>					  
+			<h:form id="selectClub" rendered="#{not identity.clubSelected and identity.loggedIn}">
+				<fieldset>
+					<h:selectOneMenu id="selectClub" value="#{identity.selectedClub}" >
+						<f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true" />
+						<f:selectItems id="listClubs" value="#{identity.currentUser.clubs}" var="_club" itemLabel="#{_club.name}" itemValue="#{_club}"/>
+						<f:converter converterId="clubConverter" for="listClubs"/>
+					</h:selectOneMenu>
+					
+					
+					<div class="buttonBox">
+						<h:commandButton value="Submit" action="#{identity.populateRoles}"/>
+					</div>
+
+				</fieldset>
+			</h:form>
+
+        </div>
+    </ui:define>
+
+    <ui:define name="sidebar">
+        <h:form id="login" rendered="#{not identity.loggedIn}">
+            <fieldset>
+                <div>
+                    <h:outputLabel for="username" value="#{msg.home_usernameLabel}"/>
+                    <h:inputText id="username" value="#{credentials.username}" style="width: 175px;"/>
+                    <div class="errors">
+                        <h:message for="username"/>
+                    </div>
+                </div>
+                <div>
+                    <h:outputLabel for="password" value="#{msg.home_passwordLabel}"/>
+                    <h:inputSecret id="password" value="#{credentials.password}" style="width: 175px;"/>
+                </div>
+	            <span class="errors">
+	               <h:messages errorClass="error" styleClass="messages" id="messages" globalOnly="true"/>
+	            </span>
+
+                <div class="buttonBox">
+                    <h:commandButton id="login" action="#{identity.login}" value="#{msg.home_loginAction}"/>
+                </div>
+                <div class="notes">
+                    <h:link id="register" outcome="/user/register.xhtml" value="#{msg.home_registerAction}"/>
+                </div>
+            </fieldset>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+

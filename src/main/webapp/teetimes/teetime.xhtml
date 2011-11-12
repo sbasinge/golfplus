@@ -1,0 +1,42 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:m="http://java.sun.com/jsf/composite/components/model"
+                xmlns:s="http://jboss.org/seam/faces"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="id" value="#{_teetimeId}"/>
+            <f:event type="preRenderView" listener="#{teetimeHome.selectTeetime(_teetimeId)}" />
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+            <h1>Tee Time Details</h1>
+        </div>
+        
+		<m:displayTeetime value="#{teetime}"/>
+		
+        <div class="section">
+            <div class="buttonBox">
+                <h:panelGroup rendered="#{not identity.loggedIn}">
+                    <p style="text-align: center;">You must login to view a tee time.</p>
+                </h:panelGroup>
+                <h:form id="actions">
+                    <h:button id="cancel" value="Return to List" immediate="true" outcome="teetimeList"/>
+                </h:form>
+            </div>
+
+        </div>
+
+    </ui:define>
+
+
+</ui:composition>

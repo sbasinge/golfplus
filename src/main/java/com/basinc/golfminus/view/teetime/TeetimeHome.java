@@ -1,0 +1,128 @@
+package com.basinc.golfminus.view.teetime;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.ejb.Stateful;
+import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.jboss.seam.faces.context.conversation.Begin;
+import org.jboss.seam.faces.context.conversation.End;
+import org.jboss.seam.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.basinc.golfminus.domain.Score;
+import com.basinc.golfminus.domain.TeeTime;
+import com.basinc.golfminus.domain.TeeTimeParticipant;
+import com.basinc.golfminus.security.Identity;
+import com.basinc.golfminus.util.PersistenceUtil;
+import com.basinc.golfminus.view.scores.ScoreUpdated;
+
+@Transactional
+@Stateful
+@ConversationScoped
+@Named
+/**
+ * Replicate Seam2 EntityHome concept where this would be a backing bean for a page that displays a Single Club
+ * 
+ * @author Scott
+ *
+ */
+public class TeetimeHome extends PersistenceUtil {
+	private static Logger log = LoggerFactory.getLogger(TeetimeHome.class);
+
+    @Inject Identity identity;
+
+    @Inject
+    @TeeTimeAdded
+    private Event<TeeTime> teeTimeAddedEventSrc;
+
+    @Inject
+    @ScoreUpdated
+    private Event<Score> scoreUpdatedEventSrc;
+
+    private TeeTime selection;
+    
+    private List<EnteredScore> scores = new ArrayList<EnteredScore>();
+    
+    @Begin
+    public void selectTeetime(final Integer id) {
+        // NOTE get a fresh reference that's managed by the extended persistence context
+    	selection = entityManager.find(TeeTime.class, id.intValue());
+    }
+
+    @Produces
+    @RequestScoped
+    @Named("teetime")
+	public TeeTime getSelection() {
+		return selection;
+	}
+
+    @End
+    public void save() {
+    	entityManager.joinTransaction();
+    	entityManager.persist(selection);
+		teeTimeAddedEventSrc.fire(selection);
+    }
+
+    @End
+    public void saveScores() {
+    	//move scores to the teetime participants
+    	for (EnteredScore score : scores) {
+    		if (score.getUser()!=null && score.getGrossScore()!=null&&score.getNetScore()!=null&&score.getGrossScore()>0&&score.getNetScore()>0) {
+    			for (TeeTimeParticipant participant : selection.getParticipants()) {
+    				if (score.getUser().equals(participant.getUser())) {
+    					participant.addScore(score.getGrossScore(), score.getNetScore());
+    					//    		scoreUpdatedEventSrc.fire(participant.getScore());
+    					break;
+    				}
+    			}
+    		}
+    	}
+    	entityManager.joinTransaction();
+    	entityManager.persist(selection);
+    }
+    
+    @End
+    public void cancel() {
+    	selection = null;
+    	log.info("Cancel updates to Tee Time");
+    }
+
+    public void createScores() {
+    	for (TeeTimeParticipant participant : selection.getParticipants()) {
+    		EnteredScore score = new EnteredScore();
+    		log.info("Checking to see if {} has a score.",participant.getUser().getName());
+    		if (participant.getScore() != null) {
+    			score.setUser(participant.getUser());
+    			score.setGrossScore(participant.getScore().getGrossScore());
+    			score.setNetScore(participant.getScore().getNetScore());
+        		log.info("Player {} already has a score.",participant.getUser().getName());
+    		} else {
+    			score.setUser(participant.getUser());
+    		}
+       		scores.add(score);
+    	}
+    }
+
+	public List<EnteredScore> getScores() {
+		return scores;
+	}
+
+	public void setScores(List<EnteredScore> scores) {
+		this.scores = scores;
+	}
+	
+	public void newTeetime() {
+		selection = new TeeTime();
+		selection.setOrganizer(identity.getCurrentUser());
+		selection.setDate(Calendar.getInstance().getTime());
+	}
+}

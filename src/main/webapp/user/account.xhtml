@@ -1,0 +1,108 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:pf="http://primefaces.prime.com.tr/ui" 
+                xmlns:s="http://jboss.org/seam/faces"
+				xmlns:p="http://http://java.sun.com/jsf/composite/components/property" 
+                xmlns:m="http://http://java.sun.com/jsf/composite/components/model"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <s:viewAction action="#{userHome.selectUser(currentUser.username)}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="content">
+
+        <div class="section">
+            <h1>Your Account</h1>
+        </div>
+
+        <div class="section">
+
+            <div class="errors">
+                <h:messages id="messages" globalOnly="true"/>
+            </div>
+			<h:form>
+				<pf:fieldset legend="Personal Info">
+					<p:output label="Username" value="#{user.username}" />
+					<p:input label="Full Name">
+						<pf:inputText value="#{user.name}"/>
+					</p:input>
+					<p:input label="Email Address">
+						<pf:inputText value="#{user.email}"/>
+					</p:input>
+					<p:input label="Phone">
+						<pf:inputMask value="#{user.phone}" mask="(999) 999-9999"/> 
+					</p:input>
+				</pf:fieldset>
+				<br />
+				<br />
+				<pf:fieldset legend="Notifications">
+					<div style="clear: both">
+						<h:outputLabel value="Handicap:" />
+						<h:outputText value="Email?" for="emailHandicap" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="emailHandicap" value="#{user.handicapCalculateNotificationType.notifyByEmail}" />
+						<pf:spacer width="20" />
+						<h:outputText value="Text?" for="textHandicap" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="textHandicap" value="#{user.handicapCalculateNotificationType.notifyByText}" />
+						<pf:spacer width="20" />
+						<h:outputText value="On Site?" for="siteHandicap" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="siteHandicap" value="#{user.handicapCalculateNotificationType.notifyOnSite}" />
+						<pf:spacer width="20" />
+					</div>
+					<div style="clear: both">
+						<h:outputLabel value="Tee Times:" />
+						<h:outputText value="Email?" for="emailTeeTime" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="emailTeeTime" value="#{user.newTeeTimeNotificationType.notifyByEmail}" />
+						<pf:spacer width="20" />
+						<h:outputText value="Text?" for="textTeeTime" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="textTeeTime" value="#{user.newTeeTimeNotificationType.notifyByText}" />
+						<pf:spacer width="20" />
+						<h:outputText value="On Site?" for="siteTeeTime" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="siteTeeTime" value="#{user.newTeeTimeNotificationType.notifyOnSite}" />
+						<pf:spacer width="20" />
+					</div>
+					<div style="clear: both">
+						<h:outputLabel value="SignUp:" />
+						<h:outputText value="Email?" for="emailSignUp" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="emailSignUp" value="#{user.teeTimeFullNotificationType.notifyByEmail}" />
+						<pf:spacer width="20" />
+						<h:outputText value="Text?" for="textSignUp" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="textSignUp" value="#{user.teeTimeFullNotificationType.notifyByText}" />
+						<pf:spacer width="20" />
+						<h:outputText value="On Site?" for="siteSignUp" dir="ltr" />
+						<pf:spacer width="10" />
+						<h:selectBooleanCheckbox id="siteSignUp" value="#{user.teeTimeFullNotificationType.notifyOnSite}" />
+						<pf:spacer width="20" />
+					</div>
+				</pf:fieldset>
+				<br/>
+				<br/> 
+                <div class="buttonBox">
+                    <h:commandButton id="save" value="Save" action="#{userHome.save}"/>
+                    #{' '}
+                    <h:commandButton id="cancel" value="Cancel" action="#{userHome.cancel}"/>
+                    #{' '}
+	                <h:button id="changePassword" value="Change password" outcome="/user/password.xhtml"/>
+                </div>
+			</h:form>
+        </div>
+
+    </ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,112 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:s="http://jboss.org/seam/faces"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function controlSpinner(behavior) {
+                if (behavior.status == 'begin') {
+                    document.getElementById('spinner').style.display = 'inline';
+                }
+                else if (behavior.status == 'complete') {
+                    document.getElementById('spinner').style.display = 'none';
+                }
+            }
+        </script>
+    </ui:define>
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <s:viewAction action="#{teetimeList.find}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="section">
+
+         <span class="errors">
+            <h:messages id="messages" globalOnly="true"/>
+         </span>
+
+            <h1>List Tee Times</h1>
+
+        </div>
+        
+        <h:form id="teetimeListForm">
+           	<h:commandButton value="New Tee Time" action="#{teetimeList.addTeeTime}"/>
+	        <h:panelGroup id="searchResults">
+	            <div class="section">
+	                <h:outputText id="noTeeTimesMsg" value="No Tee Times Found" rendered="#{empty teetimes}"/>
+	                <h:dataTable id="teetimes" value="#{teetimes}" var="_teetime" rendered="#{not empty teetimes}"
+	                             columnClasses=",,,,action">
+	                    <h:column id="nameCol">
+	                        <f:facet id="nameFct" name="header">Course</f:facet>
+	                        #{_teetime.course.name}
+	                    </h:column>
+	                    <h:column id="dateCol">
+	                        <f:facet id="dateFct" name="header">Date</f:facet>
+	                        <h:outputText value="#{_teetime.date}" >
+								<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yyyy hh:mm a"/>
+	                        </h:outputText>
+	                    </h:column>
+	                    <h:column id="openSpotsCol">
+	                        <f:facet id="openSpotsFct" name="header">Open Spots</f:facet>
+	                        #{_teetime.numOpenSpots}
+	                    </h:column>
+	                    <h:column id="actCol">
+	                        <f:facet id="actFct" name="header">Action</f:facet>
+	                        <h:link id="view" value="View" outcome="teetime" style="white-space: nowrap;">
+	                            <f:param name="id" value="#{_teetime.id}"/>
+	                        </h:link>
+	                        
+	                        <h:outputText value="&nbsp;" rendered="#{identity.teeTimeListDeleteable and teetimeList.isAvailableForDelete(_teetime.id)}"/>
+	                        <h:commandLink id="deleteTeeTime" value="Delete" action="#{teetimeList.deleteTeeTime(_teetime.id)}" rendered="#{identity.teeTimeListDeleteable and teetimeList.isAvailableForDelete(_teetime.id)}"/>
+	                        
+	                        <h:outputText value="&nbsp;" rendered="#{identity.teeTimeListUpdateable}"/>
+	                        <h:link id="enterScores" value="Enter Scores" outcome="teetimeScores" style="white-space: nowrap;" rendered="#{identity.teeTimeListUpdateable}">
+	                            <f:param name="id" value="#{_teetime.id}"/>
+	                        </h:link>
+	                        
+	                        <h:outputText value="&nbsp;" rendered="#{teetimeList.isAvailableForSignup(_teetime.id)}"/>
+	                        <h:commandLink id="signup" value="Sign Up" action="#{teetimeList.signUp(_teetime.id)}" rendered="#{teetimeList.isAvailableForSignup(_teetime.id)}" />
+	                    </h:column>
+	                </h:dataTable>
+	            </div>
+	        </h:panelGroup>
+        </h:form>
+
+
+    </ui:define>
+
+    <ui:define name="sidebar">
+
+        <!--
+        <h1>State management in Seam</h1>
+        <p>
+           State in Seam is <em>contextual</em>. When you click "Find Hotels", the application
+           retrieves a list of hotels from the database and caches it in the session context. When you
+           navigate to one of the hotel records by clicking the "View Hotel" link, a <em>conversation</em>
+           begins. The conversation is attached to a particular tab, in a particular browser window. You can
+           navigate to multiple hotels using "open in new tab" or "open in new window" in your web browser.
+           Each window will execute in the context of a different conversation. The application keeps state
+           associated with your hotel booking in the conversation context, which ensures that the concurrent
+           conversations do not interfere with each other.
+        </p>
+
+        <p>
+           <a href="#" onclick="window.open('exp/mainExp.html','exp','width=752,height=500,scrollbars=yes');">
+              How does the search page work?
+           </a>
+        </p>
+        -->
+
+    </ui:define>
+
+</ui:composition>

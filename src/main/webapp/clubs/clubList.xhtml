@@ -1,0 +1,93 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pf="http://primefaces.prime.com.tr/ui"
+                xmlns:s="http://jboss.org/seam/faces"
+                template="/WEB-INF/layout/template.xhtml">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <s:viewAction action="#{clubList.find}"/>
+		    <s:viewAction action="#{siteMessageList.find}"/>
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function controlSpinner(behavior) {
+                if (behavior.status == 'begin') {
+                    document.getElementById('spinner').style.display = 'inline';
+                }
+                else if (behavior.status == 'complete') {
+                    document.getElementById('spinner').style.display = 'none';
+                }
+            }
+        </script>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="section">
+
+         <span class="errors">
+            <pf:messages id="messages" globalOnly="true"/>
+         </span>
+
+            <h1>List Golf Clubs</h1>
+
+        </div>
+
+        <h:panelGroup id="searchResults">
+            <div class="section">
+                <h:outputText id="noHotelsMsg" value="No Clubs Found" rendered="#{empty clubs}"/>
+                <h:form id="hotelSelectionForm">
+                
+                    <pf:dataTable id="clubTable" value="#{clubs}" var="_club" rendered="#{not empty clubs}" columnClasses=",action">
+                        <pf:column id="nameCol">
+                            <f:facet id="nameFct" name="header">Club name</f:facet>
+                            #{_club.name}
+                        </pf:column>
+                        <pf:column id="actCol">
+                            <f:facet id="actFct" name="header">Action</f:facet>
+                            <h:link id="view" value="View" outcome="club" style="white-space: nowrap;">
+                                <f:param name="id" value="#{_club.id}"/>
+                            </h:link>
+                            <pf:spacer width="10"/>
+                            <h:link id="edit" value="Edit" outcome="editClub" style="white-space: nowrap;">
+                                <f:param name="id" value="#{_club.id}"/>
+                            </h:link>
+                        </pf:column>
+                    </pf:dataTable>
+                </h:form>
+            </div>
+        </h:panelGroup>
+
+    </ui:define>
+
+    <ui:define name="sidebar">
+
+        <!--
+        <h1>State management in Seam</h1>
+        <p>
+           State in Seam is <em>contextual</em>. When you click "Find Hotels", the application
+           retrieves a list of hotels from the database and caches it in the session context. When you
+           navigate to one of the hotel records by clicking the "View Hotel" link, a <em>conversation</em>
+           begins. The conversation is attached to a particular tab, in a particular browser window. You can
+           navigate to multiple hotels using "open in new tab" or "open in new window" in your web browser.
+           Each window will execute in the context of a different conversation. The application keeps state
+           associated with your hotel booking in the conversation context, which ensures that the concurrent
+           conversations do not interfere with each other.
+        </p>
+
+        <p>
+           <a href="#" onclick="window.open('exp/mainExp.html','exp','width=752,height=500,scrollbars=yes');">
+              How does the search page work?
+           </a>
+        </p>
+        -->
+
+    </ui:define>
+
+</ui:composition>
