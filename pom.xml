@@ -239,6 +239,14 @@
 	          </plugin>
 	        </plugins>
 	      </build>
+	      <repositories>
+			<repository>
+				<id>prime-repo</id>
+				<name>Prime Technology Maven Repository</name>
+				<url>http://repository.prime.com.tr</url>
+				<layout>default</layout>
+			</repository>
+	      </repositories>
 	    </profile>
 	</profiles>
 	<scm>
