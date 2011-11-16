@@ -14,6 +14,8 @@ public class Credentials {
 
 	private String password;
 
+	private boolean rememberMe;
+	
 	@NotNull
 	@Length(min = 3, max = 25)
 	public String getUsername() {
@@ -32,6 +34,14 @@ public class Credentials {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(boolean rememberMe) {
+		this.rememberMe = rememberMe;
 	}
 
 }
