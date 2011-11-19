@@ -11,6 +11,8 @@
 
 	<ui:define name="metadata">
 		<f:metadata>
+			<f:viewParam name="clubName" value="#{clubList.clubName}"/>
+			<f:event type="preRenderView" listener="#{clubList.populateClub}" />
 			<f:event type="preRenderView" listener="#{clubList.find}" />
 		    <s:viewAction action="#{siteMessageList.find}"/>
 		</f:metadata>

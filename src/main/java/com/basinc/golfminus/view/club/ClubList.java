@@ -5,17 +5,20 @@ import java.util.List;
 import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.jboss.logging.Logger;
+import org.jboss.seam.transaction.Transactional;
 
 import com.basinc.golfminus.domain.Club;
+import com.basinc.golfminus.security.Identity;
+import com.basinc.golfminus.util.PersistenceUtil;
 
+@Transactional
 @Stateful
 @ConversationScoped
 @Named
@@ -25,26 +28,27 @@ import com.basinc.golfminus.domain.Club;
  * @author Scott
  *
  */
-public class ClubList {
+public class ClubList extends PersistenceUtil {
 	
 //    @Inject
     private Logger log = Logger.getLogger(getClass());
 
-    @PersistenceContext
-    private EntityManager em;
+	@Inject Identity identity;
 
     private List<Club> clubs;
+    
+    private String clubName;
     
     public void find() {
         queryClubs();
     }
 
     private void queryClubs() {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Club> query = builder.createQuery(Club.class);
         Root<Club> club = query.from(Club.class);
         query.select(club);
-        List<Club> results = em.createQuery(query).getResultList();
+        List<Club> results = entityManager.createQuery(query).getResultList();
         setClubs(results);
 	}
 
@@ -58,4 +62,18 @@ public class ClubList {
 		this.clubs = clubs;
 	}
 
+	public String getClubName() {
+		return clubName;
+	}
+
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
+	}
+
+	public void populateClub() {
+		if (getClubName() != null) {
+			Club chosenClub = entityManager.createNamedQuery("findClubByName",Club.class).setParameter("name", getClubName()).getSingleResult();
+			identity.setSelectedClub(chosenClub);
+		}
+	}
 }

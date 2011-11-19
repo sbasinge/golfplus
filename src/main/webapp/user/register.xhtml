@@ -13,6 +13,8 @@
     <ui:define name="metadata">
         <f:metadata>
             <f:event type="preRenderView" listener="#{registrar.notifyIfRegistrationIsInvalid}"/>
+			<f:viewParam name="clubName" value="#{clubList.clubName}"/>
+			<f:event type="preRenderView" listener="#{clubList.populateClub}" />
             <f:event type="preRenderView" listener="#{clubList.find}" />
         </f:metadata>
     </ui:define>
@@ -79,22 +81,14 @@
 
     <ui:define name="sidebar">
         <div class="content">
-            <h1>Integrated multi-layer validation</h1>
+            <h1>#{currentClub.name} GolfPlus Registration</h1>
 
             <p>
-                Robust applications need data validation in several different places. Seam integrates Hibernate Validator, a
-                set of annotations for expressing data model constraints in your domain model classes. Then, these constraints
-                are applied almost completely transparently at three levels of the application: by Seam when the user first
-                enters data, by EJB before persisting data to the database, and, if you use Hibernate to generate your database
-                schema, by the database constraints themselves. Multi-layer validation hardens your application and protects
-                your data. Even better, it's self-documenting, and easy to change when your business rules change.
+                Register an account at GolfPlus allows you to sign in and either create a club or join a club.  When joining a club, a 
+ 				membership request will be sent to the club administrator for approval.  Once approved you will be notified by email,
+ 				text or by coming back to the site and checking your messages in the left navigation bar.
             </p>
 
-            <p>
-                <a href="#" onclick="window.open('exp/registerExp.html','exp','width=752,height=500,scrollbars=yes');">
-                    What happens when I register?
-                </a>
-            </p>
         </div>
     </ui:define>
 
