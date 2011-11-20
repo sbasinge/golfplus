@@ -32,7 +32,7 @@
         <view-id>/home.xhtml</view-id>
     </url-mapping>
     <url-mapping id="clubMembers">
-        <pattern value="/#{ clubName : currentClub.name }/members/"></pattern>
+        <pattern value="/#{ clubName }/members"></pattern>
         <view-id>/user/memberList.xhtml</view-id>
     </url-mapping>
     <url-mapping>

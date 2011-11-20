@@ -9,6 +9,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.servlet.http.HttpSession;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
@@ -25,19 +28,21 @@ import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.domain.ClubRole;
 import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.i18n.DefaultBundleKey;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
 @Stateful
 @SessionScoped
 @Named
-public class Identity extends PersistenceUtil implements Serializable {
+public class Identity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	private static Logger log = LoggerFactory.getLogger(Identity.class);
 	
 	@Inject Credentials credentials;
+
+    @PersistenceContext(type=PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
 
     @Inject private Messages messages;
 
