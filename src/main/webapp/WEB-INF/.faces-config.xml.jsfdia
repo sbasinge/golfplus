@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{identity.logout}:#home.xhtml"
+    NAME="output" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{identity.logout}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID=":#{clubHome.cancel}:#clubs#clubList.xhtml"
+    NAME="output1" PATH="/clubs/clubList.xhtml"
+    TARGET="rules:#clubs#clubList.xhtml"
+    TITLE="#{clubHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID=":#{clubHome.save}:#clubs#clubList.xhtml"
+    NAME="output2" PATH="/clubs/clubList.xhtml"
+    TARGET="rules:#clubs#clubList.xhtml" TITLE="#{clubHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{courseHome.cancel}:#courses#courseList.xhtml" NAME="output3"
+    PATH="/courses/courseList.xhtml"
+    TARGET="rules:#courses#courseList.xhtml"
+    TITLE="#{courseHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{courseHome.save}:#courses#courseList.xhtml" NAME="output4"
+    PATH="/courses/courseList.xhtml"
+    TARGET="rules:#courses#courseList.xhtml"
+    TITLE="#{courseHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID=":#{scoreHome.save}:#scores#scoreList.xhtml"
+    NAME="output5" PATH="/scores/scoreList.xhtml"
+    TARGET="rules:#scores#scoreList.xhtml"
+    TITLE="#{scoreHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{scoreHome.cancel}:#scores#scoreList.xhtml" NAME="output6"
+    PATH="/scores/scoreList.xhtml"
+    TARGET="rules:#scores#scoreList.xhtml"
+    TITLE="#{scoreHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeHome.save}:#teetimes#teetimeList.xhtml" NAME="output7"
+    PATH="/teetimes/teetimeList.xhtml"
+    TARGET="rules:#teetimes#teetimeList.xhtml"
+    TITLE="#{teetimeHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{tournamentHome.save}:#tournaments#tournamentList.xhtml"
+    NAME="output8" PATH="/tournaments/tournamentList.xhtml"
+    TARGET="rules:#tournaments#tournamentList.xhtml"
+    TITLE="#{tournamentHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{tournamentHome.cancel}:#tournaments#tournamentList.xhtml"
+    NAME="output9" PATH="/tournaments/tournamentList.xhtml"
+    TARGET="rules:#tournaments#tournamentList.xhtml"
+    TITLE="#{tournamentHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID=":#{userHome.cancel}:#home.xhtml"
+    NAME="output10" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{userHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID=":#{userHome.save}:#home.xhtml"
+    NAME="output11" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{userHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
+  SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#home.xhtml:0" NAME="item" PATH="/home.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{identity.login}:#home.xhtml"
+    NAME="output" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{identity.login}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#register.xhtml"
+  PATH="/user/register.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#register.xhtml:0" NAME="item"
+   PATH="/user/register.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{registrar.register}:#home.xhtml"
+    NAME="output" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{registrar.register}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#password.xhtml"
+  PATH="/user/password.xhtml" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#user#password.xhtml:0" NAME="item"
+   PATH="/user/password.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{passwordManager.changePassword}:#user#account.xhtml"
+    NAME="output" PATH="/user/account.xhtml"
+    TARGET="rules:#user#account.xhtml"
+    TITLE="#{passwordManager.changePassword}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#user#account.xhtml"
+  PATH="/user/account.xhtml" SHAPE="240,257,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#scores#scoreList.xhtml"
+  PATH="/scores/scoreList.xhtml" SHAPE="240,369,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#scores#scoreList.xhtml:0" NAME="item"
+   PATH="/scores/scoreList.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{scoreList.addScore}:#scores#addScore.xhtml" NAME="output"
+    PATH="/scores/addScore.xhtml" TARGET="rules:#scores#addScore.xhtml"
+    TITLE="#{scoreList.addScore}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#scores#addScore.xhtml"
+  PATH="/scores/addScore.xhtml" SHAPE="464,353,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#courses#courseList.xhtml"
+  PATH="/courses/courseList.xhtml" SHAPE="304,689,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#courses#courseList.xhtml:0" NAME="item"
+   PATH="/courses/courseList.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{courseList.addCourse}:#courses#addCourse.xhtml" NAME="output"
+    PATH="/courses/addCourse.xhtml"
+    TARGET="rules:#courses#addCourse.xhtml"
+    TITLE="#{courseList.addCourse}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#courses#addCourse.xhtml"
+  PATH="/courses/addCourse.xhtml" SHAPE="32,497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#teetimes#teetimeList.xhtml"
+  PATH="/teetimes/teetimeList.xhtml" SHAPE="32,897,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#teetimes#teetimeList.xhtml:0" NAME="item"
+   PATH="/teetimes/teetimeList.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeList.addTeeTime}:#teetimes#addTeetime.xhtml"
+    NAME="output" PATH="/teetimes/addTeetime.xhtml"
+    TARGET="rules:#teetimes#addTeetime.xhtml"
+    TITLE="#{teetimeList.addTeeTime}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#teetimes#addTeetime.xhtml"
+  PATH="/teetimes/addTeetime.xhtml" SHAPE="240,913,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#tournaments#tournamentList.xhtml"
+  PATH="/tournaments/tournamentList.xhtml" SHAPE="32,577,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#tournaments#tournamentList.xhtml:0"
+   NAME="item" PATH="/tournaments/tournamentList.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{tournamentList.addTournament}:#tournaments#addTournament.xhtml"
+    NAME="output" PATH="/tournaments/addTournament.xhtml"
+    TARGET="rules:#tournaments#addTournament.xhtml"
+    TITLE="#{tournamentList.addTournament}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#tournaments#addTournament.xhtml"
+  PATH="/tournaments/addTournament.xhtml" SHAPE="240,705,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#clubs#clubList.xhtml"
+  PATH="/clubs/clubList.xhtml" SHAPE="336,433,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>
