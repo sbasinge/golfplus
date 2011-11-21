@@ -5,8 +5,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.org/ui"
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
-                template="/WEB-INF/layout/template.xhtml">
+                template="/WEB-INF/layout/nosidebar_template.xhtml">
 
     <ui:define name="head">
         <script type="text/javascript">
@@ -43,34 +44,66 @@
 	    	<h:commandButton value="New Score" action="#{scoreList.addScore}"/>
 	    	<br/>
 	        <h:panelGroup id="searchResults">
-	            <m:displayScores value="#{scores}"/>
+                <pf:dataTable id="scores" value="#{scoreList.lazyDataModel}" var="_score" paginator="true" rows="10" lazy="true"
+                    	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+                    	rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
+						columnClasses=",,,,,,,,action" rowStyleClass="#{_score.counter ? 'counter' : null}">
+                    <pf:column id="memberNameCol" rendered="#{identity.ableToModifyOthersScores}" sortBy="#{_score.user.name}" filterBy="#{_score.user.name}">
+                        <f:facet id="nameFct" name="header">Member</f:facet>
+                        <h:outputText value="#{_score.user.name}" />
+                    </pf:column>
+                    <pf:column id="dateCol" sortBy="#{_score.date}">
+                        <f:facet id="nameFct" name="header">Date</f:facet>
+                        <h:outputText value="#{_score.date}">
+                        	<f:convertDateTime dateStyle="short"/>
+                        </h:outputText>
+                    </pf:column>
+                    <pf:column id="nameCol" sortBy="#{_score.teeSet.course.name}">
+                        <f:facet id="nameFct" name="header">Course Name</f:facet>
+                        <h:outputText value="#{_score.teeSet.course.name}" />
+                    </pf:column>
+                    <pf:column id="courseRatingCol" sortBy="#{_score.teeSet.courseRating}">
+                        <f:facet id="nameFct" name="header">Rating</f:facet>
+                        <h:outputText value="#{_score.teeSet.courseRating}">
+                        	<f:convertNumber minFractionDigits="1" maxFractionDigits="1"/>
+                        </h:outputText>
+                    </pf:column>
+                    <pf:column id="courseSlopeCol">
+                        <f:facet id="nameFct" name="header">Slope</f:facet>
+                        <h:outputText value="#{_score.teeSet.slopeRating}">
+                        	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
+                        </h:outputText>
+                    </pf:column>
+                    <pf:column id="grossCol">
+                        <f:facet id="nameFct" name="header">Gross</f:facet>
+                        <h:outputText value="#{_score.grossScore}" />
+                    </pf:column>
+                    <pf:column id="netCol">
+                        <f:facet id="nameFct" name="header">Adj</f:facet>
+                        <h:outputText value="#{_score.netScore}" />
+                    </pf:column>
+                    <pf:column id="diffCol">
+                        <f:facet id="nameFct" name="header">Diff</f:facet>
+                        <h:outputText value="#{_score.differential}" />
+                    </pf:column>
+                    <pf:column id="actCol">
+                        <f:facet id="actFct" name="header">Action</f:facet>
+                        <h:link id="view" value="View" outcome="/scores/viewScore" style="white-space: nowrap;">
+                            <f:param name="id" value="#{_score.id}"/>
+                        </h:link>
+                        &nbsp;
+                        <h:link id="edit" value="Edit" outcome="/scores/editScore" style="white-space: nowrap;">
+                            <f:param name="id" value="#{_score.id}"/>
+                        </h:link>
+                        &nbsp;
+                        <h:commandLink id="deleteScore" value="Delete" action="#{scoreList.deleteScore(_score.id)}" />
+                        
+                    </pf:column>
+                </pf:dataTable>
 	        </h:panelGroup>
 		</h:form>
 
     </ui:define>
 
-    <ui:define name="sidebar">
-
-        <!--
-        <h1>State management in Seam</h1>
-        <p>
-           State in Seam is <em>contextual</em>. When you click "Find Hotels", the application
-           retrieves a list of hotels from the database and caches it in the session context. When you
-           navigate to one of the hotel records by clicking the "View Hotel" link, a <em>conversation</em>
-           begins. The conversation is attached to a particular tab, in a particular browser window. You can
-           navigate to multiple hotels using "open in new tab" or "open in new window" in your web browser.
-           Each window will execute in the context of a different conversation. The application keeps state
-           associated with your hotel booking in the conversation context, which ensures that the concurrent
-           conversations do not interfere with each other.
-        </p>
-
-        <p>
-           <a href="#" onclick="window.open('exp/mainExp.html','exp','width=752,height=500,scrollbars=yes');">
-              How does the search page work?
-           </a>
-        </p>
-        -->
-
-    </ui:define>
 
 </ui:composition>

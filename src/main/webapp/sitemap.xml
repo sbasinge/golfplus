@@ -3,12 +3,12 @@
         xmlns:image="http://www.sitemaps.org/schemas/sitemap-image/1.1"
         xmlns:video="http://www.sitemaps.org/schemas/sitemap-video/1.1">
   <url> 
-    <loc>http://golfplus-basinc.rhcloud.com/golfplus</loc> 
+    <loc>http://golfplus-basinc.rhcloud.com/</loc> 
   </url>
   <url> 
-    <loc>http://golfplus-basinc.rhcloud.com/golfplus/home.xhtml</loc> 
+    <loc>http://golfplus-basinc.rhcloud.com/home.xhtml</loc> 
   </url>
   <url> 
-    <loc>http://golfplus-basinc.rhcloud.com/golfplus/user/register.xhtml</loc> 
+    <loc>http://golfplus-basinc.rhcloud.com/user/register.xhtml</loc> 
   </url>
 </urlset>

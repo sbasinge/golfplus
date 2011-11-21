@@ -19,6 +19,7 @@ import org.jboss.logging.Logger;
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.faces.context.conversation.End;
 import org.jboss.seam.transaction.Transactional;
+import org.primefaces.model.LazyDataModel;
 
 import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.domain.Club_;
@@ -44,6 +45,7 @@ public class ScoreList extends PersistenceUtil {
   private Logger log = Logger.getLogger(getClass());
 
     @Inject Identity identity;
+    @Inject private LazyDataModel<Score> lazyDataModel;
 
     private List<Score> scores;
     
@@ -107,5 +109,13 @@ public class ScoreList extends PersistenceUtil {
     public void addScore() {
     	log.info("Add new  score");
     }
+
+	public LazyDataModel<Score> getLazyDataModel() {
+		return lazyDataModel;
+	}
+
+	public void setLazyDataModel(LazyDataModel<Score> lazyDataModel) {
+		this.lazyDataModel = lazyDataModel;
+	}
 
 }

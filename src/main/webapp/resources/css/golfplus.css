@@ -183,6 +183,42 @@ div.overlay-widget {
 
 }
 
+#largecontent {
+    -moz-background-clip: border;
+    -moz-background-origin: padding;
+    -moz-background-size: auto auto;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    background-attachment: scroll;
+    background-color: transparent;
+    background-image: url("../img/div.bg.png");
+    border: solid 1px white;
+    margin-left: 10px;
+    padding: 10px;
+    float: left;
+    width: 920px;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    padding-top: 5px;
+
+    -moz-box-shadow: 7px 7px 5px #000;
+    -webkit-box-shadow: 7px 7px 5px #000;
+    box-shadow: 7px 7px 5px #000;
+
+}
+
 div.section {
 }
 
@@ -264,6 +300,40 @@ div.section {
     
 }
 
+.ui-datatable-data {
+    -moz-background-clip: border;
+    -moz-background-origin: padding;
+    -moz-background-size: auto auto;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    background-attachment: scroll;
+    background-color: transparent;
+    background: transparent;
+
+    border: solid 1px white;
+    color: white;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    padding-top: 5px;
+
+    -moz-box-shadow: 7px 7px 5px #000;
+    -webkit-box-shadow: 7px 7px 5px #000;
+    box-shadow: 7px 7px 5px #000;
+    
+}
+
 .buttonBox {
     text-align: center;
 }
@@ -307,28 +377,6 @@ div.section {
     border-collapse: collapse;
 }
 
-#content table caption {
-    padding-bottom: 6px;
-    text-align: left;
-    font-weight: bold;
-}
-
-#content table thead th {
-    border-left: 1px solid #D2C9C4;
-    background: #FFFFFF url(../img/th.bg.gif) 0 100% repeat-x;
-    border-bottom: 1px solid #D2C9C4;
-    padding: 6px;
-    text-align: left;
-    font-size: small;
-    color: black;
-}
-
-#content table tbody td {
-    border-left: 1px solid #E4DBD5;
-    padding: 4px;
-    border-bottom: 1px solid #D2C9C4;
-    font-size: medium;
-}
 
 td.action {
     text-align: center;
@@ -377,7 +425,7 @@ td.action {
     display: none;
 }
 
-#content table tr.counter {
+.ui-widget-content .counter {
 	background-color: rgba(2,52,68,0.6) ;
 }
 
@@ -403,3 +451,8 @@ td.action {
     width: 350px;
     text-align: left;
 }
+
+.ui-widget-content {
+    background: transparent;
+}
+
