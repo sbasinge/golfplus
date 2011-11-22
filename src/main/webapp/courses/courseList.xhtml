@@ -11,7 +11,6 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <s:viewAction action="#{courseList.find}" />
 		    <s:viewAction action="#{siteMessageList.find}"/>
         </f:metadata>
     </ui:define>
@@ -44,10 +43,13 @@
 
         <h:panelGroup id="searchResults">
         	<h:form>
-	    		<h:commandButton value="New Course" action="#{courseList.addCourse}"/>
+	    		<pf:commandButton value="New Course" action="#{courseList.addCourse}" immediate="false" process="@this"/>
+	    		
 	            <div class="section">
-	                <h:outputText id="noCourseMsg" value="No Courses Found" rendered="#{empty courses}"/>
-	                <pf:dataTable id="courses" value="#{courses}" var="_course" rendered="#{not empty courses}" columnClasses=",action">
+	                <pf:dataTable id="courses" value="#{courseList.lazyDataModel}" var="_course"  paginator="true" rows="10" lazy="true"
+                    		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+                    		rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
+							columnClasses=",action">
 	                    <pf:column id="nameCol">
 	                        <f:facet id="nameFct" name="header">Course name</f:facet>
 	                        #{_course.name}
@@ -62,7 +64,7 @@
 						        <f:param name="id" value="#{_course.id}"/>
 						    </h:link>
 						    &nbsp;
-						    <h:commandLink id="deleteCourse" value="Delete" action="#{courseList.deleteCourse(_course.id)}" />
+						    <pf:commandLink id="deleteCourse" value="Delete" action="#{courseList.deleteCourse(_course.id)}" />
 						    
 						</pf:column>
 	                </pf:dataTable>

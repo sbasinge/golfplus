@@ -7,6 +7,7 @@
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:p="http://java.sun.com/jsf/composite/components/property"
                 xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.org/ui"
                 template="/WEB-INF/layout/template.xhtml">
 
     <ui:define name="metadata">
@@ -31,25 +32,25 @@
 	            <div class="section">
 	                <h:outputText id="noTeesMsg" value="No Tees Found" rendered="#{empty course.teeSets}"/>
 	                <h:form id="teeSelectionForm">
-	                    <h:dataTable id="members" value="#{course.teeSets}" var="_tee" rendered="#{not empty course.teeSets}"
+	                    <pf:dataTable id="members" value="#{course.teeSets}" var="_tee" rendered="#{not empty course.teeSets}"
 	                                 columnClasses=",,,,action">
-	                        <h:column id="typeCol">
+	                        <pf:column id="typeCol">
 	                            <f:facet id="typeFct" name="header">Type</f:facet>
 	                            #{_tee.teeType}
-	                        </h:column>
-	                        <h:column id="ratingCol">
+	                        </pf:column>
+	                        <pf:column id="ratingCol">
 	                            <f:facet id="ratingFct" name="header">Course Rating</f:facet>
 	                            <h:outputText value="#{_tee.courseRating}" >
 									<f:convertNumber maxFractionDigits="1"/>                            
 	                            </h:outputText>
-	                        </h:column>
-	                        <h:column id="slopeCol">
+	                        </pf:column>
+	                        <pf:column id="slopeCol">
 	                            <f:facet id="slopeFct" name="header">Slope</f:facet>
 	                            <h:outputText value="#{_tee.slopeRating}" >
 									<f:convertNumber maxFractionDigits="1"/>                            
 	                            </h:outputText>
-	                        </h:column>
-	                    </h:dataTable>
+	                        </pf:column>
+	                    </pf:dataTable>
 	                </h:form>
 	            </div>
 	        </h:panelGroup>

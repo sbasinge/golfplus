@@ -7,6 +7,7 @@
                 xmlns:s="http://jboss.org/seam/faces"
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
+                xmlns:pf="http://primefaces.org/ui"
                 template="/WEB-INF/layout/template.xhtml">
 
     <ui:define name="metadata">
@@ -33,21 +34,21 @@
 				</h:selectOneMenu>
 	        </p:input>
 		
-	        <h:dataTable id="members" value="#{teetimeHome.scores}" var="_score" rendered="#{not empty teetimeHome.scores}"
+	        <pf:dataTable id="members" value="#{teetimeHome.scores}" var="_score" rendered="#{not empty teetimeHome.scores}"
 	                     columnClasses=",,,,action">
-	            <h:column id="typeCol">
+	            <pf:column id="typeCol">
 	                <f:facet id="typeFct" name="header">Name</f:facet>
 	                #{_score.user.name}
-	            </h:column>
-	            <h:column id="grossScoreCol">
+	            </pf:column>
+	            <pf:column id="grossScoreCol">
 	                <f:facet id="grossScoreFct" name="header">Gross Score</f:facet>
 					<h:inputText value="#{_score.grossScore}" />
-	            </h:column>
-	            <h:column id="netScoreCol">
-	                <f:facet id="netScoreFct" name="header">Net Score</f:facet>
+	            </pf:column>
+	            <pf:column id="netScoreCol">
+	                <f:facet id="netScoreFct" name="header">Adjusted Score</f:facet>
 					<h:inputText value="#{_score.netScore}" />
-	            </h:column>
-	        </h:dataTable>
+	            </pf:column>
+	        </pf:dataTable>
 			<h:commandButton id="saveButton" action="#{teetimeHome.saveScores}" value="Save" />
 			#{' '}
 			<h:commandButton id="cancelButton" action="#{teetimeHome.cancel}" value="Cancel" immediate="true"/>

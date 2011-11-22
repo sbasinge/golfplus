@@ -62,18 +62,18 @@
 			<br/>
 			<br/>
 		
-            <h:dataTable id="members" value="#{teetime.participants}" var="_player" rendered="#{not empty teetime.participants}" columnClasses=",action">
-                <h:column id="typeCol">
+            <pf:dataTable id="members" value="#{teetime.participants}" var="_player" rendered="#{not empty teetime.participants}" columnClasses=",action">
+                <pf:column id="typeCol">
                     <f:facet id="typeFct" name="header">Name</f:facet>
                     <h:outputText value="#{_player.user.name}" />
-                </h:column>
-                <h:column id="actCol">
+                </pf:column>
+                <pf:column id="actCol">
                     <f:facet id="actFct" name="header">Action</f:facet>
                     <h:link id="view" value="View" outcome="/user/user" style="white-space: nowrap;">
                         <f:param name="username" value="#{_player.username}"/>
                     </h:link>
-                </h:column>
-            </h:dataTable>
+                </pf:column>
+            </pf:dataTable>
 			<h:commandButton id="saveButton" action="#{teetimeHome.save}" value="Save"/>
 			#{' '}
 			<h:commandButton id="cancelButton" action="#{teetimeHome.cancel}" value="Cancel" immediate="true"/>

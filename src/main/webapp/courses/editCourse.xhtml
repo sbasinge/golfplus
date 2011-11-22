@@ -7,6 +7,7 @@
                 xmlns:s="http://jboss.org/seam/faces"
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
+                xmlns:pf="http://primefaces.org/ui"
                 template="/WEB-INF/layout/template.xhtml">
 
     <ui:define name="metadata">
@@ -55,24 +56,24 @@
 			        </p:input>
 			        <h:panelGroup id="teeList">
 			            <div class="section">
-		                    <h:dataTable id="members" value="#{courseHome.teeSets}" var="_tee" columnClasses=",,,,action">
-		                        <h:column id="typeCol">
+		                    <pf:dataTable id="members" value="#{courseHome.teeSets}" var="_tee" columnClasses=",,,,action">
+		                        <pf:column id="typeCol">
 		                            <f:facet id="typeFct" name="header">Type</f:facet>
 		                            #{_tee.teeType}
-		                        </h:column>
-		                        <h:column id="ratingCol">
+		                        </pf:column>
+		                        <pf:column id="ratingCol">
 		                            <f:facet id="ratingFct" name="header">Course Rating</f:facet>
 		                            <h:inputText value="#{_tee.courseRating}" >
 										<f:convertNumber maxFractionDigits="1"/>                            
 		                            </h:inputText>
-		                        </h:column>
-		                        <h:column id="slopeCol">
+		                        </pf:column>
+		                        <pf:column id="slopeCol">
 		                            <f:facet id="slopeFct" name="header">Slope</f:facet>
 		                            <h:inputText value="#{_tee.slopeRating}" >
 										<f:convertNumber maxFractionDigits="1"/>                            
 		                            </h:inputText>
-		                        </h:column>
-		                    </h:dataTable>
+		                        </pf:column>
+		                    </pf:dataTable>
 			            </div>
 			        </h:panelGroup>
 	        	</fieldset>

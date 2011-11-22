@@ -1,21 +1,14 @@
 package com.basinc.golfminus.view.teetime;
 
-import java.util.List;
-
 import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.jboss.logging.Logger;
-import org.jboss.seam.faces.context.conversation.Begin;
-import org.jboss.seam.faces.context.conversation.End;
 import org.jboss.seam.transaction.Transactional;
+import org.primefaces.model.LazyDataModel;
 
 import com.basinc.golfminus.domain.TeeTime;
 import com.basinc.golfminus.domain.TeeTimeParticipant;
@@ -46,37 +39,12 @@ public class TeetimeList extends PersistenceUtil {
     @TeeTimeUpdated
     private Event<TeeTimeParticipant> teeTimeUpdatedEventSrc;
 
-    private List<TeeTime> teeTimes;
+    @Inject private LazyDataModel<TeeTime> lazyDataModel;
     
-    @Begin
-    public void find() {
-        queryTeeTimes();
-    }
-
-    private void queryTeeTimes() {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<TeeTime> query = builder.createQuery(TeeTime.class);
-        Root<TeeTime> teeTime = query.from(TeeTime.class);
-        
-        List<TeeTime> results = entityManager.createQuery(query).getResultList();
-        setTeeTimes(results);
-	}
-
-	@Produces
-    @Named(value="teetimes")
-	public List<TeeTime> getTeeTimes() {
-		return teeTimes;
-	}
-
-	public void setTeeTimes(List<TeeTime> teeTimes) {
-		this.teeTimes = teeTimes;
-	}
-
 	public void deleteTeeTime(int id) {
 		log.warn("Attempting to delete teetime: "+id);
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
 	    getEntityManager().joinTransaction();
-	    teeTimes.remove(teeTime);
 		entityManager.remove(teeTime);
 		entityManager.flush();
 		teeTimeDeletedEventSrc.fire(teeTime);
@@ -92,7 +60,6 @@ public class TeetimeList extends PersistenceUtil {
 	    return "";
 	}
 
-	@End
     public void addTeeTime() {
     	log.info("Add new Tee Time");
     }
@@ -115,6 +82,14 @@ public class TeetimeList extends PersistenceUtil {
 	public boolean isAvailableForDelete(int id) {
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
 		return !teeTime.hasScores();
+	}
+
+	public LazyDataModel<TeeTime> getLazyDataModel() {
+		return lazyDataModel;
+	}
+
+	public void setLazyDataModel(LazyDataModel<TeeTime> lazyDataModel) {
+		this.lazyDataModel = lazyDataModel;
 	}
 
 }

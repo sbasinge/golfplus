@@ -24,7 +24,6 @@
 
     <ui:define name="metadata">
         <f:metadata>
-        	<s:viewAction action="#{scoreList.find}"/>
 		    <s:viewAction action="#{siteMessageList.find}"/>
         </f:metadata>
     </ui:define>
@@ -41,7 +40,8 @@
 
         </div>
 		<h:form id="scoresList">
-	    	<h:commandButton value="New Score" action="#{scoreList.addScore}"/>
+	    	<pf:commandButton value="New Score" action="#{scoreList.addScore}" immediate="false" process="@this"/>
+	    	
 	    	<br/>
 	        <h:panelGroup id="searchResults">
                 <pf:dataTable id="scores" value="#{scoreList.lazyDataModel}" var="_score" paginator="true" rows="10" lazy="true"

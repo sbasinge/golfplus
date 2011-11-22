@@ -5,6 +5,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.org/ui"
                 template="/WEB-INF/layout/template.xhtml">
 
     <ui:define name="head">
@@ -22,7 +23,6 @@
 
     <ui:define name="metadata">
         <f:metadata>
-            <s:viewAction action="#{teetimeList.find}"/>
 		    <s:viewAction action="#{siteMessageList.find}"/>
         </f:metadata>
     </ui:define>
@@ -40,27 +40,28 @@
         </div>
         
         <h:form id="teetimeListForm">
-           	<h:commandButton value="New Tee Time" action="#{teetimeList.addTeeTime}"/>
+           	<pf:commandButton value="New Tee Time" action="#{teetimeList.addTeeTime}" immediate="false" process="@this"/>
 	        <h:panelGroup id="searchResults">
 	            <div class="section">
-	                <h:outputText id="noTeeTimesMsg" value="No Tee Times Found" rendered="#{empty teetimes}"/>
-	                <h:dataTable id="teetimes" value="#{teetimes}" var="_teetime" rendered="#{not empty teetimes}"
-	                             columnClasses=",,,,action">
-	                    <h:column id="nameCol">
+	                <pf:dataTable id="teetimes" value="#{teetimeList.lazyDataModel}" var="_teetime" paginator="true" rows="10" lazy="true"
+	                            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+                    			rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
+								columnClasses=",,,,action">
+	                    <pf:column id="nameCol">
 	                        <f:facet id="nameFct" name="header">Course</f:facet>
 	                        #{_teetime.course.name}
-	                    </h:column>
-	                    <h:column id="dateCol">
+	                    </pf:column>
+	                    <pf:column id="dateCol">
 	                        <f:facet id="dateFct" name="header">Date</f:facet>
 	                        <h:outputText value="#{_teetime.date}" >
 								<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yyyy hh:mm a"/>
 	                        </h:outputText>
-	                    </h:column>
-	                    <h:column id="openSpotsCol">
+	                    </pf:column>
+	                    <pf:column id="openSpotsCol">
 	                        <f:facet id="openSpotsFct" name="header">Open Spots</f:facet>
 	                        #{_teetime.numOpenSpots}
-	                    </h:column>
-	                    <h:column id="actCol">
+	                    </pf:column>
+	                    <pf:column id="actCol">
 	                        <f:facet id="actFct" name="header">Action</f:facet>
 	                        <h:link id="view" value="View" outcome="teetime" style="white-space: nowrap;">
 	                            <f:param name="id" value="#{_teetime.id}"/>
@@ -76,8 +77,8 @@
 	                        
 	                        <h:outputText value="&nbsp;" rendered="#{teetimeList.isAvailableForSignup(_teetime.id)}"/>
 	                        <h:commandLink id="signup" value="Sign Up" action="#{teetimeList.signUp(_teetime.id)}" rendered="#{teetimeList.isAvailableForSignup(_teetime.id)}" />
-	                    </h:column>
-	                </h:dataTable>
+	                    </pf:column>
+	                </pf:dataTable>
 	            </div>
 	        </h:panelGroup>
         </h:form>
