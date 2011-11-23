@@ -7,19 +7,6 @@
                 xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/layout/template.xhtml">
 
-    <ui:define name="head">
-        <script type="text/javascript">
-            function controlSpinner(behavior) {
-                if (behavior.status == 'begin') {
-                    document.getElementById('spinner').style.display = 'inline';
-                }
-                else if (behavior.status == 'complete') {
-                    document.getElementById('spinner').style.display = 'none';
-                }
-            }
-        </script>
-    </ui:define>
-
     <ui:define name="metadata">
         <f:metadata>
             <f:event type="preRenderView" listener="#{userList.find}"/>
@@ -42,7 +29,7 @@
             <div class="section">
                 <h:outputText id="noHotelsMsg" value="No Clubs Found" rendered="#{empty clubs}"/>
                 <h:form id="hotelSelectionForm">
-                    <h:dataTable id="hotels" value="#{clubs}" var="_club" rendered="#{not empty clubs}"
+                    <h:dataTable id="clubsTable" value="#{clubs}" var="_club" rendered="#{not empty clubs}"
                                  columnClasses=",,,,action">
                         <h:column id="nameCol">
                             <f:facet id="nameFct" name="header">Club name</f:facet>

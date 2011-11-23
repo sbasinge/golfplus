@@ -39,6 +39,7 @@ public class LazyScoreDataModel extends LazyDataModel<Score> {
 	public List<Score> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, String> filters) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Score> query = builder.createQuery(Score.class);
+		
 		Root<Score> scores = query.from(Score.class);
 		Join<Score, User> users = scores.join(Score_.user);
 		ListJoin<User, Club> clubs = users.join(User_.clubs);

@@ -5,26 +5,13 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.org/ui"
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 template="/WEB-INF/layout/template.xhtml">
 
-    <ui:define name="head">
-        <script type="text/javascript">
-            function controlSpinner(behavior) {
-                if (behavior.status == 'begin') {
-                    document.getElementById('spinner').style.display = 'inline';
-                }
-                else if (behavior.status == 'complete') {
-                    document.getElementById('spinner').style.display = 'none';
-                }
-            }
-        </script>
-    </ui:define>
-
     <ui:define name="metadata">
         <f:metadata>
-            <f:viewParam name="id" value="#{currentClub.id}"/>
-            <s:viewAction action="#{clubHome.selectClub(currentClub.id)}"/>
+		    <s:viewAction action="#{userList.find}"/>
 		    <s:viewAction action="#{siteMessageList.find}"/>
         </f:metadata>
     </ui:define>
@@ -43,9 +30,47 @@
 
         <h:panelGroup id="searchResults">
 	        <div class="section">
-				<m:displayMembers value="#{club.members}"/>
+                <h:form id="memberSelectionForm">
+                    <pf:dataTable id="members" value="#{userList.users}" var="_member" paginator="true" rows="10" lazy="false"
+                    	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+                    	rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
+                    	columnClasses=",,action">
+                        <pf:column id="nameCol" sortBy="#{_member.name}">
+                            <f:facet id="nameFct" name="header">Member name</f:facet>
+                            <h:outputText value="#{_member.name}" />
+                        </pf:column>
+                        <pf:column id="handicapCol" sortBy="_member.handicap">
+                            <f:facet id="nameFct" name="header">Handicap</f:facet>
+                            <h:outputText value="#{_member.handicap}" rendered="#{_member.handicap != null}">
+								<f:convertNumber maxFractionDigits="1"/>                            
+                            </h:outputText>
+                            <h:outputText value="Not Calculated" rendered="#{_member.handicap == null}"/>
+                        </pf:column>
+                        <pf:column id="actCol">
+                            <f:facet id="actFct" name="header">Action</f:facet>
+                            <h:link id="view" value="View" outcome="/user/member" style="white-space: nowrap;">
+                                <f:param name="username" value="#{_member.username}"/>
+                            </h:link>
+                            &nbsp;&nbsp;
+                            <h:commandLink id="calc" value="Calculate" action="#{clubHome.calculateHandicap(_member)}"/>
+                        </pf:column>
+                    </pf:dataTable>
+                </h:form>
 				<br/>
-				<m:displayMembershipRequests value="#{club.membershipRequests}"/>
+                <h:form id="membershipSelectionForm">
+                    <pf:dataTable id="membershipRequests" value="#{currentClub.membershipRequests}" var="_membershipRequest" rendered="#{not empty cc.attrs.value}" columnClasses=",action">
+                        <pf:column id="nameCol">
+                            <f:facet id="nameFct" name="header">Member name</f:facet>
+                            #{_membershipRequest.user.name}
+                        </pf:column>
+                        <pf:column id="actCol">
+                            <f:facet id="actFct" name="header">Action</f:facet>
+                            <h:commandLink action="#{clubHome.acceptMembership(_membershipRequest.id)}" value="Accept"/>
+                            &nbsp;&nbsp;
+                            <h:commandLink action="#{clubHome.rejectMembership(_membershipRequest.id)}" value="Reject"/>
+                        </pf:column>
+                    </pf:dataTable>
+                </h:form>
 				
 	        </div>
         </h:panelGroup>

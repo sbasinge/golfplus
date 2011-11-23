@@ -30,7 +30,7 @@
 				<span class="input">
 					<h:selectOneMenu id="courseSelect" value="#{teetime.course}" required="true">
 					    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
-					    <f:selectItems id="courseCombo" value="#{courses}" var="_course" itemValue="#{_course}" itemLabel="#{_course.name}"/>
+					    <f:selectItems id="courseCombo" value="#{courseList.courses}" var="_course" itemValue="#{_course}" itemLabel="#{_course.name}"/>
 					    <f:converter for="courseCombo" converterId="courseConverter"/>
 					    <f:ajax event="change" execute="courseSelect" render="teeSetSelect"/>
 					</h:selectOneMenu>

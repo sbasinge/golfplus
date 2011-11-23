@@ -17,7 +17,7 @@ public class TeeTimeParticipant extends BaseEntity {
 
 	@OneToOne private TeeTime teetime;
 	@OneToOne private User user;
-	@OneToOne(cascade=CascadeType.ALL) private Score score;
+	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true) private Score score;
 	
 	private BigDecimal courseIndex;
 	private BigDecimal bestBallIndex;

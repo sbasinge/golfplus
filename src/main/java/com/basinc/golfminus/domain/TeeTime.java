@@ -32,7 +32,7 @@ public class TeeTime extends BaseEntity {
 	@ManyToOne
 	private TeeSet teeSet;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<TeeTimeParticipant> participants = new ArrayList<TeeTimeParticipant>();
 
 //	@OneToMany(cascade=CascadeType.ALL,mappedBy="teeTime")

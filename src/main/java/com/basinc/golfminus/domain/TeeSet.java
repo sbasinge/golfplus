@@ -3,6 +3,7 @@ package com.basinc.golfminus.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -47,7 +48,7 @@ public class TeeSet extends BaseEntity implements Comparable<TeeSet> {
 	@Column
 	private int slopeRating;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teeSet")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true,  fetch = FetchType.LAZY, mappedBy = "teeSet")
 	private List<Score> scores = new ArrayList<Score>();
 	
 	public TeeSet() {

@@ -66,7 +66,7 @@ public class Facility extends BaseEntity {
 		courses.add(course);
 	}
 	
-	public void removCourse(Course course) {
+	public void removeCourse(Course course) {
 		course.setFacility(null);
 		courses.remove(course);
 	}

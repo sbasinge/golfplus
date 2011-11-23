@@ -11,23 +11,10 @@
 
     <ui:define name="metadata">
         <f:metadata>
+		    <s:viewAction action="#{courseList.find}"/>
 		    <s:viewAction action="#{siteMessageList.find}"/>
         </f:metadata>
     </ui:define>
-
-    <ui:define name="head">
-        <script type="text/javascript">
-            function controlSpinner(behavior) {
-                if (behavior.status == 'begin') {
-                    document.getElementById('spinner').style.display = 'inline';
-                }
-                else if (behavior.status == 'complete') {
-                    document.getElementById('spinner').style.display = 'none';
-                }
-            }
-        </script>
-    </ui:define>
-
 
     <ui:define name="content">
 
@@ -46,10 +33,12 @@
 	    		<pf:commandButton value="New Course" action="#{courseList.addCourse}" immediate="false" process="@this"/>
 	    		
 	            <div class="section">
-	                <pf:dataTable id="courses" value="#{courseList.lazyDataModel}" var="_course"  paginator="true" rows="10" lazy="true"
+	            
+	                <pf:dataTable id="courses" value="#{courseList.courses}" var="_course"  paginator="true" rows="10" lazy="false"
                     		paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
-                    		rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
-							columnClasses=",action">
+                    		rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" columnClasses=",action">
+							
+						 
 	                    <pf:column id="nameCol">
 	                        <f:facet id="nameFct" name="header">Course name</f:facet>
 	                        #{_course.name}
@@ -64,9 +53,10 @@
 						        <f:param name="id" value="#{_course.id}"/>
 						    </h:link>
 						    &nbsp;
-						    <pf:commandLink id="deleteCourse" value="Delete" action="#{courseList.deleteCourse(_course.id)}" />
+						    <h:commandLink id="deleteCourse" value="Delete" action="#{courseList.deleteCourse(_course.id)}" />
 						    
 						</pf:column>
+	                    
 	                </pf:dataTable>
 	            </div>
         	</h:form>

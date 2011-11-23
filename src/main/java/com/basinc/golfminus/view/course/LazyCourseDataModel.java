@@ -71,4 +71,14 @@ public class LazyCourseDataModel extends LazyDataModel<Course> {
 		return results;
 	}
 
+	@Override
+    public Object getRowKey(Course course) {
+		return course.getId();
+    }
+
+	@Override
+    public Course getRowData(String rowKey) {
+		return entityManager.find(Course.class, Integer.parseInt(rowKey));
+    }
+
 }

@@ -2,9 +2,7 @@ package com.basinc.golfminus.view.club;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -60,9 +58,6 @@ public class ClubHome extends PersistenceUtil {
         clubSelection = entityManager.find(Club.class, id.intValue());
     }
 
-    @Produces
-    @RequestScoped
-    @Named("club")
 	public Club getClubSelection() {
 		return clubSelection;
 	}

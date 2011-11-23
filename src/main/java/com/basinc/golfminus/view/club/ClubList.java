@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,7 +12,6 @@ import javax.persistence.criteria.Root;
 
 import org.jboss.logging.Logger;
 import org.jboss.seam.transaction.Transactional;
-import org.primefaces.model.LazyDataModel;
 
 import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.security.Identity;
@@ -40,8 +38,6 @@ public class ClubList extends PersistenceUtil {
     
     private String clubName;
     
-    @Inject private LazyDataModel<Club> lazyDataModel;
-    
     public void find() {
         queryClubs();
     }
@@ -56,8 +52,6 @@ public class ClubList extends PersistenceUtil {
 //        lazyDataModel = new LazyLoadClubModel();
 	}
 
-	@Produces
-    @Named(value="clubs")
 	public List<Club> getClubs() {
 		return clubs;
 	}
@@ -81,11 +75,4 @@ public class ClubList extends PersistenceUtil {
 		}
 	}
 
-	public LazyDataModel<Club> getLazyDataModel() {
-		return lazyDataModel;
-	}
-
-	public void setLazyDataModel(LazyDataModel<Club> lazyDataModel) {
-		this.lazyDataModel = lazyDataModel;
-	}
 }

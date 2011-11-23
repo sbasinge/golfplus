@@ -41,9 +41,9 @@
 
         <h:form id="clubSelectionForm">
 	        <h:panelGroup id="searchResults">
-                    <pf:dataTable id="clubTable" value="#{clubList.lazyDataModel}" paginator="true" rows="10" lazy="true" 
+                    <pf:dataTable id="clubTable" value="#{clubList.clubs}" paginator="true" rows="10" lazy="false" 
                     	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
-                    	rowsPerPageTemplate="5,10,15" var="_club" rendered="#{not empty clubList.lazyDataModel}" columnClasses=",action" paginatorPosition="bottom">
+                    	rowsPerPageTemplate="5,10,15" var="_club" columnClasses=",action" paginatorPosition="bottom" paginatorAlwaysVisible="false">
                         <pf:column id="nameCol">
                             <f:facet id="nameFct" name="header">Club name</f:facet>
                             #{_club.name}

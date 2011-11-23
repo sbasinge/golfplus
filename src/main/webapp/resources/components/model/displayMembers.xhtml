@@ -19,9 +19,10 @@
 	        </div>
         
             <div class="section">
-                <h:outputText id="noMembersMsg" value="No Members Found" rendered="#{empty cc.attrs.value}"/>
                 <h:form id="memberSelectionForm">
-                    <pf:dataTable id="members" value="#{cc.attrs.value}" var="_member" rendered="#{not empty cc.attrs.value}" columnClasses=",,action">
+                    <pf:dataTable id="members" value="#{cc.attrs.value}" var="_member" paginator="true" rows="10" lazy="false"
+    					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+	                    columnClasses=",,action" rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" paginatorAlwaysVisible="false">
                         <pf:column id="nameCol">
                             <f:facet id="nameFct" name="header">Member name</f:facet>
                             #{_member.name}

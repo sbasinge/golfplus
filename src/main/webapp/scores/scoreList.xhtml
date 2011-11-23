@@ -9,21 +9,9 @@
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 template="/WEB-INF/layout/nosidebar_template.xhtml">
 
-    <ui:define name="head">
-        <script type="text/javascript">
-            function controlSpinner(behavior) {
-                if (behavior.status == 'begin') {
-                    document.getElementById('spinner').style.display = 'inline';
-                }
-                else if (behavior.status == 'complete') {
-                    document.getElementById('spinner').style.display = 'none';
-                }
-            }
-        </script>
-    </ui:define>
-
     <ui:define name="metadata">
         <f:metadata>
+		    <s:viewAction action="#{scoreList.find}"/>
 		    <s:viewAction action="#{siteMessageList.find}"/>
         </f:metadata>
     </ui:define>
@@ -44,7 +32,7 @@
 	    	
 	    	<br/>
 	        <h:panelGroup id="searchResults">
-                <pf:dataTable id="scores" value="#{scoreList.lazyDataModel}" var="_score" paginator="true" rows="10" lazy="true"
+                <pf:dataTable id="scores" value="#{scoreList.scores}" var="_score" paginator="true" rows="10" lazy="false"
                     	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
                     	rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
 						columnClasses=",,,,,,,,action" rowStyleClass="#{_score.counter ? 'counter' : null}">
@@ -96,7 +84,7 @@
                             <f:param name="id" value="#{_score.id}"/>
                         </h:link>
                         &nbsp;
-                        <h:commandLink id="deleteScore" value="Delete" action="#{scoreList.deleteScore(_score.id)}" />
+                        <h:commandLink id="deleteScore" value="Delete" action="#{scoreList.deleteScore(_score.id)}"/>
                         
                     </pf:column>
                 </pf:dataTable>

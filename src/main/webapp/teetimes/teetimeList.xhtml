@@ -8,21 +8,9 @@
                 xmlns:pf="http://primefaces.org/ui"
                 template="/WEB-INF/layout/template.xhtml">
 
-    <ui:define name="head">
-        <script type="text/javascript">
-            function controlSpinner(behavior) {
-                if (behavior.status == 'begin') {
-                    document.getElementById('spinner').style.display = 'inline';
-                }
-                else if (behavior.status == 'complete') {
-                    document.getElementById('spinner').style.display = 'none';
-                }
-            }
-        </script>
-    </ui:define>
-
     <ui:define name="metadata">
         <f:metadata>
+		    <s:viewAction action="#{teetimeList.find}"/>
 		    <s:viewAction action="#{siteMessageList.find}"/>
         </f:metadata>
     </ui:define>
@@ -43,7 +31,7 @@
            	<pf:commandButton value="New Tee Time" action="#{teetimeList.addTeeTime}" immediate="false" process="@this"/>
 	        <h:panelGroup id="searchResults">
 	            <div class="section">
-	                <pf:dataTable id="teetimes" value="#{teetimeList.lazyDataModel}" var="_teetime" paginator="true" rows="10" lazy="true"
+	                <pf:dataTable id="teetimes" value="#{teetimeList.teeTimes}" var="_teetime" paginator="true" rows="10" lazy="false"
 	                            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
                     			rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
 								columnClasses=",,,,action">

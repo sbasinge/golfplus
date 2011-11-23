@@ -11,15 +11,14 @@
     <cc:interface>
         <cc:attribute name="value" required="true"/>
         <cc:attribute name="showUser" required="false" default="true"/>
-        <cc:attribute name="rowClasses" required="false"/>
     </cc:interface>
 
     <cc:implementation>
         <h:panelGroup id="scoreList">
             <div class="section">
-                <h:outputText id="noScoresMsg" value="No Scores Found" rendered="#{empty cc.attrs.value}"/>
-                <pf:dataTable id="scores" value="#{cc.attrs.value}" var="_score" rendered="#{not empty cc.attrs.value}"
-                             columnClasses=",,,,,,,,action" rowClasses="#{cc.attrs.rowClasses}">
+                <pf:dataTable id="scores" value="#{cc.attrs.value}" var="_score" paginator="true" rows="10" lazy="false"
+    					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+                        columnClasses=",,,,,,,,action" rowStyleClass="#{_score.counter ? 'counter' : null}" rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" paginatorAlwaysVisible="false">
                     <pf:column id="memberNameCol" rendered="#{identity.ableToModifyOthersScores and cc.attrs.showUser}">
                         <f:facet id="nameFct" name="header">Member</f:facet>
                         <h:outputText value="#{_score.user.name}" />
