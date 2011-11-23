@@ -17,7 +17,6 @@ import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.domain.ClubRole;
 import com.basinc.golfminus.domain.MembershipRequest;
 import com.basinc.golfminus.domain.Role;
-import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.security.Identity;
 import com.basinc.golfminus.util.PersistenceUtil;
 
@@ -37,9 +36,6 @@ public class ClubHome extends PersistenceUtil {
 
     @Inject Identity identity;
     
-    @Inject
-    @HandicapCalculated
-    private Event<User> handicapCalculatedEventSrc;
 
     @Inject
     @MembershipAccepted
@@ -62,16 +58,6 @@ public class ClubHome extends PersistenceUtil {
 		return clubSelection;
 	}
 
-    public void calculateHandicap(User user) {
-        getEntityManager().joinTransaction();
-    	if (user.calculateHandicap()) {
-    		entityManager.flush();
-    		entityManager.refresh(user);
-    		handicapCalculatedEventSrc.fire(user);
-    	}
-    }
-
-    
     public String acceptMembership(final Integer id) {
         getEntityManager().joinTransaction();
         MembershipRequest membershipRequest = entityManager.find(MembershipRequest.class, id.intValue());

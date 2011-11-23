@@ -33,8 +33,7 @@
                 <h:form id="memberSelectionForm">
                     <pf:dataTable id="members" value="#{userList.users}" var="_member" paginator="true" rows="10" lazy="false"
                     	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
-                    	rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
-                    	columnClasses=",,action">
+                    	rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" paginatorAlwaysVisible="false" columnClasses=",,action">
                         <pf:column id="nameCol" sortBy="#{_member.name}">
                             <f:facet id="nameFct" name="header">Member name</f:facet>
                             <h:outputText value="#{_member.name}" />
@@ -52,13 +51,17 @@
                                 <f:param name="username" value="#{_member.username}"/>
                             </h:link>
                             &nbsp;&nbsp;
-                            <h:commandLink id="calc" value="Calculate" action="#{clubHome.calculateHandicap(_member)}"/>
+                            <h:commandLink id="calc" value="Calculate" action="#{userList.calculateHandicap(_member)}" />
                         </pf:column>
                     </pf:dataTable>
                 </h:form>
 				<br/>
+				<div class="section">
+	            	<h1>Pending Memberships</h1>
+		        </div>
+				<h:outputText id="noMembershipMsg" value="No Membership Requests Found" rendered="#{empty currentClub.membershipRequests}"/>
                 <h:form id="membershipSelectionForm">
-                    <pf:dataTable id="membershipRequests" value="#{currentClub.membershipRequests}" var="_membershipRequest" rendered="#{not empty cc.attrs.value}" columnClasses=",action">
+                    <pf:dataTable id="membershipRequests" value="#{currentClub.membershipRequests}" var="_membershipRequest" rendered="#{not empty currentClub.membershipRequests}" columnClasses=",action">
                         <pf:column id="nameCol">
                             <f:facet id="nameFct" name="header">Member name</f:facet>
                             #{_membershipRequest.user.name}
@@ -74,30 +77,6 @@
 				
 	        </div>
         </h:panelGroup>
-
-    </ui:define>
-
-    <ui:define name="sidebar">
-
-        <!--
-        <h1>State management in Seam</h1>
-        <p>
-           State in Seam is <em>contextual</em>. When you click "Find Hotels", the application
-           retrieves a list of hotels from the database and caches it in the session context. When you
-           navigate to one of the hotel records by clicking the "View Hotel" link, a <em>conversation</em>
-           begins. The conversation is attached to a particular tab, in a particular browser window. You can
-           navigate to multiple hotels using "open in new tab" or "open in new window" in your web browser.
-           Each window will execute in the context of a different conversation. The application keeps state
-           associated with your hotel booking in the conversation context, which ensures that the concurrent
-           conversations do not interfere with each other.
-        </p>
-
-        <p>
-           <a href="#" onclick="window.open('exp/mainExp.html','exp','width=752,height=500,scrollbars=yes');">
-              How does the search page work?
-           </a>
-        </p>
-        -->
 
     </ui:define>
 

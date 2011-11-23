@@ -2,8 +2,8 @@ package com.basinc.golfminus.view.siteMessages;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.enterprise.inject.Produces;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -24,7 +24,7 @@ import com.basinc.golfminus.security.Identity;
 import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@ViewScoped
+@Stateless
 @Named
 public class SiteMessageList extends PersistenceUtil {
 	private static Logger log = LoggerFactory.getLogger(SiteMessageList.class);
@@ -33,22 +33,11 @@ public class SiteMessageList extends PersistenceUtil {
 
     private List<SiteMessage> messages;
     
-    /**
-     * Start a conversation here and never end it, it will timeout in default of 5 seconds.
-     */
     public void find() {
-    	queryScores();
+    	queryMessages();
     }
 
-    /**
-     * TODO this really should limit the results based on the current user's role
-     * admin can see all.
-     * clubadmin can see all for their club
-     * members can only see their own.
-     * 
-     * So we should lookup currentUser role and club to apply the limiting criteria.
-     */
-    private void queryScores() {
+    private void queryMessages() {
     	if (identity != null && identity.isLoggedIn()) {
     		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
     		CriteriaQuery<SiteMessage> query = builder.createQuery(SiteMessage.class);
@@ -85,7 +74,7 @@ public class SiteMessageList extends PersistenceUtil {
 		messages.remove(message);
 		entityManager.persist(message);
 		entityManager.flush();
-		queryScores();
+		queryMessages();
 	}
 
 }

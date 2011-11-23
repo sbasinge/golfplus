@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,6 +16,7 @@ import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.security.Identity;
 import com.basinc.golfminus.util.PersistenceUtil;
+import com.basinc.golfminus.view.club.HandicapCalculated;
 
 @Transactional
 @Stateful
@@ -33,6 +35,10 @@ public class UserList extends PersistenceUtil {
 
     @Inject Identity identity;
     
+    @Inject
+    @HandicapCalculated
+    private Event<User> handicapCalculatedEventSrc;
+
     private List<User> users;
     
     @Begin
@@ -54,5 +60,15 @@ public class UserList extends PersistenceUtil {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+
+    public void calculateHandicap(User user) {
+        getEntityManager().joinTransaction();
+    	if (user.calculateHandicap()) {
+    		entityManager.flush();
+    		entityManager.refresh(user);
+    		handicapCalculatedEventSrc.fire(user);
+    		queryUsers();
+    	}
+    }
 
 }
