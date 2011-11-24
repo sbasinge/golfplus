@@ -34,7 +34,7 @@
 	        <h:panelGroup id="searchResults">
                 <pf:dataTable id="scores" value="#{scoreList.scores}" var="_score" paginator="true" rows="10" lazy="false"
                     	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
-                    	rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
+                    	rowsPerPageTemplate="5,10,15,20,25" paginatorPosition="bottom"
 						columnClasses=",,,,,,,,action" rowStyleClass="#{_score.counter ? 'counter' : null}">
                     <pf:column id="memberNameCol" rendered="#{identity.ableToModifyOthersScores}" sortBy="#{_score.user.name}" filterBy="#{_score.user.name}">
                         <f:facet id="nameFct" name="header">Member</f:facet>

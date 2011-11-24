@@ -245,6 +245,7 @@ public class ApplicationInitializer {
 			User scott = entityManager.find(User.class, "sbasinge");
 			if (scott != null) {
 				log.info("Seed data already exists, not loading.");
+				utx.commit();
 				return;
 			}
 			persist(facilities);

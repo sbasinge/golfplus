@@ -37,15 +37,15 @@
     TARGET="rules:#teetimes#teetimeList.xhtml"
     TITLE="#{teetimeHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID=":#{tournamentHome.save}:#tournaments#tournamentList.xhtml"
-    NAME="output8" PATH="/tournaments/tournamentList.xhtml"
-    TARGET="rules:#tournaments#tournamentList.xhtml"
-    TITLE="#{tournamentHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
+    ID=":#{teetimeHome.saveScores}:#teetimes#teetimeList.xhtml"
+    NAME="output8" PATH="/teetimes/teetimeList.xhtml"
+    TARGET="rules:#teetimes#teetimeList.xhtml"
+    TITLE="#{teetimeHome.saveScores}:[any]" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID=":#{tournamentHome.cancel}:#tournaments#tournamentList.xhtml"
-    NAME="output9" PATH="/tournaments/tournamentList.xhtml"
-    TARGET="rules:#tournaments#tournamentList.xhtml"
-    TITLE="#{tournamentHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+    ID=":#{teetimeHome.cancel}:#teetimes#teetimeList.xhtml"
+    NAME="output9" PATH="/teetimes/teetimeList.xhtml"
+    TARGET="rules:#teetimes#teetimeList.xhtml"
+    TITLE="#{teetimeHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID=":#{userHome.cancel}:#home.xhtml"
     NAME="output10" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
     TITLE="#{userHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>

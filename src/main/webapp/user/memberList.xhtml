@@ -33,7 +33,7 @@
                 <h:form id="memberSelectionForm">
                     <pf:dataTable id="members" value="#{userList.users}" var="_member" paginator="true" rows="10" lazy="false"
                     	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
-                    	rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" paginatorAlwaysVisible="false" columnClasses=",,action">
+                    	rowsPerPageTemplate="5,10,15,20,25" paginatorPosition="bottom" paginatorAlwaysVisible="false" columnClasses=",,action">
                         <pf:column id="nameCol" sortBy="#{_member.name}">
                             <f:facet id="nameFct" name="header">Member name</f:facet>
                             <h:outputText value="#{_member.name}" />
