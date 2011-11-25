@@ -26,7 +26,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Email;
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.core.Veto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

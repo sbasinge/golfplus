@@ -12,7 +12,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.jboss.logging.Logger;
+import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.account.MembershipAccepted;
 import com.basinc.golfminus.account.MembershipRejected;

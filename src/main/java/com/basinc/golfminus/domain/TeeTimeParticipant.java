@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.core.Veto;
 
 @Entity
 @Veto

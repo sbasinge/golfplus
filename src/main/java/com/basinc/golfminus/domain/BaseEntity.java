@@ -9,7 +9,7 @@ import javax.persistence.Version;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.core.Veto;
 
 @MappedSuperclass
 @Veto

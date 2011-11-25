@@ -6,7 +6,8 @@ import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 
-import org.jboss.logging.Logger;
+import org.jboss.solder.logging.Logger;
+
 
 class MyExtension implements Extension {
 	Logger log = Logger.getLogger(getClass());

@@ -7,11 +7,10 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<seam.version>3.0.0.Final</seam.version>
+		<seam.version>3.1.0.Beta5</seam.version>
 		<arquillian.version>1.0.0.Alpha5</arquillian.version>
 		<shrinkwrap.version>1.0.0-alpha-12</shrinkwrap.version>
 		<jpamodelgen.version>1.1.1.Final</jpamodelgen.version>
-		<jboss-javaee6-spec.version>2.0.0.Final</jboss-javaee6-spec.version>
 		<junit.version>4.8.1</junit.version>
 		<slf4j.version>1.5.9.RC1</slf4j.version>
 		<primefaces.version>3.0.M4</primefaces.version>
@@ -68,10 +67,10 @@
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
-			<version>${jboss-javaee6-spec.version}</version>
 			<scope>provided</scope>
 			<type>pom</type>
 		</dependency>
+<!-- 		
 		<dependency>
 			<groupId>org.jboss.seam.solder</groupId>
 			<artifactId>seam-solder-tooling</artifactId>
@@ -83,17 +82,6 @@
 			<groupId>org.jboss.seam.solder</groupId>
 			<artifactId>seam-solder</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.seam.faces</groupId>
-			<artifactId>seam-faces</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.seam.international</groupId>
-			<artifactId>seam-international</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>org.jboss.seam.servlet</groupId>
 			<artifactId>seam-servlet</artifactId>
@@ -106,6 +94,16 @@
 		<dependency>
 			<groupId>org.jboss.seam.config</groupId>
 			<artifactId>seam-config-xml</artifactId>
+		</dependency>
+ -->
+		<dependency>
+			<groupId>org.jboss.seam.faces</groupId>
+			<artifactId>seam-faces</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.international</groupId>
+			<artifactId>seam-international</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.seam.persistence</groupId>

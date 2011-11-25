@@ -6,11 +6,10 @@ import javax.enterprise.context.NonexistentConversationException;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.jboss.logging.Logger;
-import org.jboss.seam.exception.control.CaughtException;
-import org.jboss.seam.exception.control.Handles;
-import org.jboss.seam.exception.control.HandlesExceptions;
 import org.jboss.seam.international.status.Messages;
+import org.jboss.solder.exception.control.CaughtException;
+import org.jboss.solder.exception.control.Handles;
+import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.i18n.DefaultBundleKey;
 
@@ -20,7 +19,7 @@ import com.basinc.golfminus.i18n.DefaultBundleKey;
  * @author <a href="http://community.jboss.org/people/spinner">Jose Freitas</a>
  */
 
-@HandlesExceptions
+@org.jboss.solder.exception.control.HandlesExceptions
 public class ConversationExceptionHandler {
     @Inject private FacesContext facesContext;
     @Inject private Messages messages;

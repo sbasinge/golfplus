@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.core.Veto;
 
 import com.basinc.golfminus.enums.TeeType;
 

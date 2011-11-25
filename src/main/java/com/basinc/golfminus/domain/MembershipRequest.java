@@ -3,7 +3,7 @@ package com.basinc.golfminus.domain;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import org.jboss.seam.solder.core.Veto;
+import org.jboss.solder.core.Veto;
 
 @Entity
 @Veto

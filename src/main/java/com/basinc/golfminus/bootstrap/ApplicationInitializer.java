@@ -16,7 +16,7 @@ import javax.transaction.Status;
 import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolationException;
 
-import org.jboss.logging.Logger;
+import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.domain.Address;
 import com.basinc.golfminus.domain.Club;

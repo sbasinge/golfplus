@@ -6,8 +6,8 @@ import javax.faces.convert.FacesConverter;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.jboss.logging.Logger;
 import org.jboss.seam.faces.conversion.Converter;
+import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.domain.TeeTime;
 
