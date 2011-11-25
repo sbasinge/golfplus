@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -237,7 +236,8 @@ public class ApplicationInitializer {
 
 	}
 
-	public void onStartup(@Observes @Initialized ServletContext ctx) {
+//	public void onStartup(@Observes @Initialized ServletContext ctx) {
+	public void onStartup(ServletContext ctx) {
 		log.info("Importing seed data for application " + ctx.getServletContextName());
 		// use manual transaction control since this is a managed bean
 		try {

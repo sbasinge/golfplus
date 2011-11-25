@@ -1,23 +1,27 @@
 package com.basinc.golfminus.view.teeset;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import com.basinc.golfminus.domain.TeeSet;
 
-@Stateful
 @ConversationScoped
 @Named
-public class TeesetList {
-    @PersistenceContext(type=PersistenceContextType.EXTENDED)
-    private EntityManager em;
+public class TeesetList implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4247834040686462965L;
+
+	@Inject
+	EntityManager entityManager;
 
     private List<TeeSet> tees;
     
@@ -34,7 +38,7 @@ public class TeesetList {
 //        List<TeeSet> results = em.createQuery(query).getResultList();
         
         String sql = "select t from TeeSet t join fetch t.course c order by c.name";
-        List<TeeSet> results = em.createQuery(sql).getResultList();
+        List<TeeSet> results = entityManager.createQuery(sql).getResultList();
         setTees(results);
 	}
 

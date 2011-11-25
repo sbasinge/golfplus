@@ -1,7 +1,10 @@
 package com.basinc.golfminus.notifier;
 
+import java.io.Serializable;
+
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import com.basinc.golfminus.account.MembershipAccepted;
 import com.basinc.golfminus.account.MembershipRejected;
@@ -14,14 +17,18 @@ import com.basinc.golfminus.domain.TeeTimeParticipant;
 import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.security.Identity;
 import com.basinc.golfminus.security.Registered;
-import com.basinc.golfminus.util.PersistenceUtil;
 import com.basinc.golfminus.view.club.HandicapCalculated;
 import com.basinc.golfminus.view.scores.ScoreUpdated;
 import com.basinc.golfminus.view.teetime.TeeTimeAdded;
 import com.basinc.golfminus.view.teetime.TeeTimeDeleted;
 import com.basinc.golfminus.view.teetime.TeeTimeUpdated;
 
-public class SiteMessageNotifier extends PersistenceUtil implements MessageNotifier {
+public class SiteMessageNotifier implements MessageNotifier, Serializable {
+	private static final long serialVersionUID = -1186513111105203298L;
+
+	@Inject
+	EntityManager entityManager;
+
     @Inject Identity identity;
     
 	public void registrationCompleted(@Observes @Registered MembershipRequest membershipRequest) {
@@ -31,29 +38,34 @@ public class SiteMessageNotifier extends PersistenceUtil implements MessageNotif
 			SiteMessage adminMessage = new SiteMessage(user,membershipRequest.getUser().getName()+" has registered to join your club.  Please accept/reject their membership using the Members page.");
 			entityManager.persist(adminMessage);
 		}
+		entityManager.flush();
 	}
 
 	public void membershipRejected(@Observes @MembershipRejected MembershipRequest membershipRequest) {
 		SiteMessage message = new SiteMessage(membershipRequest.getUser(),"Membership to club "+membershipRequest.getClub().getName()+" has been rejected.");
 		entityManager.persist(message);
+		entityManager.flush();
 
 	}
 
 	public void membershipAccepted(@Observes @MembershipAccepted MembershipRequest membershipRequest) {
 		SiteMessage message = new SiteMessage(membershipRequest.getUser(),"Membership to club "+membershipRequest.getClub().getName()+" has been accepted.");
 		entityManager.persist(message);
+		entityManager.flush();
 	}
 
 	public void handicapCalculated(@Observes @HandicapCalculated User user) {
 		if (user.getHandicapCalculateNotificationType().isNotifyOnSite()) {
 			SiteMessage message = new SiteMessage(user,"Handicap recalculated to "+user.getHandicap());
 			entityManager.persist(message);
+			entityManager.flush();
 		}
 	}
 
 	public void scoreUpdated(@Observes @ScoreUpdated Score score) {
 		SiteMessage message = new SiteMessage(score.getUser(),"A new score has been added for "+score.getTeeSet().getCourse().getName()+" on "+ sdf.format(score.getDate()));
 		entityManager.persist(message);
+		entityManager.flush();
 		
 	}
 
@@ -65,6 +77,7 @@ public class SiteMessageNotifier extends PersistenceUtil implements MessageNotif
 					entityManager.persist(message);
 				}
 			}
+			entityManager.flush();
 		}
 	}
 
@@ -76,6 +89,7 @@ public class SiteMessageNotifier extends PersistenceUtil implements MessageNotif
 					entityManager.persist(message);
 				}
 			}
+			entityManager.flush();
 		}
 	}
 
@@ -87,6 +101,7 @@ public class SiteMessageNotifier extends PersistenceUtil implements MessageNotif
 					entityManager.persist(message);
 				}
 			}
+			entityManager.flush();
 		}
 	}
 

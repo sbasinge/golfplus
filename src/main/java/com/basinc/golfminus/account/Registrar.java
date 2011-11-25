@@ -16,7 +16,8 @@
  */
 package com.basinc.golfminus.account;
 
-import javax.ejb.Stateful;
+import java.io.Serializable;
+
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Model;
@@ -25,6 +26,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -36,18 +38,19 @@ import com.basinc.golfminus.domain.MembershipRequest;
 import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.i18n.DefaultBundleKey;
 import com.basinc.golfminus.security.Registered;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 /**
  * The view controller for registering a new user
  *
  * @author <a href="http://community.jboss.org/people/dan.j.allen">Dan Allen</a>
  */
-@Stateful
 @Model
-public class Registrar extends PersistenceUtil {
+public class Registrar implements Serializable {
+	private static final long serialVersionUID = 5518350106940046303L;
 
-    @Inject
+	@Inject EntityManager entityManager;
+	
+	@Inject
     private Messages messages;
 
     @Inject
@@ -73,9 +76,11 @@ public class Registrar extends PersistenceUtil {
         if (verifyUsernameIsAvailable()) {
             registered = true;
             entityManager.persist(newUser);
+            entityManager.flush();
             messages.info(new DefaultBundleKey("registration_registered"))
                     .defaults("You have been successfully registered as the user {0}! You can now login.")
                     .params(newUser.getUsername());
+            //TODO replace with some sort of join club page or selection list.
             Club cmgc = entityManager.createNamedQuery("findClubByName",Club.class).setParameter("name", "CMGC").getSingleResult();
             registeredEventSrc.fire(new MembershipRequest(newUser,cmgc));
         } else {

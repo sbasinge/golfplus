@@ -1,10 +1,12 @@
 package com.basinc.golfminus.view.tournament;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -15,10 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.basinc.golfminus.domain.Tournament;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -27,8 +27,13 @@ import com.basinc.golfminus.util.PersistenceUtil;
  * @author Scott
  *
  */
-public class TournamentList extends PersistenceUtil {
+public class TournamentList implements Serializable {
+	private static final long serialVersionUID = 9012979567903673696L;
 	private static Logger log = LoggerFactory.getLogger(TournamentList.class);
+	
+	@Inject
+	EntityManager entityManager;
+
     private List<Tournament> tournaments;
     
     @Begin
@@ -48,7 +53,6 @@ public class TournamentList extends PersistenceUtil {
 	public void deleteTournament(int id) {
 		log.warn("Attempting to delete torunament: "+id);
 		Tournament tournament = entityManager.find(Tournament.class, id);
-	    getEntityManager().joinTransaction();
 		entityManager.remove(tournament);
 		entityManager.flush();
 	}

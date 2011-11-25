@@ -7,13 +7,13 @@
                 xmlns:pf="http://primefaces.org/ui"
                 xmlns:p="http://java.sun.com/jsf/composite/components/property"
                 xmlns:s="http://jboss.org/seam/faces"
-                template="/WEB-INF/layout/template.xhtml">
+                template="/WEB-INF/layout/mobile_template.xhtml">
 
 	<ui:define name="metadata">
 		<f:metadata>
 			<f:viewParam name="clubName" value="#{clubList.clubName}"/>
-		    <s:viewAction action="#{clubList.populateClub}"/>
-		    <s:viewAction action="#{clubList.find}"/>
+			<f:event type="preRenderView" listener="#{clubList.populateClub}" />
+			<f:event type="preRenderView" listener="#{clubList.find}" />
 		    <s:viewAction action="#{siteMessageList.find}"/>
 		</f:metadata>
 	</ui:define>
@@ -22,43 +22,6 @@
     <ui:param name="pageClass" value="home"/>
 
     <ui:define name="content">
-        <div class="section">
-
-            <h1>#{msg.home_header}</h1>
-
-            <p>#{msg.home_body}</p>
-
-            <p>#{msg.home_note}</p>
-            
-			<h:form id="webfeed" rendered="#{identity.clubSelected and identity.loggedIn and not empty currentClub.rssFeedUrl}">
-				<pf:feedReader value="#{currentClub.rssFeedUrl}" var="feed" size="2">  
-				    <h:outputText value="#{feed.title}" style="font-weight: bold"/>  
-				    <br />  
-	    			<h:outputText value="#{feed.contents[0].value}" escape="false"/>  
-				    <pf:separator />  
-				</pf:feedReader>
-				<a href="#{currentClub.websiteUrl}" target="_blank">See WebSite</a>
-			</h:form>					  
-			<h:form id="selectClub" rendered="#{not identity.clubSelected and identity.loggedIn}">
-				<fieldset>
-					<h:selectOneMenu id="selectClub" value="#{identity.selectedClub}" >
-						<f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true" />
-						<f:selectItems id="listClubs" value="#{identity.currentUser.clubs}" var="_club" itemLabel="#{_club.name}" itemValue="#{_club}"/>
-						<f:converter converterId="clubConverter" for="listClubs"/>
-					</h:selectOneMenu>
-					
-					
-					<div class="buttonBox">
-						<h:commandButton value="Submit" action="#{identity.populateRoles}"/>
-					</div>
-
-				</fieldset>
-			</h:form>
-
-        </div>
-    </ui:define>
-
-    <ui:define name="sidebar">
         <h:form id="login" rendered="#{not identity.loggedIn}">
             <fieldset>
                 <div>

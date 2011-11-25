@@ -1,28 +1,27 @@
 package com.basinc.golfminus.view.teetime;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.jboss.solder.logging.Logger;
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.faces.context.conversation.End;
 import org.jboss.seam.transaction.Transactional;
+import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.domain.TeeTime;
 import com.basinc.golfminus.domain.TeeTimeParticipant;
 import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -31,9 +30,13 @@ import com.basinc.golfminus.util.PersistenceUtil;
  * @author Scott
  *
  */
-public class TeetimeList extends PersistenceUtil {
-	
+public class TeetimeList implements Serializable {
+	private static final long serialVersionUID = 7481395419635772535L;
+
 	private Logger log = Logger.getLogger(getClass());
+
+	@Inject
+	EntityManager entityManager;
 
 	@Inject Identity identity;
 
@@ -64,7 +67,6 @@ public class TeetimeList extends PersistenceUtil {
 	public void deleteTeeTime(int id) {
 		log.warn("Attempting to delete teetime: "+id);
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
-	    getEntityManager().joinTransaction();
 		entityManager.remove(teeTime);
 		entityManager.flush();
 		teeTimeDeletedEventSrc.fire(teeTime);
@@ -73,9 +75,9 @@ public class TeetimeList extends PersistenceUtil {
 	public String signUp(int id) {
 		log.warn("Attempting to sign up for tee time: "+id);
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
-	    getEntityManager().joinTransaction();
 	    TeeTimeParticipant participant = new TeeTimeParticipant(teeTime,identity.getCurrentUser());
 	    teeTime.getParticipants().add(participant);
+	    entityManager.flush();
 	    teeTimeUpdatedEventSrc.fire(participant);
 	    return "";
 	}

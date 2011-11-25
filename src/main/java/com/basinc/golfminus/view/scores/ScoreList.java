@@ -1,11 +1,12 @@
 package com.basinc.golfminus.view.scores;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -13,10 +14,10 @@ import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.jboss.solder.logging.Logger;
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.faces.context.conversation.End;
 import org.jboss.seam.transaction.Transactional;
+import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.domain.Club_;
@@ -25,10 +26,8 @@ import com.basinc.golfminus.domain.Score_;
 import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.domain.User_;
 import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -37,11 +36,14 @@ import com.basinc.golfminus.util.PersistenceUtil;
  * @author Scott
  *
  */
-public class ScoreList extends PersistenceUtil {
+public class ScoreList implements Serializable {
 
 	private static final long serialVersionUID = 7971094658288348790L;
 
 	private Logger log = Logger.getLogger(getClass());
+	
+	@Inject
+	EntityManager entityManager;
 
 	@Inject Identity identity;
 
@@ -78,7 +80,6 @@ public class ScoreList extends PersistenceUtil {
 	public void deleteScore(int id) {
 		log.warn("Attempting to delete score: " + id);
 		Score score2 = entityManager.find(Score.class, id);
-		getEntityManager().joinTransaction();
 		entityManager.remove(score2);
 		entityManager.flush();
 		queryScores();

@@ -1,26 +1,26 @@
 package com.basinc.golfminus.view.course;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.jboss.solder.logging.Logger;
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.faces.context.conversation.End;
 import org.jboss.seam.transaction.Transactional;
+import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.domain.Course;
 import com.basinc.golfminus.domain.Course_;
 import com.basinc.golfminus.domain.Facility;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -29,11 +29,14 @@ import com.basinc.golfminus.util.PersistenceUtil;
  * @author Scott
  *
  */
-public class CourseList extends PersistenceUtil {
+public class CourseList implements Serializable {
 	
 	private static final long serialVersionUID = -844626457473901819L;
 	private static Logger log = Logger.getLogger(CourseList.class);
 	
+	@Inject
+	EntityManager entityManager;
+
     private List<Course> courses;
     
     @Begin
@@ -60,7 +63,6 @@ public class CourseList extends PersistenceUtil {
 	public void deleteCourse(int id) {
 		log.warn("Attempting to delete Course: "+id);
 		Course course = entityManager.find(Course.class, id);
-	    getEntityManager().joinTransaction();
 	    Facility facility = course.getFacility();
 	    if (facility != null) {
 	    	facility.removeCourse(course);

@@ -19,12 +19,12 @@
     <ui:define name="content">
 
         <div class="section">
-            <h1>#{user.name}'s Scores</h1>
+            <h1>#{userHome.userSelection.name}'s Scores</h1>
         </div>
 
         <div class="section">
 			<h:form id="memberScoresForm">
-				<m:displayScores value="#{user.last20Scores}" showUser="false" />
+				<m:displayScores value="#{userHome.userSelection.last20Scores}" showUser="false" />
 			</h:form>
         </div>
 

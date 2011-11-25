@@ -1,16 +1,17 @@
 package com.basinc.golfminus.view.tournament;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -19,20 +20,18 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.jboss.solder.logging.Logger;
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.faces.context.conversation.End;
 import org.jboss.seam.transaction.Transactional;
+import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.domain.TeeTime;
 import com.basinc.golfminus.domain.TeeTimeParticipant;
 import com.basinc.golfminus.domain.TeeTime_;
 import com.basinc.golfminus.domain.Tournament;
 import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -41,8 +40,13 @@ import com.basinc.golfminus.util.PersistenceUtil;
  * @author Scott
  *
  */
-public class TournamentHome extends PersistenceUtil {
+public class TournamentHome implements Serializable {
+	private static final long serialVersionUID = 7427331088501038228L;
+
 	private static Logger log = Logger.getLogger(TournamentHome.class);
+
+	@Inject
+	EntityManager entityManager;
 
     @Inject Identity identity;
 
@@ -85,12 +89,12 @@ public class TournamentHome extends PersistenceUtil {
 
     @End
     public void save() {
-    	entityManager.joinTransaction();
     	for (TeeTime teeTime : getSelectedTeeTimes()) {
     		TeeTime selectedTeeTime = entityManager.find(TeeTime.class, teeTime.getId());  //get a fresh reference
     		selection.addTeeTime(selectedTeeTime);
     	}
     	entityManager.persist(selection);
+    	entityManager.flush();
     }
     
     @End

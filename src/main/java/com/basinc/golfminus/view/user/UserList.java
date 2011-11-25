@@ -1,25 +1,25 @@
 package com.basinc.golfminus.view.user;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
-import org.jboss.solder.logging.Logger;
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.domain.User;
-import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
+import com.basinc.golfminus.security.Authenticated;
 import com.basinc.golfminus.view.club.HandicapCalculated;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -28,29 +28,35 @@ import com.basinc.golfminus.view.club.HandicapCalculated;
  * @author Scott
  *
  */
-public class UserList extends PersistenceUtil {
-	
-//  @Inject
-  private Logger log = Logger.getLogger(getClass());
+public class UserList implements Serializable {
 
-    @Inject Identity identity;
-    
-    @Inject
-    @HandicapCalculated
-    private Event<User> handicapCalculatedEventSrc;
+	private static final long serialVersionUID = 2058418239177449283L;
 
-    private List<User> users;
-    
-    @Begin
-    public void find() {
-    	queryUsers();
-    }
+	private Logger log = LoggerFactory.getLogger(UserList.class);
 
-    private void queryUsers() {
-    	log.info("Finding members for club "+identity.getSelectedClub().getName());
-    	Club club = entityManager.find(Club.class,identity.getSelectedClub().getId());
-    	List<User> results = club.getMembers();
-        setUsers(results);
+	@Inject
+	EntityManager entityManager;
+
+	@Inject
+	@Authenticated
+	Club currentClub;
+
+	@Inject
+	@HandicapCalculated
+	private Event<User> handicapCalculatedEventSrc;
+
+	private List<User> users;
+
+	@Begin(timeout = 300000)
+	public void find() {
+		queryUsers();
+	}
+
+	private void queryUsers() {
+		log.info("Finding members for club " + currentClub.getName());
+		Club club = entityManager.find(Club.class, currentClub.getId());
+		List<User> results = club.getMembers();
+		setUsers(results);
 	}
 
 	public List<User> getUsers() {
@@ -61,14 +67,14 @@ public class UserList extends PersistenceUtil {
 		this.users = users;
 	}
 
-    public void calculateHandicap(User user) {
-        getEntityManager().joinTransaction();
-    	if (user.calculateHandicap()) {
-    		entityManager.flush();
-    		entityManager.refresh(user);
-    		handicapCalculatedEventSrc.fire(user);
-    		queryUsers();
-    	}
-    }
+	public void calculateHandicap(User user) {
+		log.info("Calculating handicap for {}.", user.getName());
+		if (user.calculateHandicap()) {
+			entityManager.flush();
+			entityManager.refresh(user);
+			handicapCalculatedEventSrc.fire(user);
+			queryUsers();
+		}
+	}
 
 }

@@ -91,11 +91,11 @@
    </category>
 
    <category name="javax.el">
-      <priority value="DEBUG"/>
+      <priority value="INFO"/>
    </category>
 
    <category name="javax.enterprise">
-      <priority value="ALL"/>
+      <priority value="INFO"/>
    </category>
 
    <category name="org.hibernate">
@@ -106,7 +106,7 @@
      <priority value="INFO" />
    </category>
 
-   <category name="com.ocpsoft.pretty.config">
+   <category name="com.ocpsoft">
      <priority value="WARN" />
    </category>
 

@@ -1,11 +1,12 @@
 package com.basinc.golfminus.view.siteMessages;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -21,14 +22,17 @@ import com.basinc.golfminus.domain.SiteMessage_;
 import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.domain.User_;
 import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateless
 @Named
-public class SiteMessageList extends PersistenceUtil {
+public class SiteMessageList implements Serializable {
+	private static final long serialVersionUID = 764562460507220360L;
+
 	private static Logger log = LoggerFactory.getLogger(SiteMessageList.class);
 	
+	@Inject
+	EntityManager entityManager;
+
     @Inject Identity identity;
 
     private List<SiteMessage> messages;

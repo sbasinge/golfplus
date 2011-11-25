@@ -1,13 +1,14 @@
 package com.basinc.golfminus.view.course;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.faces.context.conversation.End;
@@ -21,10 +22,8 @@ import com.basinc.golfminus.domain.GeoLocation;
 import com.basinc.golfminus.domain.TeeSet;
 import com.basinc.golfminus.enums.TeeType;
 import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -33,11 +32,16 @@ import com.basinc.golfminus.util.PersistenceUtil;
  * @author Scott
  *
  */
-public class CourseHome extends PersistenceUtil {
+public class CourseHome implements Serializable {
+	private static final long serialVersionUID = -6377129797782701665L;
+
 	private static Logger log = Logger.getLogger(CourseHome.class);
 
     @Inject Identity identity;
     
+	@Inject
+	EntityManager entityManager;
+
     private Course selection;
     
     private List<TeeSet> teeSets = new ArrayList<TeeSet>();
@@ -45,7 +49,7 @@ public class CourseHome extends PersistenceUtil {
     @Begin(timeout=300000)
     public void selectCourse(final Integer id) {
         // NOTE get a fresh reference that's managed by the extended persistence context
-    	selection = findById(Course.class, id.intValue());
+    	selection = entityManager.find(Course.class, id.intValue());
     	populateTeeSets();
     }
 
@@ -69,8 +73,9 @@ public class CourseHome extends PersistenceUtil {
     		}
     	}
     	selection.getFacility().setName(selection.getName());
-    	persist(selection.getFacility());
-    	persist(selection);
+    	entityManager.persist(selection.getFacility());
+    	entityManager.persist(selection);
+    	entityManager.flush();
     }
     
     @End

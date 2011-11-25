@@ -1,10 +1,12 @@
 package com.basinc.golfminus.view.club;
 
-import javax.ejb.Stateful;
+import java.io.Serializable;
+
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.faces.context.conversation.End;
@@ -18,10 +20,8 @@ import com.basinc.golfminus.domain.ClubRole;
 import com.basinc.golfminus.domain.MembershipRequest;
 import com.basinc.golfminus.domain.Role;
 import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -30,9 +30,13 @@ import com.basinc.golfminus.util.PersistenceUtil;
  * @author Scott
  *
  */
-public class ClubHome extends PersistenceUtil {
+public class ClubHome implements Serializable  {
+	private static final long serialVersionUID = -6349388717592316249L;
+
 	private static Logger log = Logger.getLogger(ClubHome.class);
 
+	@Inject
+	EntityManager entityManager;
 
     @Inject Identity identity;
     
@@ -59,7 +63,6 @@ public class ClubHome extends PersistenceUtil {
 	}
 
     public String acceptMembership(final Integer id) {
-        getEntityManager().joinTransaction();
         MembershipRequest membershipRequest = entityManager.find(MembershipRequest.class, id.intValue());
         clubSelection.addMember(membershipRequest.getUser());
         clubSelection.removeMemberShipRequest(membershipRequest);
@@ -72,7 +75,6 @@ public class ClubHome extends PersistenceUtil {
     }
 
     public String rejectMembership(final Integer id) {
-        getEntityManager().joinTransaction();
         MembershipRequest membershipRequest = entityManager.find(MembershipRequest.class, id.intValue());
         clubSelection.removeMemberShipRequest(membershipRequest);
         entityManager.remove(membershipRequest);
@@ -84,7 +86,8 @@ public class ClubHome extends PersistenceUtil {
     @End
     public void save() {
     	log.info("Updating Club");
-    	persist(clubSelection);
+    	entityManager.persist(clubSelection);
+        entityManager.flush();
     }
     
     @End

@@ -30,15 +30,15 @@
             </div>
 			<h:form>
 				<pf:fieldset legend="Personal Info">
-					<p:output label="Username" value="#{user.username}" />
+					<p:output label="Username" value="#{userHome.userSelection.username}" />
 					<p:input label="Full Name">
-						<pf:inputText value="#{user.name}"/>
+						<pf:inputText value="#{userHome.userSelection.name}"/>
 					</p:input>
 					<p:input label="Email Address">
-						<pf:inputText value="#{user.email}"/>
+						<pf:inputText value="#{userHome.userSelection.email}"/>
 					</p:input>
 					<p:input label="Phone">
-						<pf:inputMask value="#{user.phone}" mask="(999) 999-9999"/> 
+						<pf:inputMask value="#{userHome.userSelection.phone}" mask="(999) 999-9999"/> 
 					</p:input>
 				</pf:fieldset>
 				<br />
@@ -48,45 +48,45 @@
 						<h:outputLabel value="Handicap:" />
 						<h:outputText value="Email?" for="emailHandicap" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="emailHandicap" value="#{user.handicapCalculateNotificationType.notifyByEmail}" />
+						<h:selectBooleanCheckbox id="emailHandicap" value="#{userHome.userSelection.handicapCalculateNotificationType.notifyByEmail}" />
 						<pf:spacer width="20" />
 						<h:outputText value="Text?" for="textHandicap" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="textHandicap" value="#{user.handicapCalculateNotificationType.notifyByText}" />
+						<h:selectBooleanCheckbox id="textHandicap" value="#{userHome.userSelection.handicapCalculateNotificationType.notifyByText}" />
 						<pf:spacer width="20" />
 						<h:outputText value="On Site?" for="siteHandicap" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="siteHandicap" value="#{user.handicapCalculateNotificationType.notifyOnSite}" />
+						<h:selectBooleanCheckbox id="siteHandicap" value="#{userHome.userSelection.handicapCalculateNotificationType.notifyOnSite}" />
 						<pf:spacer width="20" />
 					</div>
 					<div style="clear: both">
 						<h:outputLabel value="Tee Times:" />
 						<h:outputText value="Email?" for="emailTeeTime" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="emailTeeTime" value="#{user.newTeeTimeNotificationType.notifyByEmail}" />
+						<h:selectBooleanCheckbox id="emailTeeTime" value="#{userHome.userSelection.newTeeTimeNotificationType.notifyByEmail}" />
 						<pf:spacer width="20" />
 						<h:outputText value="Text?" for="textTeeTime" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="textTeeTime" value="#{user.newTeeTimeNotificationType.notifyByText}" />
+						<h:selectBooleanCheckbox id="textTeeTime" value="#{userHome.userSelection.newTeeTimeNotificationType.notifyByText}" />
 						<pf:spacer width="20" />
 						<h:outputText value="On Site?" for="siteTeeTime" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="siteTeeTime" value="#{user.newTeeTimeNotificationType.notifyOnSite}" />
+						<h:selectBooleanCheckbox id="siteTeeTime" value="#{userHome.userSelection.newTeeTimeNotificationType.notifyOnSite}" />
 						<pf:spacer width="20" />
 					</div>
 					<div style="clear: both">
 						<h:outputLabel value="SignUp:" />
 						<h:outputText value="Email?" for="emailSignUp" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="emailSignUp" value="#{user.teeTimeFullNotificationType.notifyByEmail}" />
+						<h:selectBooleanCheckbox id="emailSignUp" value="#{userHome.userSelection.teeTimeFullNotificationType.notifyByEmail}" />
 						<pf:spacer width="20" />
 						<h:outputText value="Text?" for="textSignUp" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="textSignUp" value="#{user.teeTimeFullNotificationType.notifyByText}" />
+						<h:selectBooleanCheckbox id="textSignUp" value="#{userHome.userSelection.teeTimeFullNotificationType.notifyByText}" />
 						<pf:spacer width="20" />
 						<h:outputText value="On Site?" for="siteSignUp" dir="ltr" />
 						<pf:spacer width="10" />
-						<h:selectBooleanCheckbox id="siteSignUp" value="#{user.teeTimeFullNotificationType.notifyOnSite}" />
+						<h:selectBooleanCheckbox id="siteSignUp" value="#{userHome.userSelection.teeTimeFullNotificationType.notifyOnSite}" />
 						<pf:spacer width="20" />
 					</div>
 				</pf:fieldset>

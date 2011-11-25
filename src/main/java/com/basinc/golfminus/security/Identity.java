@@ -148,6 +148,7 @@ public class Identity implements Serializable {
 
   @Produces
   @SessionScoped
+  @Authenticated
   @Named("currentClub")
 	public Club getSelectedClub() {
 		return selectedClub;

@@ -1,11 +1,12 @@
 package com.basinc.golfminus.view.club;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -15,10 +16,8 @@ import org.jboss.solder.logging.Logger;
 
 import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -27,10 +26,14 @@ import com.basinc.golfminus.util.PersistenceUtil;
  * @author Scott
  *
  */
-public class ClubList extends PersistenceUtil {
+public class ClubList implements Serializable {
 	
-//    @Inject
-    private Logger log = Logger.getLogger(getClass());
+	private static final long serialVersionUID = -9064374876336583036L;
+
+	private Logger log = Logger.getLogger(getClass());
+
+	@Inject
+	EntityManager entityManager;
 
 	@Inject Identity identity;
 

@@ -1,16 +1,17 @@
 package com.basinc.golfminus.view.teetime;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 
 import org.jboss.seam.faces.context.conversation.Begin;
 import org.jboss.seam.faces.context.conversation.End;
@@ -22,11 +23,9 @@ import com.basinc.golfminus.domain.Score;
 import com.basinc.golfminus.domain.TeeTime;
 import com.basinc.golfminus.domain.TeeTimeParticipant;
 import com.basinc.golfminus.security.Identity;
-import com.basinc.golfminus.util.PersistenceUtil;
 import com.basinc.golfminus.view.scores.ScoreUpdated;
 
 @Transactional
-@Stateful
 @ConversationScoped
 @Named
 /**
@@ -35,8 +34,13 @@ import com.basinc.golfminus.view.scores.ScoreUpdated;
  * @author Scott
  *
  */
-public class TeetimeHome extends PersistenceUtil {
+public class TeetimeHome implements Serializable {
+	private static final long serialVersionUID = 4327132844325203346L;
+
 	private static Logger log = LoggerFactory.getLogger(TeetimeHome.class);
+
+	@Inject
+	EntityManager entityManager;
 
     @Inject Identity identity;
 
@@ -67,8 +71,8 @@ public class TeetimeHome extends PersistenceUtil {
 
     @End
     public void save() {
-    	entityManager.joinTransaction();
     	entityManager.persist(selection);
+    	entityManager.flush();
 		teeTimeAddedEventSrc.fire(selection);
     }
 
@@ -88,6 +92,7 @@ public class TeetimeHome extends PersistenceUtil {
     	}
     	entityManager.joinTransaction();
     	entityManager.persist(selection);
+    	entityManager.flush();
     }
     
     @End
@@ -110,6 +115,7 @@ public class TeetimeHome extends PersistenceUtil {
     		}
        		scores.add(score);
     	}
+    	entityManager.flush();
     }
 
 	public List<EnteredScore> getScores() {
