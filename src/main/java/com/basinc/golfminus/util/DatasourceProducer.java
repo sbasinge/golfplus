@@ -3,11 +3,11 @@ package com.basinc.golfminus.util;
 import java.io.Serializable;
 
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+
+import org.jboss.solder.core.ExtensionManaged;
 
 /**
  * @author <a href="mailto:lincolnbaxter@gmail.com">Lincoln Baxter, III</a>
@@ -17,20 +17,21 @@ import javax.persistence.PersistenceUnit;
  * @PersistenceUnit
  * @ConversationScoped EntityManagerFactory producerField;
  */
-@ConversationScoped
 public class DatasourceProducer implements Serializable {
 	private static final long serialVersionUID = -5267593171036179836L;
 	
+	@ExtensionManaged
+	@Produces
 	@PersistenceUnit
+	@ConversationScoped
 	private EntityManagerFactory emf;
 
-	@Produces
-	@ConversationScoped
-	public EntityManager create() {
-		return emf.createEntityManager();
+	public EntityManagerFactory getEmf() {
+		return emf;
 	}
 
-	public void close(@Disposes EntityManager em) {
-		em.close();
+	public void setEmf(EntityManagerFactory emf) {
+		this.emf = emf;
 	}
+
 }
