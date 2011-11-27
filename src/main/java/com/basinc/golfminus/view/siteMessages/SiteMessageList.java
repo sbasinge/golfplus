@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.inject.Produces;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -24,6 +25,7 @@ import com.basinc.golfminus.domain.User_;
 import com.basinc.golfminus.security.Identity;
 
 @Transactional
+@ViewScoped
 @Named
 public class SiteMessageList implements Serializable {
 	private static final long serialVersionUID = 764562460507220360L;
