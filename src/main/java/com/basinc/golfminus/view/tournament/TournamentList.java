@@ -55,6 +55,7 @@ public class TournamentList implements Serializable {
 		Tournament tournament = entityManager.find(Tournament.class, id);
 		entityManager.remove(tournament);
 		entityManager.flush();
+		queryAll();
 	}
 	
     public void addTournament() {
