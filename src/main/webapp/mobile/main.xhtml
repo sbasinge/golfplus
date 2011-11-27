@@ -1,0 +1,39 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:pf="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile"
+	xmlns:p="http://java.sun.com/jsf/composite/components/property" xmlns:s="http://jboss.org/seam/faces"
+	template="/WEB-INF/layout/mobile_template.xhtml">
+
+	<ui:define name="content">
+		<pm:page title="GolfPlus Mobile">
+			<pm:view id="main">
+				<pm:header title="Main">
+					<f:facet name="left">
+						<pf:button value="Back" icon="back" outcome="home.xhtml?reverse=true" />
+					</f:facet>
+					<f:facet name="right">
+						<pf:button value="Settings" icon="gear" href="#settings" />
+					</f:facet>
+				</pm:header>
+
+
+				<pm:content rendered="#{identity.loggedIn}">
+					<h:form>
+						<pm:navBar>
+							<h:link id="members" value="Members" outcome="members.xhtml" />
+							<h:link id="teetimes" value="Tee Times" outcome="teetimes.xhtml" />
+							<h:link id="scores" value="Scores" outcome="scores.xhtml" />
+							<h:link id="tournaments" value="Tournaments" outcome="tournaments.xhtml" />
+							<h:link id="account" value="Account" outcome="account.xhtml" />
+							<h:commandLink id="logout" value="#{msg.template_linkLogout}" action="#{identity.logout}" />
+						</pm:navBar>
+					</h:form>
+
+				</pm:content>
+			</pm:view>
+		</pm:page>
+	</ui:define>
+
+</ui:composition>
+

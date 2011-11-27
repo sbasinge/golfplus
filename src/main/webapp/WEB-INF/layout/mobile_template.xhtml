@@ -6,49 +6,20 @@
       xmlns:pretty="http://ocpsoft.com/prettyfaces"
       xmlns:s="http://jboss.org/seam/faces"
       xmlns:pf="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
       xmlns:f="http://java.sun.com/jsf/core">
-<f:view>
+<f:view contentType="text/html">
     <ui:insert name="metadata"/>
     
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>#{msg.template_title}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="description=" content="#{msg.home_body}"/>
-        <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
-
-        <h:outputStylesheet library="css" name="golfplus_mobile.css"/>
         <ui:insert name="head"/>
     </h:head>
-    <h:body styleClass="#{empty pageClass ? 'page' : 'home'}">
-        <div id="document">
-            <div id="header">
-                <div id="title">
-	                <h1>#{msg.home_title}</h1>
-                </div>
-            </div>
-            <div id="container">
-                <div id="content">
-					<span class="errors">
-						<pf:messages autoUpdate="true" globalOnly="true" />
-					</span>
-                    <ui:insert name="content"/>
-                </div>
-            </div>
-        </div>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-2820260-7']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>        
-    </h:body>
+	<h:body>
+	    <ui:insert name="content"/>
+	</h:body>    
 </f:view>
 
 </html>

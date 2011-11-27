@@ -14,6 +14,7 @@
 		<junit.version>4.8.1</junit.version>
 		<slf4j.version>1.5.9.RC1</slf4j.version>
 		<primefaces.version>3.0.M4</primefaces.version>
+		<primefaces.mobile.version>0.9.0</primefaces.mobile.version>
 	</properties>
 
 	<repositories>
@@ -94,7 +95,7 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			</dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate.</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -130,6 +131,13 @@
 			<artifactId>primefaces</artifactId>
 			<version>${primefaces.version}</version>
 		</dependency>
+<!-- 		
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>mobile</artifactId>
+			<version>${primefaces.mobile.version}</version>
+		</dependency>
+ -->		
 		<dependency>
 			<groupId>com.kenai.nbpwr</groupId>
 			<artifactId>com-sun-syndication-feed</artifactId>

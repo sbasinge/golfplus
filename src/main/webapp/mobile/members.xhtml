@@ -10,27 +10,31 @@
                 xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/layout/mobile_template.xhtml">
 
+    <ui:define name="metadata">
+        <f:metadata>
+		    <s:viewAction action="#{userList.find}"/>
+        </f:metadata>
+    </ui:define>
+
     <ui:define name="content">
 	    <pm:page title="GolfPlus Mobile">
-	        <pm:view id="login">
-	            <pm:header title="Login">
-	                <f:facet name="right"><pf:button value="Settings" icon="gear" href="settings"/></f:facet>
+	        <pm:view id="members">
+	            <pm:header title="Members2">
+	                <f:facet name="right"><pm:button value="Settings" icon="gear" href="settings"/></f:facet>
 	            </pm:header>
 	
 	            <pm:content>
-	                <h:form id="loginForm">
-	                	<pm:field>
-		                    <h:outputLabel for="username" value="#{msg.home_usernameLabel}"/>
-		                    <pf:inputText id="username" value="#{credentials.username}" />
-		                    <h:outputLabel for="password" value="#{msg.home_passwordLabel}"/>
-		                    <pf:inputText id="password" value="#{credentials.password}"/>
-	                	</pm:field>
-	                    <pf:separator />
-		                <div class="buttonBox">
-		                    <pf:commandButton id="login" action="#{identity.login}" value="#{msg.home_loginAction}"/>
-		                </div>
-	
-	                </h:form>
+	            	<h:form>
+	            		<pf:dataGrid id="members" value="#{userList.users}" var="_member">
+	            			<pm:field>
+	            				<h:outputText value="#{_member.name}" />
+	            			</pm:field>
+	            			<pm:field>
+	            				<h:outputText value="#{_member.handicap}" />
+	            			</pm:field>
+	            		</pf:dataGrid>
+	            	</h:form>
+	            
 	            </pm:content>
 	        </pm:view>
         </pm:page>
