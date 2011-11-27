@@ -194,4 +194,19 @@ public class TeeTime extends BaseEntity {
 //		}
 		return retVal;
 	}
+	
+	public void removeParticipant(User user) {
+		TeeTimeParticipant participant = null;
+		for (TeeTimeParticipant participant2 : getParticipants()) {
+			if (participant2.getUser().equals(user)) {
+				participant = participant2;
+				break;
+			}
+		}
+		if (participant != null) {
+			TeeTime teetime = participant.getTeetime();
+			user.getTeeTimes().remove(teetime);
+			participants.remove(participant);
+		}
+	}
 }

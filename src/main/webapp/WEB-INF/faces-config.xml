@@ -140,6 +140,12 @@
 			<to-view-id>/teetimes/addTeetime.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{teetimeList.deleteTeeTime}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 
 	</navigation-rule>
 	

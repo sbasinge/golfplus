@@ -70,6 +70,7 @@ public class TeetimeList implements Serializable {
 		entityManager.remove(teeTime);
 		entityManager.flush();
 		teeTimeDeletedEventSrc.fire(teeTime);
+        queryTeeTimes();
 	}
 
 	public String signUp(int id) {
@@ -93,18 +94,21 @@ public class TeetimeList implements Serializable {
 	public boolean isAvailableForSignup(int id) {
 		boolean retVal = false;
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
-	    retVal = !teeTime.isUserSignedUp(identity.getCurrentUser());
+		if (teeTime != null) {
+			retVal = !teeTime.isUserSignedUp(identity.getCurrentUser());
+		}
 	    return retVal;
 	}
 
 	public boolean isAvailableForEnterScores(int id) {
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
-		return !teeTime.hasScores();
+		return teeTime != null ? !teeTime.hasScores() : false;
+			
 	}
 	
 	public boolean isAvailableForDelete(int id) {
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
-		return !teeTime.hasScores();
+		return teeTime != null ? !teeTime.hasScores() : false;
 	}
 
 	public List<TeeTime> getTeeTimes() {

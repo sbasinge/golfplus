@@ -128,6 +128,11 @@
     NAME="output" PATH="/teetimes/addTeetime.xhtml"
     TARGET="rules:#teetimes#addTeetime.xhtml"
     TITLE="#{teetimeList.addTeeTime}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeList.deleteTeeTime}:#teetimes#teetimeList.xhtml"
+    NAME="output1" PATH="/teetimes/teetimeList.xhtml"
+    TARGET="rules:#teetimes#teetimeList.xhtml"
+    TITLE="#{teetimeList.deleteTeeTime}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#teetimes#addTeetime.xhtml"

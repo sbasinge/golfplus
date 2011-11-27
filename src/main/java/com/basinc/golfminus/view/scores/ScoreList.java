@@ -23,6 +23,7 @@ import com.basinc.golfminus.domain.Club;
 import com.basinc.golfminus.domain.Club_;
 import com.basinc.golfminus.domain.Score;
 import com.basinc.golfminus.domain.Score_;
+import com.basinc.golfminus.domain.TeeTime;
 import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.domain.User_;
 import com.basinc.golfminus.security.Identity;
@@ -77,9 +78,18 @@ public class ScoreList implements Serializable {
 		setScores(results);
 	}
 
+	/**
+	 * Must remove teetimeparticipant if it exists
+	 * 
+	 * @param id
+	 */
 	public void deleteScore(int id) {
 		log.warn("Attempting to delete score: " + id);
 		Score score2 = entityManager.find(Score.class, id);
+		TeeTime teetime = score2.getTeeTime();
+		if (teetime != null) {
+			teetime.removeParticipant(score2.getUser());
+		}
 		entityManager.remove(score2);
 		entityManager.flush();
 		queryScores();
