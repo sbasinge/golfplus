@@ -7,56 +7,61 @@
 
     <url-mapping id="home">
         <pattern value="/"></pattern>
-        <view-id>/home.xhtml</view-id>
+        <view-id>/home.jsf</view-id>
     </url-mapping>
 
     <url-mapping id="conversation_ended">
         <pattern value="/conversation_ended"></pattern>
-        <view-id>/home.xhtml</view-id>
+        <view-id>/home.jsf</view-id>
+    </url-mapping>
+
+    <url-mapping id="page_not_found">
+        <pattern value="page_not_found"></pattern>
+        <view-id>/home.jsf</view-id>
     </url-mapping>
 
     <url-mapping id="logout">
         <pattern value="/logout"></pattern>
-        <view-id>/home.xhtml</view-id>
+        <view-id>/home.jsf</view-id>
         <action>#{identity.logout}</action>
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/login"></pattern>
+        <view-id>/home.jsf</view-id>
     </url-mapping>
 
 <!-- 
     <url-mapping id="clubLogin">
         <pattern value="/#{ clubName }/login"></pattern>
-        <view-id>/home.xhtml</view-id>
+        <view-id>/home.jsf</view-id>
     </url-mapping>
     <url-mapping id="clubMembers">
         <pattern value="/#{ clubName }/members"></pattern>
-        <view-id>/user/memberList.xhtml</view-id>
-    </url-mapping>
-    <url-mapping>
-        <pattern value="/login/#{ clubName }"></pattern>
-        <view-id>/home.xhtml</view-id>
+        <view-id>/user/memberList.jsf</view-id>
     </url-mapping>
     <url-mapping>
         <pattern value="/#{ clubName }/register"></pattern>
-        <view-id>/user/register.xhtml</view-id>
+        <view-id>/user/register.jsf</view-id>
     </url-mapping>
     <url-mapping>
         <pattern value="/register/#{ clubName }"></pattern>
-        <view-id>/user/register.xhtml</view-id>
+        <view-id>/user/register.jsf</view-id>
     </url-mapping>
  -->
 
     <url-mapping id="register">
         <pattern value="/register"></pattern>
-        <view-id>/user/register.xhtml</view-id>
+        <view-id>/user/register.jsf</view-id>
     </url-mapping>
 
     <url-mapping id="account">
         <pattern value="/account"></pattern>
-        <view-id>/user/account.xhtml</view-id>
+        <view-id>/user/account.jsf</view-id>
     </url-mapping>
 
     <url-mapping>
         <pattern value="/password"></pattern>
-        <view-id>/user/password.xhtml</view-id>
+        <view-id>/user/password.jsf</view-id>
     </url-mapping>
 
 </pretty-config>

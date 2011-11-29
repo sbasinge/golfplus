@@ -5,6 +5,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
+      xmlns:pf="http://primefaces.org/ui"
                 template="/WEB-INF/layout/template.xhtml">
 
     <ui:define name="content">
@@ -12,6 +13,9 @@
         <div class="section">
             <h1>Error Encountered</h1>
         </div>
+					<span class="errors">
+						<pf:messages autoUpdate="true" globalOnly="true" />
+					</span>
 
         <div class="section">
             <p>An unexpected error has occurred.</p>
