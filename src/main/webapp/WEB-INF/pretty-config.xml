@@ -9,6 +9,10 @@
         <pattern value="/"></pattern>
         <view-id>/home.jsf</view-id>
     </url-mapping>
+    <url-mapping id="mobileHome">
+        <pattern value="/mobile/"></pattern>
+        <view-id>/mobile/home.jsf</view-id>
+    </url-mapping>
 
     <url-mapping id="conversation_ended">
         <pattern value="/conversation_ended"></pattern>
