@@ -11,6 +11,7 @@
 
 	<ui:define name="metadata">
 		<f:metadata>
+		    <s:viewAction action="#{mobileRedirector.redirectToMobile}" onPostback="false"/>
 		    <s:viewAction action="#{clubList.find}"/>
 		    <s:viewAction action="#{siteMessageList.find}"/>
 		</f:metadata>
