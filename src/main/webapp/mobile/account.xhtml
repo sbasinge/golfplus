@@ -10,16 +10,10 @@
                 xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/layout/mobile_template.xhtml">
 
-    <ui:define name="metadata">
-        <f:metadata>
-		    <s:viewAction action="#{userList.find}"/>
-        </f:metadata>
-    </ui:define>
-
     <ui:define name="content">
-	    <pm:page title="GolfPlus Members">
-	        <pm:view id="members">
-				<pm:header title="Members">
+	    <pm:page title="GolfPlus Account">
+	        <pm:view id="account">
+				<pm:header title="Account">
 					<f:facet name="left">
 						<pf:button value="Back" icon="back" outcome="main.xhtml?reverse=true" />
 					</f:facet>
@@ -29,17 +23,7 @@
 				</pm:header>
 	
 	            <pm:content>
-	            	<h:form>
-	            		<pf:dataGrid id="members" value="#{userList.users}" var="_member">
-	            			<pm:field>
-	            				<h:outputText value="#{_member.name}" />
-	            			</pm:field>
-	            			<pm:field>
-	            				<h:outputText value="#{_member.handicap}" />
-	            			</pm:field>
-	            		</pf:dataGrid>
-	            	</h:form>
-	            
+					<h:outputText value="This page is under construction.  Please check back later." />	            
 	            </pm:content>
 	        </pm:view>
         </pm:page>

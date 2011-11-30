@@ -6,6 +6,28 @@
 	<name>GolfPlus</name>
 
 	<navigation-rule>
+		<from-view-id>/mobile/*</from-view-id>
+		<navigation-case>
+			<from-action>#{identity.logout}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/mobile/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/mobile/home.xhtml</from-view-id>
+
+		<navigation-case>
+			<from-action>#{identity.login}</from-action>
+			<if>#{identity.loggedIn}</if>
+			<to-view-id>/mobile/main.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+	</navigation-rule>
+	
+	<navigation-rule>
 		<from-view-id>*</from-view-id>
 
 		<navigation-case>
@@ -216,6 +238,7 @@
 			<base-name>messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
+		<view-handler>com.basinc.golfminus.util.UserAgentSensingViewHandler</view-handler>
 	</application>
 
 </faces-config>

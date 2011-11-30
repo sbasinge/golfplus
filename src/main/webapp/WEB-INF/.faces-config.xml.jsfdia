@@ -160,12 +160,26 @@
     NAME="output" PATH="/mobile/main.xhtml"
     TARGET="rules:#mobile#main.xhtml" TITLE="#{identity.login}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#mobile#home.xhtml:1" NAME="item1"
+   PATH="/mobile/home.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{identity.login}:#mobile#main.xhtml"
+    NAME="output" PATH="/mobile/main.xhtml"
+    TARGET="rules:#mobile#main.xhtml" TITLE="#{identity.login}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#mobile#main.xhtml" PATH="/mobile/main.xhtml"
   SHAPE="240,833,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#mobile#**" PATH="/mobile/**"
   SHAPE="32,1153,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#mobile#**:0" NAME="item" PATH="/mobile/**" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID=":#{identity.logout}:#mobile#home.xhtml"
+    NAME="output" PATH="/mobile/home.xhtml"
+    TARGET="rules:#mobile#home.xhtml" TITLE="#{identity.logout}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#mobile#*" PATH="/mobile/*"
+  SHAPE="48,1217,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#mobile#*:0" NAME="item" PATH="/mobile/*" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT ID=":#{identity.logout}:#mobile#home.xhtml"
     NAME="output" PATH="/mobile/home.xhtml"
     TARGET="rules:#mobile#home.xhtml" TITLE="#{identity.logout}:[any]" model-entity="JSFProcessItemOutput"/>

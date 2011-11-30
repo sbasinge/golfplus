@@ -12,8 +12,8 @@
 
     <ui:define name="content">
 	    <pm:page title="GolfPlus Mobile">
-	        <pm:view id="login">
-	            <pm:header title="Login">
+	        <pm:view id="login" >
+	            <pm:header title="Login" >
 	                <f:facet name="right"><pf:button value="Settings" icon="gear" href="settings"/></f:facet>
 	            </pm:header>
 	
@@ -23,7 +23,7 @@
 		                    <h:outputLabel for="username" value="#{msg.home_usernameLabel}"/>
 		                    <pf:inputText id="username" value="#{credentials.username}" />
 		                    <h:outputLabel for="password" value="#{msg.home_passwordLabel}"/>
-		                    <pf:inputText id="password" value="#{credentials.password}"/>
+		                    <h:inputSecret id="password" value="#{credentials.password}"/>
 	                	</pm:field>
 	                    <pf:separator />
 		                <div class="buttonBox">

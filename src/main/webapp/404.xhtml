@@ -4,17 +4,15 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://java.sun.com/jsf/composite/components/property"
                 template="/WEB-INF/layout/template.xhtml">
 
     <ui:define name="content">
 
         <div class="section">
-            <h1>Error Encountered</h1>
+            <h1>Page not found</h1>
         </div>
-
         <div class="section">
-            <p>An unexpected error has occurred.</p>
+            <p>The requested page could not be found.</p>
 
             <p>#{facesContext.externalContext.requestMap['javax.servlet.error.message']}</p>
         </div>
