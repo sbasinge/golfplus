@@ -5,6 +5,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.org/ui"
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
                 template="/WEB-INF/layout/template.xhtml">
@@ -27,24 +28,24 @@
           	<h:form id="scoreForm" >
 	    		<fieldset>
 			        <p:input label="Course Name" value="#{score.teeSet.course.name}">
-						<h:inputText id="input" value="#{score.teeSet.course.name}" disabled="true"/>
+						<pf:inputText id="input" value="#{score.teeSet.course.name}" disabled="true"/>
 			        </p:input>
 			        <p:input label="Tees" value="#{score.teeSet.teeType}">
-						<h:selectOneMenu id="type" value="#{score.teeSet.teeType}"  disabled="true">
+						<pf:selectOneMenu id="type" value="#{score.teeSet.teeType}"  disabled="true">
 						    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
 						    <f:selectItems value="#{teeTypes}" var="_type" itemValue="#{_type}"/>
-						</h:selectOneMenu>
+						</pf:selectOneMenu>
 			        </p:input>
 			        <p:input label="Date" value="#{score.date}" >
-						<h:inputText id="input" value="#{score.date}"  disabled="true">
+						<pf:inputText id="input" value="#{score.date}"  disabled="true">
 							<f:convertDateTime type="date" pattern="MM/dd/yyyy"/>
-						</h:inputText>
+						</pf:inputText>
 			        </p:input>
 			        <p:input label="Gross Score" value="#{score.grossScore}">
-						<h:inputText id="input" value="#{score.grossScore}"  disabled="true"/>
+						<pf:inputText id="input" value="#{score.grossScore}"  disabled="true"/>
 			        </p:input>
 			        <p:input label="Net Score" value="#{score.netScore}">
-						<h:inputText id="input" value="#{score.netScore}"  disabled="true"/>
+						<pf:inputText id="input" value="#{score.netScore}"  disabled="true"/>
 			        </p:input>
 	    		</fieldset>
 			</h:form>            

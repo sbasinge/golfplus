@@ -6,6 +6,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.org/ui"
                 template="/WEB-INF/layout/template.xhtml">
 
     <ui:define name="metadata">
@@ -30,7 +31,7 @@
                     <p style="text-align: center;">You must login to view a tee time.</p>
                 </h:panelGroup>
                 <h:form id="actions">
-                    <h:button id="cancel" value="Return to List" immediate="true" outcome="teetimeList"/>
+                    <pf:button id="cancel" value="Return to List" immediate="true" outcome="teetimeList"/>
                 </h:form>
             </div>
 

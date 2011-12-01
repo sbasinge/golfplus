@@ -27,32 +27,32 @@
         <div class="section">
         	<h:form id="newCourseForm">
 	        	<fieldset>
-			        <p:input label="Name" value="#{course.name}">
-						<h:inputText id="input" value="#{course.name}" />
+			        <p:input label="Name">
+						<pf:inputText id="input" value="#{course.name}" />
 			        </p:input>
-			        <p:input label="Facility" value="#{course.facility.name}">
-						<h:inputText id="input" value="#{course.name}" />
+			        <p:input label="Facility">
+						<pf:inputText id="input" value="#{course.name}" />
 			        </p:input>
-			        <p:input label="Address" value="#{course.facility.address.addressLine1}">
-						<h:inputText id="input" value="#{course.facility.address.addressLine1}" />
+			        <p:input label="Address">
+						<pf:inputText id="input" value="#{course.facility.address.addressLine1}" />
 			        </p:input>
-			        <p:input label="Address" value="#{course.facility.address.addressLine2}">
-						<h:inputText id="input" value="#{course.facility.address.addressLine2}" />
+			        <p:input label="Address">
+						<pf:inputText id="input" value="#{course.facility.address.addressLine2}" />
 			        </p:input>
-			        <p:input label="City" value="#{course.facility.address.city}">
-						<h:inputText id="input" value="#{course.facility.address.city}" />
+			        <p:input label="City">
+						<pf:inputText id="input" value="#{course.facility.address.city}" />
 			        </p:input>
-			        <p:input label="Course" value="#{course.facility.address.state}">
-						<h:selectOneMenu id="type" value="#{course.facility.address.state}" >
+			        <p:input label="Course">
+						<pf:selectOneMenu id="type" value="#{course.facility.address.state}" >
 						    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
 						    <f:selectItems id="stateCombo" value="#{states}" var="_state" itemValue="#{_state}" itemLabel="#{_state.name}"/>
-						</h:selectOneMenu>
+						</pf:selectOneMenu>
 					</p:input>
-			        <p:input label="Zip" value="#{course.facility.address.zipCode}">
-						<h:inputText id="input" value="#{course.facility.address.zipCode}" />
+			        <p:input label="Zip" >
+						<pf:inputText id="input" value="#{course.facility.address.zipCode}" />
 			        </p:input>
 			        <p:input label="Phone">
-						<h:inputText id="input" value="#{course.facility.phone}" />
+						<pf:inputText id="input" value="#{course.facility.phone}" />
 			        </p:input>
 			        <h:panelGroup id="teeList">
 			            <div class="section">
@@ -63,23 +63,23 @@
 		                        </pf:column>
 		                        <pf:column id="ratingCol">
 		                            <f:facet id="ratingFct" name="header">Course Rating</f:facet>
-		                            <h:inputText value="#{_tee.courseRating}" >
+		                            <pf:inputText value="#{_tee.courseRating}" >
 										<f:convertNumber maxFractionDigits="1"/>                            
-		                            </h:inputText>
+		                            </pf:inputText>
 		                        </pf:column>
 		                        <pf:column id="slopeCol">
 		                            <f:facet id="slopeFct" name="header">Slope</f:facet>
-		                            <h:inputText value="#{_tee.slopeRating}" >
+		                            <pf:inputText value="#{_tee.slopeRating}" >
 										<f:convertNumber maxFractionDigits="1"/>                            
-		                            </h:inputText>
+		                            </pf:inputText>
 		                        </pf:column>
 		                    </pf:dataTable>
 			            </div>
 			        </h:panelGroup>
 	        	</fieldset>
-				<h:commandButton id="saveButton" action="#{courseHome.save}" value="Save"/>
+				<pf:commandButton id="saveButton" action="#{courseHome.save}" value="Save"/>
 				#{' '}
-				<h:commandButton id="cancelButton" action="#{courseHome.cancel}" value="Cancel" immediate="true"/>
+				<pf:commandButton id="cancelButton" action="#{courseHome.cancel}" value="Cancel" immediate="true"/>
         	</h:form>
 
         </div>

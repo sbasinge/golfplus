@@ -53,8 +53,13 @@ public class UserHome implements Serializable {
 		log.info("User Selected");
 	}
 
+
 	public User getUserSelection() {
 		return userSelection;
+	}
+
+	public void setUserSelection(User userSelection) {
+		this.userSelection = userSelection;
 	}
 
 	@End
@@ -70,5 +75,6 @@ public class UserHome implements Serializable {
 		userSelection = null;
 		log.info("Cancel updates to User");
 	}
+
 
 }

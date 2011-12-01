@@ -29,18 +29,39 @@
 				</pm:header>
 	
 	            <pm:content>
-	            	<h:form>
-	            		<pf:dataGrid id="members" value="#{userList.users}" var="_member">
-	            			<pm:field>
-	            				<h:outputText value="#{_member.name}" />
-	            			</pm:field>
-	            			<pm:field>
+	                <h:form id="memberListForm">
+	                    <pf:dataList id="memberListFormList" value="#{userList.users}" var="_member">
+	                    	<pf:column>
+	                    		<h:outputText value="#{_member.name}" />
 	            				<h:outputText value="#{_member.handicap}" />
-	            			</pm:field>
-	            		</pf:dataGrid>
-	            	</h:form>
-	            
+								<pf:commandLink value="Details" action="pm:details" update=":details">
+									<f:setPropertyActionListener value="#{_member}" target="#{userHome.userSelection}" />
+								</pf:commandLink>
+	                            <h:outputLink value="tel:1-#{_member.phone}" title="Call"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
+	                    	</pf:column>
+	                    </pf:dataList>
+	                </h:form>
 	            </pm:content>
+	        </pm:view>
+	        <pm:view id="details">
+				<pm:header id="detailHeader" title="Member Details: #{userHome.userSelection.name}">
+					<f:facet name="left">
+						<pf:button value="Back" icon="back" outcome="members.xhtml?reverse=true" />
+					</f:facet>
+					<f:facet name="right">
+						<pf:button value="Settings" icon="gear" href="#settings" />
+					</f:facet>
+				</pm:header>
+				<pm:content id="detailsContent">
+					<h:form id="detailsForm">
+						<pm:field>
+							<h:outputLabel value="Telephone #: " for="phone"/>
+							<h:outputText id="phone" value="#{userHome.userSelection.phone}" />
+							<pf:spacer width="10px;"/>
+							<h:outputLink value="tel:1-#{userHome.userSelection.phone}"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
+						</pm:field>
+					</h:form>
+				</pm:content>
 	        </pm:view>
         </pm:page>
     </ui:define>

@@ -28,23 +28,23 @@
 			<div class="entry">
 				<h:outputLabel value="Course:*" for="courseSelect" class="label"/>
 				<span class="input">
-					<h:selectOneMenu id="courseSelect" value="#{teetime.course}" required="true">
+					<pf:selectOneMenu id="courseSelect" value="#{teetime.course}" required="true">
 					    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
 					    <f:selectItems id="courseCombo" value="#{courseList.courses}" var="_course" itemValue="#{_course}" itemLabel="#{_course.name}"/>
 					    <f:converter for="courseCombo" converterId="courseConverter"/>
 					    <f:ajax event="change" execute="courseSelect" render="teeSetSelect"/>
-					</h:selectOneMenu>
+					</pf:selectOneMenu>
 				</span>
 			</div>
 			<br/>
 			<div class="entry">
 				<h:outputLabel value="Tee Set:" for="teeSetSelect" class="label"/>
 				<span class="input">
-					<h:selectOneMenu id="teeSetSelect" value="#{teetime.teeSet}" >
+					<pf:selectOneMenu id="teeSetSelect" value="#{teetime.teeSet}" >
 					    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
 					    <f:selectItems id="teesetCombo" value="#{teetime.course.teeSets}" var="_teeset" itemValue="#{_teeset}" itemLabel="#{_teeset.name}"/>
 					    <f:converter for="teesetCombo" converterId="teesetConverter"/>
-					</h:selectOneMenu>
+					</pf:selectOneMenu>
 				</span>
 			</div>
 			<br/>
@@ -52,12 +52,12 @@
 	        	<pf:calendar showOn="button" value="#{teetime.date}" pattern="MM/dd/yyyy HH:mm"/>
 	        </p:input>
 	        <p:input label="Number of Spots" value="#{teetime.notificationOn}">
-				<h:inputText id="input" value="#{teetime.numPlayers}" >
+				<pf:inputText id="input" value="#{teetime.numPlayers}" >
 					<f:convertNumber integerOnly="true"/>
-				</h:inputText>
+				</pf:inputText>
 	        </p:input>
 	        <p:input label="Notifications?">
-	        	<h:selectBooleanCheckbox value="#{teetime.notificationOn}"/>
+	        	<pf:selectBooleanCheckbox value="#{teetime.notificationOn}"/>
 	        </p:input>
 			<br/>
 			<br/>
@@ -74,9 +74,9 @@
                     </h:link>
                 </pf:column>
             </pf:dataTable>
-			<h:commandButton id="saveButton" action="#{teetimeHome.save}" value="Save"/>
+			<pf:commandButton id="saveButton" action="#{teetimeHome.save}" value="Save"/>
 			#{' '}
-			<h:commandButton id="cancelButton" action="#{teetimeHome.cancel}" value="Cancel" immediate="true"/>
+			<pf:commandButton id="cancelButton" action="#{teetimeHome.cancel}" value="Cancel" immediate="true"/>
 		</h:form>        
 
 

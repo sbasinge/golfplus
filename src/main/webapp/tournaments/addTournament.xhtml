@@ -7,6 +7,7 @@
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
                 xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.org/ui"
                 template="/WEB-INF/layout/template.xhtml">
 
     <ui:define name="metadata">
@@ -25,23 +26,23 @@
         <div class="section">
 		<h:form >
 	        <p:input label="Name" >
-				<h:inputText id="input" value="#{tournament.name}" />
+				<pf:inputText id="input" value="#{tournament.name}" />
 	        </p:input>
 			<h:outputLabel value="Type*" for="typeSelect"/>
-			<h:selectOneMenu id="typeSelect" value="#{tournament.type}" required="true">
+			<pf:selectOneMenu id="typeSelect" value="#{tournament.type}" required="true">
 			    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
 			    <f:selectItems id="typeCombo" value="#{tournamentTypes}" var="_type" itemValue="#{_type}" itemLabel="#{_type.label}"/>
-			</h:selectOneMenu>
+			</pf:selectOneMenu>
 	        <br/>
 	        
-	        <h:selectManyCheckbox value="#{tournamentHome.selectedTeeTimes}"  label="Tee Times" layout="pageDirection">
+	        <pf:selectManyCheckbox value="#{tournamentHome.selectedTeeTimes}"  label="Tee Times" layout="pageDirection">
 			    <f:selectItems id="teetimeCombo" value="#{tournamentHome.availableTeeTimes}" var="_teetime" itemValue="#{_teetime}" itemLabel="#{_teetime.course.name}"/>
 			    <f:converter for="teetimeCombo" converterId="teetimeConverter"/>
-	        </h:selectManyCheckbox>
+	        </pf:selectManyCheckbox>
 	        
-			<h:commandButton id="saveButton" action="#{tournamentHome.save}" value="Save"/>
+			<pf:commandButton id="saveButton" action="#{tournamentHome.save}" value="Save"/>
 			#{' '}
-			<h:commandButton id="cancelButton" action="#{tournamentHome.cancel}" value="Cancel" immediate="true"/>
+			<pf:commandButton id="cancelButton" action="#{tournamentHome.cancel}" value="Cancel" immediate="true"/>
 		</h:form>        
         </div>
 

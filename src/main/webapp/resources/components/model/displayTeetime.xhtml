@@ -14,7 +14,7 @@
 
     <cc:implementation>
         <p:output label="Course" value="#{cc.attrs.value.teeSet.course.name}"/>
-        <h:outputLink target="tel:" value="tel:#{cc.attrs.value.teeSet.course.facility.phone}">Call</h:outputLink>
+        <h:outputLink value="tel:#{cc.attrs.value.teeSet.course.facility.phone}">Call</h:outputLink>
         
         <div class="entry" id="dateLabel">
             <span class="label">Date:</span>

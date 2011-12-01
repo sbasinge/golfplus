@@ -26,7 +26,7 @@
         <div class="section">
 
             <div class="errors">
-                <h:messages id="messages" globalOnly="true"/>
+                <pf:messages id="messages" globalOnly="true"/>
             </div>
 			<h:form>
 				<pf:fieldset legend="Personal Info">
@@ -93,11 +93,11 @@
 				<br/>
 				<br/> 
                 <div class="buttonBox">
-                    <h:commandButton id="save" value="Save" action="#{userHome.save}"/>
+                    <pf:commandButton id="save" value="Save" action="#{userHome.save}"/>
                     #{' '}
-                    <h:commandButton id="cancel" value="Cancel" action="#{userHome.cancel}"/>
+                    <pf:commandButton id="cancel" value="Cancel" action="#{userHome.cancel}"/>
                     #{' '}
-	                <h:button id="changePassword" value="Change password" outcome="/user/password.xhtml"/>
+	                <pf:button id="changePassword" value="Change password" outcome="/user/password.xhtml"/>
                 </div>
 			</h:form>
         </div>

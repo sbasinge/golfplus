@@ -5,6 +5,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:s="http://jboss.org/seam/faces"
+                xmlns:pf="http://primefaces.org/ui"
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:p="http://http://java.sun.com/jsf/composite/components/property"
                 template="/WEB-INF/layout/template.xhtml">
@@ -26,30 +27,28 @@
         <div class="section">
           	<h:form id="scoreForm" >
 	    		<fieldset>
-			        <p:input label="Course Name" value="#{score.teeSet.course.name}">
-						<h:inputText id="input" value="#{score.teeSet.course.name}"/>
+			        <p:input label="Course Name">
+						<pf:inputText id="input" value="#{score.teeSet.course.name}"/>
 			        </p:input>
-			        <p:input label="Tees" value="#{score.teeSet.teeType}">
-						<h:selectOneMenu id="type" value="#{score.teeSet.teeType}" >
+			        <p:input label="Tees">
+						<pf:selectOneMenu id="type" value="#{score.teeSet.teeType}" >
 						    <f:selectItem itemValue="#{null}" itemLabel="Select..." noSelectionOption="true"/>
 						    <f:selectItems value="#{teeTypes}" var="_type" itemValue="#{_type}"/>
-						</h:selectOneMenu>
+						</pf:selectOneMenu>
 			        </p:input>
-			        <p:input label="Date" value="#{score.date}" >
-						<h:inputText id="input" value="#{score.date}" >
-							<f:convertDateTime type="date" pattern="MM/dd/yyyy" timeZone="#{defaultTimeZone}"/>
-						</h:inputText>
+			        <p:input label="Date" >
+			        	<pf:calendar showOn="button" value="#{score.date}" pattern="MM/dd/yyyy"/>
 			        </p:input>
-			        <p:input label="Gross Score" value="#{score.grossScore}">
-						<h:inputText id="input" value="#{score.grossScore}" />
+			        <p:input label="Gross Score">
+						<pf:inputText id="input" value="#{score.grossScore}" />
 			        </p:input>
-			        <p:input label="Net Score" value="#{score.netScore}">
-						<h:inputText id="input" value="#{score.netScore}" />
+			        <p:input label="Adjusted Score">
+						<pf:inputText id="input" value="#{score.netScore}" />
 			        </p:input>
 	    		</fieldset>
-				<h:commandButton id="saveButton" action="#{scoreHome.save}" value="Save"/>
+				<pf:commandButton id="saveButton" action="#{scoreHome.save}" value="Save"/>
 				#{' '}
-				<h:commandButton id="cancelButton" action="#{scoreHome.cancel}" value="Cancel" immediate="true"/>
+				<pf:commandButton id="cancelButton" action="#{scoreHome.cancel}" value="Cancel" immediate="true"/>
 			</h:form>            
         </div>
 
