@@ -6,9 +6,9 @@
     <loc>http://golfplus-basinc.rhcloud.com/</loc> 
   </url>
   <url> 
-    <loc>http://golfplus-basinc.rhcloud.com/home.xhtml</loc> 
+    <loc>http://golfplus-basinc.rhcloud.com/home.jsf</loc> 
   </url>
   <url> 
-    <loc>http://golfplus-basinc.rhcloud.com/user/register.xhtml</loc> 
+    <loc>http://golfplus-basinc.rhcloud.com/user/register.jsf</loc> 
   </url>
 </urlset>
