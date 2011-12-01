@@ -1,9 +1,11 @@
-User-agent: Mediapartners-Google
-Disallow: 
-
 User-agent: *
-Disallow: /search
+Disallow: /golfplus/
 Allow: /
+
+User-agent: Mediapartners-Google
+Disallow: /
+Disallow: /golfplus/
+
 
 Sitemap: http://golfplus-basinc.rhcloud.com/sitemap.xml
 
