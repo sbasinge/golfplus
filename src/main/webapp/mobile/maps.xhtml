@@ -43,8 +43,14 @@
 		
 			<!-- Main View -->
 	        <pm:view id="main" swatch="a">
-	            <pm:header title="Maps">
-	            </pm:header>
+				<pm:header title="Maps">
+					<f:facet name="left">
+						<pf:button value="Back" icon="back" outcome="main.xhtml?reverse=true" />
+					</f:facet>
+					<f:facet name="right">
+						<pf:button value="Settings" icon="gear" href="#settings" />
+					</f:facet>
+				</pm:header>
 	
 	            <pm:content>
 	                <pf:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:15em" widgetVar="gmap"/>
