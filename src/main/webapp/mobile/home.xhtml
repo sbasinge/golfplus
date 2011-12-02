@@ -10,6 +10,12 @@
                 xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/layout/mobile_template.xhtml">
 
+	<ui:define name="metadata">
+		<f:metadata>
+		    <s:viewAction action="#{mobileRedirector.redirectToLanding}" onPostback="false"/>
+		</f:metadata>
+	</ui:define>
+
     <ui:define name="content">
 	    <pm:page title="GolfPlus Mobile">
 	        <pm:view id="login" >

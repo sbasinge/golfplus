@@ -43,6 +43,9 @@ public class TeeTime extends BaseEntity {
 
 	@Column
 	private boolean notificationOn;
+
+	@Column
+	private boolean complete;
 	
 	private int numPlayers;
 	
@@ -208,5 +211,15 @@ public class TeeTime extends BaseEntity {
 			user.getTeeTimes().remove(teetime);
 			participants.remove(participant);
 		}
+	}
+
+
+	public boolean isComplete() {
+		return complete;
+	}
+
+
+	public void setComplete(boolean complete) {
+		this.complete = complete;
 	}
 }

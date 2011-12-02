@@ -6,7 +6,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2011-11-27T06:29:26.740-0500")
+@Generated(value="Dali", date="2011-12-02T13:50:32.477-0500")
 @StaticMetamodel(TeeTime.class)
 public class TeeTime_ extends BaseEntity_ {
 	public static volatile SingularAttribute<TeeTime, Date> date;
@@ -15,6 +15,7 @@ public class TeeTime_ extends BaseEntity_ {
 	public static volatile ListAttribute<TeeTime, TeeTimeParticipant> participants;
 	public static volatile SingularAttribute<TeeTime, Tournament> tournament;
 	public static volatile SingularAttribute<TeeTime, Boolean> notificationOn;
+	public static volatile SingularAttribute<TeeTime, Boolean> complete;
 	public static volatile SingularAttribute<TeeTime, Integer> numPlayers;
 	public static volatile SingularAttribute<TeeTime, User> organizer;
 }

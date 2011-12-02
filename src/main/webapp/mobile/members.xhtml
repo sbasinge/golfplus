@@ -57,10 +57,30 @@
 				<pm:content id="detailsContent">
 					<h:form id="detailsForm">
 						<pm:field>
+							<h:outputLabel value="Name: " for="name"/>
+                    		<h:outputText id="name" value="#{userHome.userSelection.name}" />
+						</pm:field>
+						<pm:field>
+							<h:outputLabel value="Handicap: " for="handicap"/>
+            				<h:outputText id="handicap" value="#{userHome.userSelection.handicap}">
+            					<f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+            				</h:outputText>
+						</pm:field>
+						<pm:field>
+							<h:outputLabel value="Email: " for="email"/>
+            				<h:outputText id="email" value="#{userHome.userSelection.email}" />
+						</pm:field>
+						<pm:field>
 							<h:outputLabel value="Telephone #: " for="phone"/>
 							<h:outputText id="phone" value="#{userHome.userSelection.phone}" />
 							<pf:spacer width="10px;"/>
-							<h:outputLink value="tel:1-#{userHome.userSelection.phone}"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
+							<h:outputLink value="tel:1-#{userHome.userSelection.phone}" rendered="#{not empty _member.phone}"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
+						</pm:field>
+						<pm:field>
+               				<h:outputLabel value="Last Round: " />
+	                        <h:outputText id="lastRound" value="#{userHome.userSelection.lastScore.date}">
+	                        	<f:convertDateTime dateStyle="short"/>
+	                        </h:outputText>
 						</pm:field>
 					</h:form>
 				</pm:content>

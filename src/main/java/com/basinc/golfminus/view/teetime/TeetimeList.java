@@ -55,6 +55,11 @@ public class TeetimeList implements Serializable {
         queryTeeTimes();
     }
 
+    @Begin
+    public void findActiveTeeTimes() {
+        queryTeeTimes();
+    }
+
     private void queryTeeTimes() {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<TeeTime> query = builder.createQuery(TeeTime.class);

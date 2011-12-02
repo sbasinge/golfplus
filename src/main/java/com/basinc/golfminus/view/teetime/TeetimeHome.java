@@ -131,4 +131,18 @@ public class TeetimeHome implements Serializable {
 		selection.setOrganizer(identity.getCurrentUser());
 		selection.setDate(Calendar.getInstance().getTime());
 	}
+
+	public void setSelection(TeeTime selection) {
+		this.selection = selection;
+	}
+
+	@Begin
+	public void setSelectionAndPopulateScores(TeeTime selection) {
+		this.selection = selection;
+		createScores();
+	}
+
+	public void getSelectionAndPopulateScores() {
+	}
+
 }

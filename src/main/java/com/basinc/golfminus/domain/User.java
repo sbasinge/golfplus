@@ -72,7 +72,7 @@ public class User implements Serializable {
     private List<ClubRole> clubRoles = new ArrayList<ClubRole>();
     
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-	@OrderBy("date")
+	@OrderBy("date desc")
     private List<Score> scores = new ArrayList<Score>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -388,5 +388,9 @@ public class User implements Serializable {
 			}
 		}
 		return retVal;
+	}
+	
+	public Score getLastScore() {
+		return getScores().size() > 0 ? getScores().get(0) : new Score();
 	}
 }
