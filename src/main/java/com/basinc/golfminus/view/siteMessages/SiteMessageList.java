@@ -59,6 +59,7 @@ public class SiteMessageList implements Serializable {
     		setMessages(results);
     	} else {
     		log.info("Not querying messages as user is not logged in.");
+//    		throw new org.jboss.seam.security.NotLoggedInException();
     	}
 	}
 

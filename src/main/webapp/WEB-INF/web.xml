@@ -33,13 +33,7 @@
 	</servlet-mapping>
  -->
  
-	<error-page>
-		<error-code>404</error-code>
-		<location>/404.xhtml</location>
-	</error-page>
-	
     <!-- Use Seam Catch for these -->
-    <!--
     <error-page>
         <exception-type>org.jboss.seam.security.NotLoggedInException</exception-type>
         <location>/home.xhtml</location>
@@ -50,9 +44,13 @@
         <location>/denied.xhtml</location>
     </error-page>
 
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.xhtml</location>
+	</error-page>
+	
     <error-page>
         <error-code>500</error-code>
         <location>/error.xhtml</location>
     </error-page>
-    -->
 </web-app>

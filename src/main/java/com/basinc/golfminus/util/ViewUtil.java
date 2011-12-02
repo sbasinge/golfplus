@@ -148,7 +148,7 @@ public class ViewUtil {
         log.info("UserAgent: {}, httpAccept: {}",userAgentStr,httpAccept);
         UAgentInfo uAgentInfo = new UAgentInfo(userAgentStr, httpAccept);
         log.info("Device detection returned: IPhone? {}, Tablet? {}",uAgentInfo.getIsTierIphone(),uAgentInfo.getIsTierTablet());
-        return uAgentInfo.getIsTierIphone() || uAgentInfo.getIsTierTablet();
+        return uAgentInfo.getIsTierIphone() || uAgentInfo.getIsTierTablet() || requestUrl.contains("/mobile/");
 	}
     	
 	private static String getRequestURL() {
