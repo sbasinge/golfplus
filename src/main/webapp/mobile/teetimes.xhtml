@@ -73,7 +73,7 @@
 					<h:form>
 				        <p:output label="Course" value="#{teetimeHome.selection.teeSet.course.name}"/>
 				        <h:outputLink value="tel:1-#{teetimeHome.selection.course.facility.phone}" title="Call" rendered="#{not empty teetimeHome.selection.course.facility.phone}"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
-                        <h:outputLink value="Get Directions" title="Directions" ><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
+                        <h:outputLink value="http://maps.google.com/?daddr=505+West+Whittier+Street,+Columbus,+OH" title="Directions" ><pf:graphicImage value="/img/driving_icon.jpg"/></h:outputLink>
 				        <div class="entry" id="dateLabel">
 				            <span class="label">Date:</span>
          						<span class="output">
