@@ -138,11 +138,14 @@ public class TeetimeHome implements Serializable {
 
 	@Begin
 	public void setSelectionAndPopulateScores(TeeTime selection) {
+		log.info("Setting selection and populating scores");
+		scores.clear();
 		this.selection = selection;
 		createScores();
 	}
 
 	public void getSelectionAndPopulateScores() {
+		log.info("Getting selection and populating scores");
 	}
 
 }
