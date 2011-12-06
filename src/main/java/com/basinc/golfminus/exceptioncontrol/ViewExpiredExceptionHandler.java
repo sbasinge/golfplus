@@ -37,7 +37,7 @@ public class ViewExpiredExceptionHandler {
         log.info("View Expired: " + event.getException().getMessage());
         try {
             messages.info(new DefaultBundleKey("view_expired")).defaults("The requested page has expired and cannot be restored.  Please start again.");
-            facesContext.getExternalContext().redirect("view_expired");
+            facesContext.getExternalContext().redirect("home.jsf");
         } catch (IOException e) {
             e.printStackTrace();
         }

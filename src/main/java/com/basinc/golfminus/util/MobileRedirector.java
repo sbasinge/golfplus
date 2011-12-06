@@ -25,5 +25,9 @@ public class MobileRedirector {
 			ViewUtil.redirect("main.jsf");
 		}
 	}
+	
+	public boolean isMobile() {
+		return ViewUtil.isMobile();
+	}
 
 }

@@ -18,6 +18,10 @@
         <pattern value="/conversation_ended"></pattern>
         <view-id>/home.jsf</view-id>
     </url-mapping>
+    <url-mapping id="session_ended">
+        <pattern value="/session_ended"></pattern>
+        <view-id>/home.jsf</view-id>
+    </url-mapping>
 
     <url-mapping id="page_not_found">
         <pattern value="page_not_found"></pattern>

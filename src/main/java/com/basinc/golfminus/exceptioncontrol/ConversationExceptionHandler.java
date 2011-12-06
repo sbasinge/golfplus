@@ -36,7 +36,7 @@ public class ConversationExceptionHandler {
         log.info("Conversation ended: " + event.getException().getMessage());
         try {
             messages.info(new DefaultBundleKey("conversation_ended")).defaults("Your transaction has timed out.  Please start again.");
-            facesContext.getExternalContext().redirect("conversation_ended");
+            facesContext.getExternalContext().redirect("home.jsf");
         } catch (IOException e) {
             e.printStackTrace();
         }

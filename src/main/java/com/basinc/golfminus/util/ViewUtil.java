@@ -151,7 +151,7 @@ public class ViewUtil {
         return uAgentInfo.getIsTierIphone() || uAgentInfo.getIsTierTablet() || requestUrl.contains("/mobile/");
 	}
     	
-	private static String getRequestURL() {
+	public static String getRequestURL() {
 
 		Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		if (request instanceof HttpServletRequest) {

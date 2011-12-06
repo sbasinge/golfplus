@@ -17,7 +17,7 @@
 	</context-param>
 
 	<session-config>
-		<session-timeout>6</session-timeout>
+		<session-timeout>15</session-timeout>
 	</session-config>
 	
 <!-- 
@@ -36,6 +36,11 @@
     <!-- Use Seam Catch for these -->
     <error-page>
         <exception-type>org.jboss.seam.security.NotLoggedInException</exception-type>
+        <location>/home.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>javax.enterprise.inject.IllegalProductException</exception-type>
         <location>/home.xhtml</location>
     </error-page>
 
