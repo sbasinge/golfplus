@@ -9,7 +9,7 @@
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:p="http://java.sun.com/jsf/composite/components/property"
                 xmlns:s="http://jboss.org/seam/faces"
-                template="/WEB-INF/layout/mobile_template.xhtml">
+                template="/WEB-INF/layout/caching_mobile_template.xhtml">
 
     <ui:define name="metadata">
         <f:metadata>
@@ -22,7 +22,7 @@
 	        <pm:view id="teetimes">
 				<pm:header title="Tee Times">
 					<f:facet name="left">
-						<pf:button value="Back" icon="back" outcome="main.xhtml?reverse=true" />
+						<pf:button value="Back" icon="back" outcome="main.xhtml" />
 					</f:facet>
 					<f:facet name="right">
 						<pf:button value="Settings" icon="gear" href="#settings" />
@@ -31,34 +31,38 @@
 	
 	            <pm:content>
 	            	<h:form>
-		                <pf:dataTable id="teetimes" value="#{teetimeList.teeTimes}" var="_teetime">
-		                    <pf:column id="nameCol">
-		                        <f:facet id="nameFct" name="header">Course</f:facet>
-		                        <h:outputText value="#{_teetime.course.name}"/>
-		                    </pf:column>
-		                    <pf:column id="dateCol">
-		                        <f:facet id="dateFct" name="header">Date</f:facet>
-		                        <h:outputText value="#{_teetime.date}" >
-									<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yyyy hh:mm a"/>
-		                        </h:outputText>
-		                    </pf:column>
-		                    <pf:column id="openSpotsCol">
-		                        <f:facet id="openSpotsFct" name="header">Open<br/>Spots</f:facet>
-		                        #{_teetime.numOpenSpots}
-		                    </pf:column>
-		                    <pf:column id="actCol">
-		                        <f:facet id="actFct" name="header">Action</f:facet>
-		                        <pf:commandLink value="View" action="pm:view" update=":view">
-									<f:setPropertyActionListener value="#{_teetime}" target="#{teetimeHome.selection}" />
-								</pf:commandLink>
-								<pf:spacer width="20"/>
-		                        <pf:commandLink value="Get ScoreCard" action="pm:scorecard" update=":scorecard">
+		                <pf:dataList id="teetimes" value="#{teetimeList.teeTimes}" var="_teetime" type="inset">
+		                    <pf:column>
+		                        <pf:commandLink action="pm:interstitial" update=":view :scorecard">
+			                    	<h:panelGrid columns="3">
+				                        <h:outputText value="#{_teetime.course.name}"/>
+				                        <h:outputText value="#{_teetime.date}" >
+											<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yyyy hh:mm a"/>
+				                        </h:outputText>
+				                        <h:outputText value="#{_teetime.numOpenSpots}"/>
+			                    	</h:panelGrid>
 									<f:setPropertyActionListener value="#{_teetime}" target="#{teetimeHome.selectionAndPopulateScores}" />
 								</pf:commandLink>
 		                    </pf:column>
-		                </pf:dataTable>
+		                </pf:dataList>
 	            	</h:form>
 	            </pm:content>
+	        </pm:view>
+	        <pm:view id="interstitial">
+				<pm:header id="interstitHeader" title="TeeTime Details">
+					<f:facet name="left">
+						<pf:button value="Back" icon="back" href="#teetimes?reverse=true" />
+					</f:facet>
+					<f:facet name="right">
+						<pf:button value="Settings" icon="gear" href="#settings" />
+					</f:facet>
+				</pm:header>
+	            <pm:content>
+	                <pf:dataList>
+	                    <h:outputLink value="#view">View Details</h:outputLink>
+	                    <h:outputLink value="#scorecard">Scorecard</h:outputLink>
+	                </pf:dataList>
+				</pm:content>			
 	        </pm:view>
 	        <pm:view id="view">
 				<pm:header id="detailHeader" title="TeeTime Details">

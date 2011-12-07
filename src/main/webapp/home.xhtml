@@ -5,10 +5,11 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:pf="http://primefaces.org/ui"
+				xmlns:pretty="http://ocpsoft.com/prettyfaces"
                 xmlns:p="http://java.sun.com/jsf/composite/components/property"
                 xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/layout/template.xhtml">
-
+ 
 	<ui:define name="metadata">
 		<f:metadata>
 		    <s:viewAction action="#{clubList.find}"/>
@@ -22,13 +23,13 @@
     <ui:define name="content">
         <div class="section">
 
-            <h1>#{msg.home_header}</h1>
+            <h1><h:outputText value="#{msg.home_header}"/><pf:spacer width="20"/><h:commandButton value="Go Mobile!"><pretty:location mappingId="mobileHome"/></h:commandButton> </h1>
 
             <p>#{msg.home_body}</p>
 
             <p>#{msg.home_note}</p>
             
-			<h:form id="webfeed" rendered="#{identity.clubSelected and identity.loggedIn and not empty currentClub.rssFeedUrl}">
+			<h:form id="webfeed" rendered="#{not empty identity.selectedClub}">
 				<pf:feedReader value="#{currentClub.rssFeedUrl}" var="feed" size="2">  
 				    <h:outputText value="#{feed.title}" style="font-weight: bold"/>  
 				    <br />  

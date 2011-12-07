@@ -74,7 +74,8 @@ public class ClubList implements Serializable {
 	public void populateClub() {
 		if (getClubName() != null) {
 			Club chosenClub = entityManager.createNamedQuery("findClubByName",Club.class).setParameter("name", getClubName()).getSingleResult();
-			identity.setSelectedClub(chosenClub);
+			if (chosenClub != null)
+				identity.setSelectedClub(chosenClub);
 		}
 	}
 

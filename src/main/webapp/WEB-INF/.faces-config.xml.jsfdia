@@ -37,16 +37,6 @@
     TARGET="rules:#teetimes#teetimeList.xhtml"
     TITLE="#{teetimeHome.save}:[any]" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
-    ID=":#{teetimeHome.saveScores}:#teetimes#teetimeList.xhtml"
-    NAME="output8" PATH="/teetimes/teetimeList.xhtml"
-    TARGET="rules:#teetimes#teetimeList.xhtml"
-    TITLE="#{teetimeHome.saveScores}:[any]" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID=":#{teetimeHome.cancel}:#teetimes#teetimeList.xhtml"
-    NAME="output9" PATH="/teetimes/teetimeList.xhtml"
-    TARGET="rules:#teetimes#teetimeList.xhtml"
-    TITLE="#{teetimeHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
     ID=":#{tournamentHome.save}:#tournaments#tournamentList.xhtml"
     NAME="output10" PATH="/tournaments/tournamentList.xhtml"
     TARGET="rules:#tournaments#tournamentList.xhtml"
@@ -183,6 +173,49 @@
    <PROCESS-ITEM-OUTPUT ID=":#{identity.logout}:#mobile#home.xhtml"
     NAME="output" PATH="/mobile/home.xhtml"
     TARGET="rules:#mobile#home.xhtml" TITLE="#{identity.logout}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#teetimes#teetimeScores.xhtml"
+  PATH="/teetimes/teetimeScores.xhtml" SHAPE="80,1441,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#teetimes#teetimeScores.xhtml:0" NAME="item"
+   PATH="/teetimes/teetimeScores.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeHome.saveScores}:#teetimes#teetimeList.xhtml"
+    NAME="output" PATH="/teetimes/teetimeList.xhtml"
+    TARGET="rules:#teetimes#teetimeList.xhtml"
+    TITLE="#{teetimeHome.saveScores}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeHome.cancel}:#teetimes#teetimeList.xhtml"
+    NAME="output1" PATH="/teetimes/teetimeList.xhtml"
+    TARGET="rules:#teetimes#teetimeList.xhtml"
+    TITLE="#{teetimeHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#mobile#teetimes.xhtml"
+  PATH="/mobile/teetimes.xhtml" SHAPE="96,1441,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#mobile#teetimes.xhtml:0" NAME="item"
+   PATH="/mobile/teetimes.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeHome.saveScores}:#mobile#teetimes.xhtml" NAME="output"
+    PATH="/mobile/teetimes.xhtml" TARGET="rules:#mobile#teetimes.xhtml"
+    TITLE="#{teetimeHome.saveScores}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeHome.cancel}:#mobile#teetimes.xhtml" NAME="output1"
+    PATH="/mobile/teetimes.xhtml" TARGET="rules:#mobile#teetimes.xhtml"
+    TITLE="#{teetimeHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#mobile#teetimes.xhtml:1" NAME="item1"
+   PATH="/mobile/teetimes.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeHome.saveScores}:#teetimes#teetimeList.xhtml"
+    NAME="output" PATH="/teetimes/teetimeList.xhtml"
+    TARGET="rules:#teetimes#teetimeList.xhtml"
+    TITLE="#{teetimeHome.saveScores}:[any]" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{teetimeHome.cancel}:#teetimes#teetimeList.xhtml"
+    NAME="output1" PATH="/teetimes/teetimeList.xhtml"
+    TARGET="rules:#teetimes#teetimeList.xhtml"
+    TITLE="#{teetimeHome.cancel}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>

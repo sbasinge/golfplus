@@ -8,7 +8,7 @@
                 xmlns:pm="http://primefaces.org/mobile"
                 xmlns:p="http://java.sun.com/jsf/composite/components/property"
                 xmlns:s="http://jboss.org/seam/faces"
-                template="/WEB-INF/layout/mobile_template.xhtml">
+                template="/WEB-INF/layout/caching_mobile_template.xhtml">
 
     <ui:define name="metadata">
         <f:metadata>
@@ -17,8 +17,8 @@
     </ui:define>
 
     <ui:define name="content">
-	    <pm:page title="GolfPlus Members">
-	        <pm:view id="members">
+	    <pm:page title="GolfPlus Members" viewport="content='width=device-width, initial-scale=1'">
+	        <pm:view id="members" swatch="c">
 				<pm:header title="Members">
 					<f:facet name="left">
 						<pf:button value="Back" icon="back" outcome="main.xhtml?reverse=true" />
@@ -30,23 +30,22 @@
 	
 	            <pm:content>
 	                <h:form id="memberListForm">
-	                    <pf:dataGrid id="memberListFormList" value="#{userList.users}" var="_member" columns="3">
+	                	<pf:dataList id="memberListFormList2" value="#{userList.users}" var="_member" type="inset">
 	                    	<pf:column>
-	                    		<h:panelGrid columns="2" style="width:100%"> 
-		                    		<h:outputText value="#{_member.name}" />
-		            				<h:outputText value="#{_member.handicap}" />
-									<pf:commandLink value="Details" action="pm:details" update=":details">
+									<pf:commandLink action="pm:details" update=":details">
+			                    		<h:panelGrid columns="2" style="width:100%"> 
+				                    		<h:outputText value="#{_member.name}" />
+				            				<h:outputText value="#{_member.handicap}" />
+										</h:panelGrid>										
 										<f:setPropertyActionListener value="#{_member}" target="#{userHome.userSelection}" />
 									</pf:commandLink>
-		                            <h:outputLink value="tel:1-#{_member.phone}" title="Call" rendered="#{not empty _member.phone}"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
-	                    		</h:panelGrid>
-	                    	</pf:column>
-	                    </pf:dataGrid>
+							</pf:column>
+	                	</pf:dataList>
 	                </h:form>
 	            </pm:content>
 	        </pm:view>
 	        <pm:view id="details">
-				<pm:header id="detailHeader" title="Member Details: #{userHome.userSelection.name}">
+				<pm:header id="detailHeader" title="Member Details">
 					<f:facet name="left">
 						<pf:button value="Back" icon="back" href="#members?reverse=true" />
 					</f:facet>
@@ -73,8 +72,7 @@
 						<pm:field>
 							<h:outputLabel value="Telephone #: " for="phone"/>
 							<h:outputText id="phone" value="#{userHome.userSelection.phone}" />
-							<pf:spacer width="10px;"/>
-							<h:outputLink value="tel:1-#{userHome.userSelection.phone}" rendered="#{not empty _member.phone}"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
+							<h:outputLink value="tel:1-#{userHome.userSelection.phone}" rendered="#{not empty userHome.userSelection.phone}"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
 						</pm:field>
 						<pm:field>
                				<h:outputLabel value="Last Round: " />

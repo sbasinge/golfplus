@@ -1,0 +1,17 @@
+CACHE MANIFEST
+# version 0.0.0.3
+
+CACHE:
+../favicon.ico
+../images/jbosscorp_logo.png
+../img/bg03.png
+../img/input.bg.gif
+../img/btn.bg.gold.png
+../img/hdr.bg.png
+../img/golf01.jpg
+../img/div.bg.png
+../img/call-icon.jpg
+../img/driving_icon.jpg
+
+NETWORK:
+*

@@ -7,6 +7,7 @@
       xmlns:s="http://jboss.org/seam/faces"
       xmlns:pf="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
+      
 <f:view>
     <ui:insert name="metadata"/>
     
@@ -15,6 +16,7 @@
         <title>#{msg.template_title}</title>
         <meta name="description=" content="#{msg.home_body}"/>
         <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico"/>
+		<meta http-equiv="Cache-Control" content="must-revalidate"/>
 
         <h:outputStylesheet library="css" name="golfplus.css"/>
         <ui:insert name="head"/>

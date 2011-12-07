@@ -79,18 +79,6 @@
 			<redirect />
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{teetimeHome.saveScores}</from-action>
-			<if>#{true}</if>
-			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{teetimeHome.cancel}</from-action>
-			<if>#{true}</if>
-			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
 			<from-action>#{tournamentHome.save}</from-action>
 			<if>#{true}</if>
 			<to-view-id>/tournaments/tournamentList.xhtml</to-view-id>
@@ -169,6 +157,54 @@
 			<redirect />
 		</navigation-case>
 
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/teetimes/teetimeScores.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{teetimeHome.saveScores}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{teetimeHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/mobile/teetimes.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{teetimeHome.saveScores}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/mobile/teetimes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{teetimeHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/mobile/teetimes.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/mobile/teetimes.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{teetimeHome.saveScores}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{teetimeHome.cancel}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/teetimes/teetimeList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
