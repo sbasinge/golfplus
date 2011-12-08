@@ -161,4 +161,14 @@ public class ViewUtil {
 		}
 	}
 
+	public static HttpServletRequest getRequest() {
+
+		Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		if (request instanceof HttpServletRequest) {
+			return ((HttpServletRequest) request);
+		} else {
+			return null;
+		}
+	}
+
 }

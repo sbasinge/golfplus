@@ -38,7 +38,6 @@
         <view-id>/home.jsf</view-id>
     </url-mapping>
 
-<!-- 
     <url-mapping id="clubLogin">
         <pattern value="/#{ clubName }/login"></pattern>
         <view-id>/home.jsf</view-id>
@@ -55,7 +54,6 @@
         <pattern value="/register/#{ clubName }"></pattern>
         <view-id>/user/register.jsf</view-id>
     </url-mapping>
- -->
 
     <url-mapping id="register">
         <pattern value="/register"></pattern>

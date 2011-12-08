@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.enterprise.inject.IllegalProductException;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.exception.control.CaughtException;
@@ -27,11 +28,11 @@ public class NoSessionExceptionHandler {
      * @param log
      */
     public void illegalProducerExceptionHandler(@Handles CaughtException<IllegalProductException> event, Logger log) {
-    	String requestUrl = ViewUtil.getRequestURL();
-        log.info("Session ended: " + requestUrl);
+    	HttpServletRequest request = ViewUtil.getRequest();
+        log.info("Session ended: " + request.getContextPath()+request.getRequestURL());
         try {
             messages.error(new DefaultBundleKey("session_ended")).defaults("Your session has timed out.  Please login again.");
-            facesContext.getExternalContext().redirect("/home.jsf");
+            facesContext.getExternalContext().redirect(request.getContextPath()+"/home.jsf");
         } catch (IOException e) {
             e.printStackTrace();
         }

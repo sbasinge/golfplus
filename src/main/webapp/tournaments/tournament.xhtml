@@ -4,6 +4,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pf="http://primefaces.org/ui"
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:s="http://jboss.org/seam/faces"
                 template="/WEB-INF/layout/template.xhtml">
@@ -24,14 +25,14 @@
         </div>
 
         <div class="section">
-        	<h:dataTable id="leaderboardTable" value="#{tournamentHome.playerScores}" var="_playerScores" rendered="#{not empty tournamentHome.playerScores}">
-        		<h:column id="nameCol">
+        	<pf:dataTable id="leaderboardTable" value="#{tournamentHome.playerScores}" var="_playerScores" rendered="#{not empty tournamentHome.playerScores}">
+        		<pf:column id="nameCol">
 				    <f:facet id="nameFct" name="header">
 				    	<h:outputText value="Player" />
 				    </f:facet>
 				    <h:outputText value="${_playerScores.user.name}"/>
-				</h:column>
-				<h:column id="day1Col" rendered="#{tournament.numTeeTimes > 0}">
+				</pf:column>
+				<pf:column id="day1Col" rendered="#{tournament.numTeeTimes > 0}">
 				    <f:facet id="nameFct" name="header">
 				    	<h:outputText value="#{tournament.teeTimes.get(0).date}">
 				    		<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yy"/>
@@ -54,8 +55,8 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0" />
 				    </h:outputText>
 				    <h:outputText value=")" />
-				</h:column>
-				<h:column id="day2Col" rendered="#{tournament.numTeeTimes > 1}">
+				</pf:column>
+				<pf:column id="day2Col" rendered="#{tournament.numTeeTimes > 1}">
 				    <f:facet id="nameFct" name="header">
 				    	<h:outputText value="#{tournament.teeTimes.get(1).date}">
 				    		<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yy"/>
@@ -78,8 +79,8 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=")" />
-				</h:column>
-				<h:column id="day3Col" rendered="#{tournament.numTeeTimes > 2}">
+				</pf:column>
+				<pf:column id="day3Col" rendered="#{tournament.numTeeTimes > 2}">
 				    <f:facet id="nameFct" name="header">
 				    	<h:outputText value="#{tournament.teeTimes.get(2).date}" />
 				    </f:facet>
@@ -100,8 +101,8 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=")" />
-				</h:column>
-				<h:column id="day4Col" rendered="#{tournament.numTeeTimes > 3}">
+				</pf:column>
+				<pf:column id="day4Col" rendered="#{tournament.numTeeTimes > 3}">
 				    <f:facet id="nameFct" name="header">
 				    	<h:outputText value="#{tournament.teeTimes.get(3).date}">
 				    		<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yy"/>
@@ -124,8 +125,8 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=")" />
-				</h:column>
-				<h:column id="day5Col" rendered="#{tournament.numTeeTimes > 4}">
+				</pf:column>
+				<pf:column id="day5Col" rendered="#{tournament.numTeeTimes > 4}">
 				    <f:facet id="nameFct" name="header">
 				    	<h:outputText value="#{tournament.teeTimes.get(4).date}">
 				    		<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yy"/>
@@ -148,8 +149,8 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=")" />
-				</h:column>
-				<h:column id="day6Col" rendered="#{tournament.numTeeTimes > 5}">
+				</pf:column>
+				<pf:column id="day6Col" rendered="#{tournament.numTeeTimes > 5}">
 				    <f:facet id="nameFct" name="header">
 				    	<h:outputText value="#{tournament.teeTimes.get(5).date}">
 				    		<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yy"/>
@@ -172,14 +173,14 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=")" />
-				</h:column>
-				<h:column id="totalCol" >
+				</pf:column>
+				<pf:column id="totalCol" sortBy="#{_playerScores.total}">
 				    <f:facet id="nameFct" name="header">
 				    	<h:outputText value="Total" />
 				    </f:facet>
 				    <h:outputText value="#{_playerScores.total}"/>
-				</h:column>
-			</h:dataTable>
+				</pf:column>
+			</pf:dataTable>
         </div>
 
     </ui:define>
