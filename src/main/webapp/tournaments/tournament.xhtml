@@ -46,7 +46,7 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=" = " />
-				    <h:outputText value="${_playerScores.playerScores.get(0).adjustedScore}">
+				    <h:outputText value="${_playerScores.playerScores.get(0).netScore}">
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value="   (" />
@@ -70,7 +70,7 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=" = " />
-				    <h:outputText value="${_playerScores.playerScores.get(1).adjustedScore}">
+				    <h:outputText value="${_playerScores.playerScores.get(1).netScore}">
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value="   (+" rendered="#{_playerScores.playerScores.get(1).scoreToPar ge 0}"/>
@@ -82,7 +82,9 @@
 				</pf:column>
 				<pf:column id="day3Col" rendered="#{tournament.numTeeTimes > 2}">
 				    <f:facet id="nameFct" name="header">
-				    	<h:outputText value="#{tournament.teeTimes.get(2).date}" />
+				    	<h:outputText value="#{tournament.teeTimes.get(2).date}">
+				    		<f:convertDateTime timeZone="#{defaultTimeZone}" pattern="MM/dd/yy"/>
+				    	</h:outputText>
 				    </f:facet>
 				    <h:outputText value="${_playerScores.playerScores.get(2).score.grossScore}">
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
@@ -92,7 +94,7 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=" = " />
-				    <h:outputText value="${_playerScores.playerScores.get(2).adjustedScore}">
+				    <h:outputText value="${_playerScores.playerScores.get(2).netScore}">
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value="   (+" rendered="#{_playerScores.playerScores.get(2).scoreToPar ge 0}"/>
@@ -116,7 +118,7 @@
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value=" = " />
-				    <h:outputText value="${_playerScores.playerScores.get(3).adjustedScore}">
+				    <h:outputText value="${_playerScores.playerScores.get(3).netScore}">
 				    	<f:convertNumber minFractionDigits="0" maxFractionDigits="0"/>
 				    </h:outputText>
 				    <h:outputText value="   (+" rendered="#{_playerScores.playerScores.get(3).scoreToPar ge 0}"/>
