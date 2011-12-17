@@ -44,7 +44,7 @@ public class Score extends BaseEntity {
 
     @Column
     @NotNull
-	private Integer netScore;
+	private Integer adjustedScore;
 	
     private boolean counter = false;
     
@@ -55,7 +55,7 @@ public class Score extends BaseEntity {
 		this.teeSet = teeSet;
 		this.date = Constants.DATE_FORMAT.parse(dateStr);
 		this.grossScore = grossScore;
-		this.netScore = netScore;
+		this.adjustedScore = netScore;
 		teeSet.addScore(this);
 	}
 	
@@ -92,11 +92,11 @@ public class Score extends BaseEntity {
 		this.grossScore = grossScore;
 	}
 
-	public Integer getNetScore() {
-		return netScore;
+	public Integer getAdjustedScore() {
+		return adjustedScore;
 	}
-	public void setNetScore(Integer netScore) {
-		this.netScore = netScore;
+	public void setAdjustedScore(Integer netScore) {
+		this.adjustedScore = netScore;
 	}
 
 	public TeeSet getTeeSet() {
@@ -109,7 +109,7 @@ public class Score extends BaseEntity {
 	
 	@Transient
 	public double getDifferential() {
-		BigDecimal temp = new BigDecimal(((getNetScore()-getTeeSet().getCourseRating())*113)/getTeeSet().getSlopeRating()).setScale(1,BigDecimal.ROUND_HALF_UP);
+		BigDecimal temp = new BigDecimal(((getAdjustedScore()-getTeeSet().getCourseRating())*113)/getTeeSet().getSlopeRating()).setScale(1,BigDecimal.ROUND_HALF_UP);
 		return temp.doubleValue();
 	}
 
@@ -132,7 +132,7 @@ public class Score extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Score [teeSet=" + teeSet + ", date=" + date + ", user=" + user + ", teeTime=" + teeTime + ", grossScore=" + grossScore
-				+ ", netScore=" + netScore + ", counter=" + counter + "]";
+				+ ", netScore=" + adjustedScore + ", counter=" + counter + "]";
 	}
 	
 }

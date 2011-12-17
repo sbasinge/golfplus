@@ -90,7 +90,7 @@ public class TeeTimeParticipant extends BaseEntity {
 		}
 		score.setDate(getTeetime().getDate());
 		score.setGrossScore(grossScore);
-		score.setNetScore(netScore);
+		score.setAdjustedScore(netScore);
 		score.setTeeTime(getTeetime());
 		score.setTeeSet(getTeetime().getTeeSet());
 		score.setUser(getUser());

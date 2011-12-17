@@ -108,7 +108,7 @@ public class TeetimeHome implements Serializable {
     		if (participant.getScore() != null) {
     			score.setUser(participant.getUser());
     			score.setGrossScore(participant.getScore().getGrossScore());
-    			score.setNetScore(participant.getScore().getNetScore());
+    			score.setNetScore(participant.getScore().getAdjustedScore());
         		log.info("Player {} already has a score.",participant.getUser().getName());
     		} else {
     			score.setUser(participant.getUser());

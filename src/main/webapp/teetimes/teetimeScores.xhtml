@@ -44,9 +44,9 @@
 	                <f:facet id="grossScoreFct" name="header">Gross Score</f:facet>
 					<h:inputText value="#{_score.grossScore}" />
 	            </pf:column>
-	            <pf:column id="netScoreCol">
-	                <f:facet id="netScoreFct" name="header">Adjusted Score</f:facet>
-					<h:inputText value="#{_score.netScore}" />
+	            <pf:column id="adjustedScoreCol">
+	                <f:facet id="adjustedScoreFct" name="header">Adjusted Score</f:facet>
+					<h:inputText value="#{_score.adjustedScore}" />
 	            </pf:column>
 	        </pf:dataTable>
 			<h:commandButton id="saveButton" action="#{teetimeHome.saveScores}" value="Save" />
