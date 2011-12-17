@@ -5,6 +5,7 @@ import java.math.MathContext;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -15,8 +16,11 @@ import org.jboss.solder.core.Veto;
 @JsonIgnoreProperties({ "teetime" })
 public class TeeTimeParticipant extends BaseEntity {
 
-	@OneToOne private TeeTime teetime;
-	@OneToOne private User user;
+	@ManyToOne
+	private TeeTime teetime;
+	
+	@ManyToOne private User user;
+	
 	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true) private Score score;
 	
 	private BigDecimal courseIndex;

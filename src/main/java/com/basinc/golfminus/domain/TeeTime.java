@@ -32,7 +32,7 @@ public class TeeTime extends BaseEntity {
 	@ManyToOne
 	private TeeSet teeSet;
 	
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="teetime")
 	private List<TeeTimeParticipant> participants = new ArrayList<TeeTimeParticipant>();
 
 //	@OneToMany(cascade=CascadeType.ALL,mappedBy="teeTime")
@@ -65,7 +65,7 @@ public class TeeTime extends BaseEntity {
 		for (User user : players) {
 			TeeTimeParticipant participant = new TeeTimeParticipant(this, user);
 			getParticipants().add(participant);
-			user.getTeeTimes().add(this);
+//			user.getTeeTimes().add(this);
 		}
 
 	}
@@ -103,7 +103,7 @@ public class TeeTime extends BaseEntity {
 	public void signUp(User user) {
 		if (participants.size() < numPlayers) {
 			participants.add(new TeeTimeParticipant(this,user));
-			user.getTeeTimes().add(this);
+//			user.getTeeTimes().add(this);
 		} else {
 			throw new IllegalStateException("All available spots are taken.");
 		}
@@ -208,7 +208,7 @@ public class TeeTime extends BaseEntity {
 		}
 		if (participant != null) {
 			TeeTime teetime = participant.getTeetime();
-			user.getTeeTimes().remove(teetime);
+//			user.getTeeTimes().remove(teetime);
 			participants.remove(participant);
 		}
 	}

@@ -33,10 +33,10 @@ public class Club extends BaseEntity {
 	public Club() {};
 	public Club(String name) {this.name=name;}
 	
-    @ManyToMany
+    @ManyToMany(mappedBy="clubs")
     private List<User> members = new ArrayList<User>();
 
-    @OneToMany(cascade={CascadeType.ALL})
+    @OneToMany(cascade={CascadeType.ALL}, mappedBy="club")
     private List<MembershipRequest> membershipRequests = new ArrayList<MembershipRequest>();
 
 //    @OneToMany(cascade={CascadeType.ALL})

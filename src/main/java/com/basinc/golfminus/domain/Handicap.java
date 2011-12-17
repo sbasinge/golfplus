@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,9 @@ import org.jboss.solder.core.Veto;
 @Veto
 public class Handicap extends BaseEntity {
 
+	@ManyToOne
+	private User user;
+	
     @NotNull
 	@Column
 	private BigDecimal handicap;
@@ -49,5 +53,13 @@ public class Handicap extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Handicap [handicap=" + handicap + ", date=" + date + "]";
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

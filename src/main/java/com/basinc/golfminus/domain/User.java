@@ -65,7 +65,7 @@ public class User implements Serializable {
     @ManyToMany
     private List<Club> clubs = new ArrayList<Club>();
 
-    @OneToMany
+    @OneToMany(mappedBy="user")
     private List<MembershipRequest> membershipRequests = new ArrayList<MembershipRequest>();
 
     @ManyToMany
@@ -75,12 +75,9 @@ public class User implements Serializable {
 	@OrderBy("date desc")
     private List<Score> scores = new ArrayList<Score>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="user")
     @OrderBy("date DESC")
     private List<Handicap> handicapHistory = new ArrayList<Handicap>();
-
-	@ManyToMany
-    private List<TeeTime> teeTimes = new ArrayList<TeeTime>();
 
 	@OneToOne(cascade=CascadeType.ALL)
 	private NotificationPreference newMemberShipNotificationType = new NotificationPreference();
@@ -235,7 +232,9 @@ public class User implements Serializable {
 				score.setCounter(true);
 			}
 			handicap = new BigDecimal((totalDifferential / scoresToUse)*0.96).setScale(1,BigDecimal.ROUND_DOWN);
-			getHandicapHistory().add(new Handicap(handicap, Calendar.getInstance().getTime()));
+			Handicap newHandicap = new Handicap(handicap, Calendar.getInstance().getTime());
+			newHandicap.setUser(this);
+			getHandicapHistory().add(newHandicap);
 			handicapCalculated = true;
 		}
 		return handicapCalculated;
@@ -337,13 +336,13 @@ public class User implements Serializable {
 		return retVal;
 	}
 
-	public List<TeeTime> getTeeTimes() {
-		return teeTimes;
-	}
-
-	public void setTeeTimes(List<TeeTime> teeTimes) {
-		this.teeTimes = teeTimes;
-	}
+//	public List<TeeTime> getTeeTimes() {
+//		return teeTimes;
+//	}
+//
+//	public void setTeeTimes(List<TeeTime> teeTimes) {
+//		this.teeTimes = teeTimes;
+//	}
 
 	public NotificationPreference getNewMemberShipNotificationType() {
 		return newMemberShipNotificationType;
