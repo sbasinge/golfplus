@@ -14,4 +14,4 @@ CACHE:
 ../img/driving_icon.jpg
 
 NETWORK:
-*
+*.jsf

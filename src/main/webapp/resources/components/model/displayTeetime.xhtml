@@ -15,6 +15,7 @@
     <cc:implementation>
         <p:output label="Course" value="#{cc.attrs.value.teeSet.course.name}"/>
         <h:outputLink value="tel:#{cc.attrs.value.teeSet.course.facility.phone}">Call</h:outputLink>
+        <h:outputLink value="http://maps.google.com/?daddr=#{teetimeHome.selection.course.facility.address.addressLine1},+#{teetimeHome.selection.course.facility.address.city},+#{teetimeHome.selection.course.facility.address.state}" title="Directions" rendered="#{not empty teetimeHome.selection.course.facility.address}"><pf:graphicImage value="/img/driving_icon.jpg"/></h:outputLink>
         
         <div class="entry" id="dateLabel">
             <span class="label">Date:</span>

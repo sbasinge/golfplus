@@ -9,7 +9,7 @@
                 xmlns:m="http://java.sun.com/jsf/composite/components/model"
                 xmlns:p="http://java.sun.com/jsf/composite/components/property"
                 xmlns:s="http://jboss.org/seam/faces"
-                template="/WEB-INF/layout/caching_mobile_template.xhtml">
+                template="/WEB-INF/layout/mobile_template.xhtml">
 
     <ui:define name="metadata">
         <f:metadata>
@@ -77,7 +77,7 @@
 					<h:form>
 				        <p:output label="Course" value="#{teetimeHome.selection.teeSet.course.name}"/>
 				        <h:outputLink value="tel:1-#{teetimeHome.selection.course.facility.phone}" title="Call" rendered="#{not empty teetimeHome.selection.course.facility.phone}"><pf:graphicImage value="/img/call-icon-24.png"/></h:outputLink>
-                        <h:outputLink value="http://maps.google.com/?daddr=505+West+Whittier+Street,+Columbus,+OH" title="Directions" ><pf:graphicImage value="/img/driving_icon.jpg"/></h:outputLink>
+                        <h:outputLink value="http://maps.google.com/?daddr=#{teetimeHome.selection.course.facility.address.addressLine1},+#{teetimeHome.selection.course.facility.address.city},+#{teetimeHome.selection.course.facility.address.state}" title="Directions" rendered="#{not empty teetimeHome.selection.course.facility.address}"><pf:graphicImage value="/img/driving_icon.jpg"/></h:outputLink>
 				        <div class="entry" id="dateLabel">
 				            <span class="label">Date:</span>
          						<span class="output">
