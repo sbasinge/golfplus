@@ -80,10 +80,10 @@ public class TeetimeHome implements Serializable {
     public void saveScores() {
     	//move scores to the teetime participants
     	for (EnteredScore score : scores) {
-    		if (score.getUser()!=null && score.getGrossScore()!=null&&score.getNetScore()!=null&&score.getGrossScore()>0&&score.getNetScore()>0) {
+    		if (score.getUser()!=null && score.getGrossScore()!=null&&score.getAdjustedScore()!=null&&score.getGrossScore()>0&&score.getAdjustedScore()>0) {
     			for (TeeTimeParticipant participant : selection.getParticipants()) {
     				if (score.getUser().equals(participant.getUser())) {
-    					participant.addScore(score.getGrossScore(), score.getNetScore());
+    					participant.addScore(score.getGrossScore(), score.getAdjustedScore());
     					//    		scoreUpdatedEventSrc.fire(participant.getScore());
     					break;
     				}
@@ -108,7 +108,7 @@ public class TeetimeHome implements Serializable {
     		if (participant.getScore() != null) {
     			score.setUser(participant.getUser());
     			score.setGrossScore(participant.getScore().getGrossScore());
-    			score.setNetScore(participant.getScore().getAdjustedScore());
+    			score.setAdjustedScore(participant.getScore().getAdjustedScore());
         		log.info("Player {} already has a score.",participant.getUser().getName());
     		} else {
     			score.setUser(participant.getUser());

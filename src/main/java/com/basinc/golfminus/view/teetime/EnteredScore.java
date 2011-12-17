@@ -6,7 +6,7 @@ public class EnteredScore {
 
 	private User user;
 	private Integer grossScore;
-	private Integer netScore;
+	private Integer adjustedScore;
 	
 	public EnteredScore() {};
 	public EnteredScore(User user) {
@@ -25,10 +25,10 @@ public class EnteredScore {
 	public void setGrossScore(Integer grossScore) {
 		this.grossScore = grossScore;
 	}
-	public Integer getNetScore() {
-		return netScore;
+	public Integer getAdjustedScore() {
+		return adjustedScore;
 	}
-	public void setNetScore(Integer netScore) {
-		this.netScore = netScore;
+	public void setAdjustedScore(Integer netScore) {
+		this.adjustedScore = netScore;
 	}
 }
