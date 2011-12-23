@@ -9,7 +9,7 @@
 	<!-- Set project stage to Production for production deployments!! Production mode also allows all exceptions to propagate to Seam Catch -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
+		<param-value>Production</param-value>
 	</context-param>
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
