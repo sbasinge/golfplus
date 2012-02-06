@@ -39,6 +39,7 @@ public class ConfirmPasswordValidator implements Validator {
     @Inject
     private BundleTemplateMessage messageBuilder;
 
+
     @Inject
     @InputField
     private String password;
