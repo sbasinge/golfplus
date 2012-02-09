@@ -16,7 +16,7 @@
 		<primefaces.version>3.0.RC2</primefaces.version>
 		<primefaces.mobile.version>1.0-SNAPSHOT</primefaces.mobile.version>
 	</properties>
-
+ 
 	<repositories>
 		<repository>
 			<id>prime-repo</id>
