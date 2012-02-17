@@ -112,7 +112,7 @@
 
 
    <category name="com.basinc">
-     <priority value="ALL" />
+     <priority value="INFO" />
    </category>
 
 
