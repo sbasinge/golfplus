@@ -47,7 +47,8 @@ public class CourseHome implements Serializable {
     private List<TeeSet> teeSets = new ArrayList<TeeSet>();
     
     @Begin(timeout=300000)
-    public void selectCourse(final Integer id) {
+    public void selectCourse(final String idStr) {
+    	Integer id = Integer.parseInt(idStr);
         // NOTE get a fresh reference that's managed by the extended persistence context
     	selection = entityManager.find(Course.class, id.intValue());
     	populateTeeSets();

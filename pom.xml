@@ -169,7 +169,7 @@
 				<executions>
 					<execution>
 						<id>deploy-driver</id>
-						<phase>packagexxxxx</phase>
+						<phase>package</phase>
 						<configuration>
 							<groupId>mysql</groupId>
 							<artifactId>mysql-connector-java</artifactId>

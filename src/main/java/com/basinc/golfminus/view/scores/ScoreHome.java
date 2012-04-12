@@ -45,7 +45,9 @@ public class ScoreHome implements Serializable {
 	private Score scoreSelection;
 
 	@Begin(timeout = 300000)
-	public void selectScore(final Integer id) {
+	public void selectScore(final String idStr) {
+    	Integer id = Integer.parseInt(idStr);
+
 		log.info("selecting score " + id);
 
 		// NOTE get a fresh reference that's managed by the extended persistence

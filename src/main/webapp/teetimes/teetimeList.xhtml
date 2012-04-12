@@ -31,7 +31,7 @@
            	<pf:commandButton value="New Tee Time" action="#{teetimeList.addTeeTime}" immediate="false" process="@this"/>
 	        <h:panelGroup id="searchResults">
 	            <div class="section">
-	                <pf:dataTable id="teetimes" value="#{teetimeList.teeTimes}" var="_teetime" paginator="true" rows="10" lazy="false"
+	                <pf:dataTable id="teetimes" value="#{teetimeList.teeTimes}" var="_teetime" paginator="true" rows="10" 
 	                            paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
                     			rowsPerPageTemplate="5,10,15,20,25" paginatorPosition="bottom"
 								columnClasses=",,,,action">
