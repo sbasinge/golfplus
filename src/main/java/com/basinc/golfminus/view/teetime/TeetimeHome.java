@@ -57,7 +57,9 @@ public class TeetimeHome implements Serializable {
     private List<EnteredScore> scores = new ArrayList<EnteredScore>();
     
     @Begin
-    public void selectTeetime(final Integer id) {
+    public void selectTeetime(final String idStr) {
+    	Integer id = Integer.parseInt(idStr);
+
         // NOTE get a fresh reference that's managed by the extended persistence context
     	selection = entityManager.find(TeeTime.class, id.intValue());
     }

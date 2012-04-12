@@ -52,7 +52,8 @@ public class ClubHome implements Serializable  {
     private Club clubSelection;
     
     @Begin(timeout=600000)
-    public void selectClub(final Integer id) {
+    public void selectClub(final String idStr) {
+    	Integer id = Integer.parseInt(idStr);
     	log.info("Selecting club ...."+id);
         // NOTE get a fresh reference that's managed by the extended persistence context
         clubSelection = entityManager.find(Club.class, id.intValue());

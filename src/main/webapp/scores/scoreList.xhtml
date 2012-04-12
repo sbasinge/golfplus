@@ -32,7 +32,7 @@
 	    	
 	    	<br/>
 	        <h:panelGroup id="searchResults">
-                <pf:dataTable id="scoresTable" value="#{scoreList.scores}" var="_score" paginator="true" rows="10" lazy="false"
+                <pf:dataTable id="scoresTable" value="#{scoreList.scores}" var="_score" paginator="true" rows="10" 
                     	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
                     	rowsPerPageTemplate="5,10,15,20,25" paginatorPosition="bottom"
 						columnClasses=",,,,,,,,action" rowStyleClass="#{_score.counter ? 'counter' : null}">

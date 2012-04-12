@@ -16,7 +16,7 @@
     <cc:implementation>
         <h:panelGroup id="scoreList">
             <div class="section">
-                <pf:dataTable id="scores" value="#{cc.attrs.value}" var="_score" paginator="true" rows="10" lazy="false"
+                <pf:dataTable id="scores" value="#{cc.attrs.value}" var="_score" paginator="true" rows="10" 
     					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
                         columnClasses=",,,,,,,,action" rowStyleClass="#{_score.counter ? 'counter' : null}" rowsPerPageTemplate="5,10,15,20,25" paginatorPosition="bottom" paginatorAlwaysVisible="false">
                     <pf:column id="memberNameCol" rendered="#{identity.ableToModifyOthersScores and cc.attrs.showUser}">

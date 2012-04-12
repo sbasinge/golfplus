@@ -31,7 +31,7 @@
         <h:panelGroup id="searchResults">
 	        <div class="section">
                 <h:form id="memberSelectionForm">
-                    <pf:dataTable id="members" value="#{userList.users}" var="_member" paginator="true" rows="10" lazy="false"
+                    <pf:dataTable id="members" value="#{userList.users}" var="_member" paginator="true" rows="10" 
                     	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
                     	rowsPerPageTemplate="5,10,15,20,25" paginatorPosition="bottom" paginatorAlwaysVisible="false" columnClasses=",,action">
                         <pf:column id="nameCol" sortBy="#{_member.name}">
