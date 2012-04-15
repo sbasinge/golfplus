@@ -25,7 +25,11 @@ public class Tournament extends BaseEntity {
 	@OneToMany(mappedBy="tournament")
 	@OrderBy("date ASC")
 	private List<TeeTime> teeTimes = new ArrayList<TeeTime>();
-	
+
+//	TODO Activate Tournament to Club relationship and associated security rules.
+//	@ManyToOne
+//	public Club club;
+
 	public String getName() {
 		return name;
 	}
@@ -64,5 +68,11 @@ public class Tournament extends BaseEntity {
 	public void setType(TournamentType type) {
 		this.type = type;
 	}
+//	public Club getClub() {
+//		return club;
+//	}
+//	public void setClub(Club club) {
+//		this.club = club;
+//	}
 	
 }

@@ -41,6 +41,10 @@ public class TeeTime extends BaseEntity {
     @ManyToOne
 	private Tournament tournament;
 
+//		TODO implement TeeTime to Club relationship and associated security rules.
+//    @ManyToOne
+//    public Club club;
+    
 	@Column
 	private boolean notificationOn;
 
@@ -222,4 +226,14 @@ public class TeeTime extends BaseEntity {
 	public void setComplete(boolean complete) {
 		this.complete = complete;
 	}
+
+
+//	public Club getClub() {
+//		return club;
+//	}
+//
+//
+//	public void setClub(Club club) {
+//		this.club = club;
+//	}
 }

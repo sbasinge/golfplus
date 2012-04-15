@@ -174,10 +174,8 @@ public class User implements Serializable {
 		score.setUser(this);
 		scores.add(score);
 	}
-
-	public boolean calculateHandicap() {
-		boolean handicapCalculated = false;
-		BigDecimal handicap = null;
+	
+	public int determineNumberOfScoresToUse(List<Score> eligibleScores) {
 		//get up to last 20 scores
 		// if num scores 5 or 6 use lowest differential
 		//     7-8 use lowest 2
@@ -192,7 +190,6 @@ public class User implements Serializable {
 		// average the differentials
 		// multiply by .96
 		// truncate after 1 decimal place
-		List<Score> eligibleScores = getLast20Scores();
 		int numElligibleScores = eligibleScores.size();
 		int scoresToUse = 0;
 		if (numElligibleScores < 5) {
@@ -218,13 +215,30 @@ public class User implements Serializable {
 		} else if (numElligibleScores == 20) {
 			scoresToUse = 10;
 		}
+		log.info("Found {} scores to use.",scoresToUse);
+		return scoresToUse;
+	}
+
+	public void sortEligibleScoresByDifferential(List<Score> eligibleScores) {
+		//sort by differential asc, lowest first
+		Collections.sort(eligibleScores, new Comparator<Score>() {
+		    public int compare(Score o1, Score o2) {
+		    	double score1Diff = o1.getDifferential();
+		    	double score2Diff = o2.getDifferential();
+		    	int result = score1Diff > score2Diff ? 1 : (score1Diff < score2Diff ? -1 : 0); 
+		        return result;
+		    }});
+	}
+
+	public boolean calculateHandicap() {
+		log.info("Calculating handicap for {}",this.username);
+		clearAllCounters();
+		boolean handicapCalculated = false;
+		BigDecimal handicap = null;
+		List<Score> eligibleScores = getLast20Scores();
+		int scoresToUse = determineNumberOfScoresToUse(eligibleScores);
 		if (scoresToUse > 0) {
-			//sort by differential asc, lowest first
-			Collections.sort(eligibleScores, new Comparator<Score>() {
-			    public int compare(Score o1, Score o2) {
-			        return (int) (o1.getDifferential() - o2.getDifferential());
-			    }});
-			
+			sortEligibleScoresByDifferential(eligibleScores);
 			List<Score> bestDifferentials = eligibleScores.subList(0, scoresToUse);
 			double totalDifferential = 0;
 			for (Score score : bestDifferentials) {
@@ -233,11 +247,19 @@ public class User implements Serializable {
 			}
 			handicap = new BigDecimal((totalDifferential / scoresToUse)*0.96).setScale(1,BigDecimal.ROUND_DOWN);
 			Handicap newHandicap = new Handicap(handicap, Calendar.getInstance().getTime());
-			newHandicap.setUser(this);
-			getHandicapHistory().add(newHandicap);
+//			newHandicap.save();
+			handicapHistory.add(newHandicap);
+//			this.save();
 			handicapCalculated = true;
 		}
 		return handicapCalculated;
+	}
+
+	private void clearAllCounters() {
+		for (Score score : getScores()) {
+			if (score.isCounter())
+				score.setCounter(false);
+		}
 	}
 
 	public BigDecimal getHandicap() {

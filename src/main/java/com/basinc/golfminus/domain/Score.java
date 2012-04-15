@@ -35,6 +35,10 @@ public class Score extends BaseEntity {
     @ManyToOne
 	private User user;
 
+//	TODO Activate Score to Club relationship and associated security rules.
+//	@ManyToOne
+//    public Club club;
+
     @ManyToOne
 	private TeeTime teeTime;
 
@@ -134,5 +138,13 @@ public class Score extends BaseEntity {
 		return "Score [teeSet=" + teeSet + ", date=" + date + ", user=" + user + ", teeTime=" + teeTime + ", grossScore=" + grossScore
 				+ ", netScore=" + adjustedScore + ", counter=" + counter + "]";
 	}
+
+//	public Club getClub() {
+//		return club;
+//	}
+//
+//	public void setClub(Club club) {
+//		this.club = club;
+//	}
 	
 }
