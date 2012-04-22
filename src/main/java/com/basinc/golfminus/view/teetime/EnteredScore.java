@@ -7,6 +7,7 @@ public class EnteredScore {
 	private User user;
 	private Integer grossScore;
 	private Integer adjustedScore;
+	private boolean remove;
 	
 	public EnteredScore() {};
 	public EnteredScore(User user) {
@@ -30,5 +31,11 @@ public class EnteredScore {
 	}
 	public void setAdjustedScore(Integer netScore) {
 		this.adjustedScore = netScore;
+	}
+	public boolean isRemove() {
+		return remove;
+	}
+	public void setRemove(boolean remove) {
+		this.remove = remove;
 	}
 }

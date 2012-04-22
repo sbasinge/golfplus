@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import com.basinc.golfminus.domain.Score;
 import com.basinc.golfminus.domain.TeeTime;
 import com.basinc.golfminus.domain.TeeTimeParticipant;
+import com.basinc.golfminus.domain.User;
 import com.basinc.golfminus.security.Identity;
 import com.basinc.golfminus.view.scores.ScoreUpdated;
 
@@ -47,6 +48,10 @@ public class TeetimeHome implements Serializable {
     @Inject
     @TeeTimeAdded
     private Event<TeeTime> teeTimeAddedEventSrc;
+
+    @Inject
+    @TeeTimeUpdated
+    private Event<TeeTimeParticipant> teeTimeUpdatedEventSrc;
 
     @Inject
     @ScoreUpdated
@@ -80,17 +85,35 @@ public class TeetimeHome implements Serializable {
 
     @End
     public void saveScores() {
+    	List<EnteredScore> scoresToRemove = new ArrayList<EnteredScore>();
+    	
     	//move scores to the teetime participants
     	for (EnteredScore score : scores) {
-    		if (score.getUser()!=null && score.getGrossScore()!=null&&score.getAdjustedScore()!=null&&score.getGrossScore()>0&&score.getAdjustedScore()>0) {
+    		if (score.getUser()==null) {
+    			continue;
+    		} else if (score.isRemove()) {
+    			scoresToRemove.add(score);
+    		} else if (score.getUser()!=null && score.getGrossScore()!=null&&score.getAdjustedScore()!=null&&score.getGrossScore()>0&&score.getAdjustedScore()>0) {
+    			boolean newParticipant = true;
     			for (TeeTimeParticipant participant : selection.getParticipants()) {
     				if (score.getUser().equals(participant.getUser())) {
     					participant.addScore(score.getGrossScore(), score.getAdjustedScore());
     					//    		scoreUpdatedEventSrc.fire(participant.getScore());
+    					newParticipant = false;
     					break;
     				}
     			}
+    			if (newParticipant) {
+    			    TeeTimeParticipant participant = new TeeTimeParticipant(selection,score.getUser());
+    			    selection.getParticipants().add(participant);
+    			    entityManager.flush();
+    			    teeTimeUpdatedEventSrc.fire(participant);
+					participant.addScore(score.getGrossScore(), score.getAdjustedScore());
+    			}
     		}
+    	}
+    	for (EnteredScore score : scoresToRemove) {
+			selection.removeParticipant(score.getUser());
     	}
     	entityManager.joinTransaction();
     	entityManager.persist(selection);
@@ -118,6 +141,8 @@ public class TeetimeHome implements Serializable {
        		scores.add(score);
     	}
     	entityManager.flush();
+		EnteredScore emptyScore = new EnteredScore();
+		scores.add(emptyScore);
     }
 
 	public List<EnteredScore> getScores() {
@@ -148,6 +173,12 @@ public class TeetimeHome implements Serializable {
 
 	public void getSelectionAndPopulateScores() {
 		log.info("Getting selection and populating scores");
+	}
+	
+	public List<User> getPotentialPlayers() {
+		List<User> retVal = new ArrayList<User>();
+		retVal = identity.getSelectedClub().getMembers();
+		return retVal;
 	}
 
 }

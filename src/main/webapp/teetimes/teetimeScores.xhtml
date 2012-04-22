@@ -36,9 +36,18 @@
 		
 	        <pf:dataTable id="members" value="#{teetimeHome.scores}" var="_score" rendered="#{not empty teetimeHome.scores}"
 	                     columnClasses=",,,,action">
+	            <pf:column id="removeCol">
+	                <f:facet id="removeFct" name="header">Remove</f:facet>
+	                <pf:selectBooleanCheckbox value="#{_score.remove}"/>
+	            </pf:column>
 	            <pf:column id="typeCol">
 	                <f:facet id="typeFct" name="header">Name</f:facet>
-	                #{_score.user.name}
+	                <h:outputText value="#{_score.user.name}" rendered="#{not empty _score.user}" />
+	                <h:selectOneMenu rendered="#{empty _score.user}" value="#{_score.user}">
+					    <f:selectItem itemValue="#{null}" itemLabel="Select Player..." noSelectionOption="true"/>
+					    <f:selectItems id="playerCombo" value="#{teetimeHome.potentialPlayers}" var="_player" itemValue="#{_player}" itemLabel="#{_player.name}"/>
+					    <f:converter for="playerCombo" converterId="userConverter"/>
+	                </h:selectOneMenu>
 	            </pf:column>
 	            <pf:column id="grossScoreCol">
 	                <f:facet id="grossScoreFct" name="header">Gross Score</f:facet>

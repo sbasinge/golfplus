@@ -25,7 +25,8 @@ public class UserConverter extends Converter<User> {
 			try {
 				log.trace("Looking up User "+value);
 				User user = em.find(User.class, value);
-				log.info("Found User "+user.getName());
+				if (user != null)
+					log.info("Found User "+user.getName());
 				return user;
 			} catch (NumberFormatException e) {}
 
