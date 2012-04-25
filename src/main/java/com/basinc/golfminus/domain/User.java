@@ -247,6 +247,7 @@ public class User implements Serializable {
 			}
 			handicap = new BigDecimal((totalDifferential / scoresToUse)*0.96).setScale(1,BigDecimal.ROUND_DOWN);
 			Handicap newHandicap = new Handicap(handicap, Calendar.getInstance().getTime());
+			newHandicap.setUser(this);
 //			newHandicap.save();
 			handicapHistory.add(newHandicap);
 //			this.save();
