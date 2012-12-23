@@ -7,15 +7,17 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.jboss.solder.core.Veto;
 
 @Entity
 @Veto
-@JsonIgnoreProperties({ "teetime" })
 public class TeeTimeParticipant extends BaseEntity {
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne
 	private TeeTime teetime;
 	

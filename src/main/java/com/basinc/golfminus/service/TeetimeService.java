@@ -10,9 +10,11 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.jboss.seam.transaction.Transactional;
@@ -39,13 +41,18 @@ public class TeetimeService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path(value = "/list")	
-    public List<TeeTime> find() {
+    public ResultWrapper find(@QueryParam(value="limit") int limit, @QueryParam(value="skip") int skip) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<TeeTime> query = builder.createQuery(TeeTime.class);
         Root<TeeTime> teeTime = query.from(TeeTime.class);
         
-        List<TeeTime> results = entityManager.createQuery(query).getResultList();
-        return results;
+        CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+        countQuery.select(builder.count(countQuery.from(TeeTime.class)));
+        
+        List<TeeTime> results = entityManager.createQuery(query).setFirstResult(skip).setMaxResults(limit).getResultList();
+        Long count = entityManager.createQuery(countQuery).getSingleResult();
+
+        return new ResultWrapper(count, results);
     }
 
 	@GET
@@ -58,6 +65,7 @@ public class TeetimeService {
 		return strings;
 	}
 	
+	@DELETE
 	public void deleteTeeTime(int id) {
 		log.warn("Attempting to delete teetime: "+id);
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
@@ -66,4 +74,33 @@ public class TeetimeService {
 		entityManager.flush();
 	}
 
+	class ResultWrapper {
+		Long count;
+		List<TeeTime> teetimes;
+		
+		public ResultWrapper(Long count, List<TeeTime> teetimes) {
+			this.count = count;
+			this.teetimes = teetimes;
+		}
+
+		public Long getCount() {
+			return count;
+		}
+
+		public void setCount(Long count) {
+			this.count = count;
+		}
+
+		public List<TeeTime> getTeetimes() {
+			return teetimes;
+		}
+
+		public void setTeetimes(List<TeeTime> teetimes) {
+			this.teetimes = teetimes;
+		}
+		
+		
+	}
+
 }
+

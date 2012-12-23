@@ -14,14 +14,17 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.jboss.solder.core.Veto;
 
 @Entity
 @Veto
-@JsonIgnoreProperties({ "tournament" })
+@XmlRootElement(name="TeeTime")
 public class TeeTime extends BaseEntity {
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
@@ -31,13 +34,15 @@ public class TeeTime extends BaseEntity {
 	
 	@ManyToOne
 	private TeeSet teeSet;
-	
+
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="teetime")
 	private List<TeeTimeParticipant> participants = new ArrayList<TeeTimeParticipant>();
 
 //	@OneToMany(cascade=CascadeType.ALL,mappedBy="teeTime")
 //	private List<Score> scores = new ArrayList<Score>();
 
+	@XmlTransient
+	@JsonIgnore
     @ManyToOne
 	private Tournament tournament;
 
@@ -53,6 +58,7 @@ public class TeeTime extends BaseEntity {
 	
 	private int numPlayers;
 	
+	@JsonIgnore
 	@OneToOne
 	private User organizer;
 	

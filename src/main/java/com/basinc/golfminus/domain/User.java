@@ -21,10 +21,9 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.jboss.solder.core.Veto;
 import org.slf4j.Logger;
@@ -32,8 +31,6 @@ import org.slf4j.LoggerFactory;
 
 @Entity
 @Veto
-@JsonAutoDetect(fieldVisibility=Visibility.ANY, getterVisibility=Visibility.NONE)
-@JsonIgnoreProperties({ "clubRoles", "teeTimes" })
 public class User implements Serializable {
     private static final long serialVersionUID = -602733026033932730L;
     
@@ -62,32 +59,50 @@ public class User implements Serializable {
     @Column(nullable=true)
     private String phone;
 
+	@JsonIgnore
+	@XmlTransient
     @ManyToMany
     private List<Club> clubs = new ArrayList<Club>();
 
+	@JsonIgnore
+	@XmlTransient
     @OneToMany(mappedBy="user")
     private List<MembershipRequest> membershipRequests = new ArrayList<MembershipRequest>();
 
+	@JsonIgnore
+	@XmlTransient
     @ManyToMany
     private List<ClubRole> clubRoles = new ArrayList<ClubRole>();
     
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	@OrderBy("date desc")
     private List<Score> scores = new ArrayList<Score>();
 
+	@JsonIgnore
+	@XmlTransient
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="user")
     @OrderBy("date DESC")
     private List<Handicap> handicapHistory = new ArrayList<Handicap>();
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToOne(cascade=CascadeType.ALL)
 	private NotificationPreference newMemberShipNotificationType = new NotificationPreference();
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToOne(cascade=CascadeType.ALL)
 	private NotificationPreference handicapCalculateNotificationType = new NotificationPreference();
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToOne(cascade=CascadeType.ALL)
 	private NotificationPreference newTeeTimeNotificationType = new NotificationPreference();
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToOne(cascade=CascadeType.ALL)
 	private NotificationPreference teeTimeFullNotificationType = new NotificationPreference();
 

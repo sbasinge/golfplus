@@ -15,8 +15,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.jboss.solder.core.Veto;
 
 import com.basinc.golfminus.enums.TeeType;
@@ -29,13 +30,16 @@ import com.basinc.golfminus.enums.TeeType;
 @NamedQueries(value = { 
 		@NamedQuery(name = "findTeeSetByCourseAndTeeType", query = "select ts from TeeSet ts where ts.course.name = :courseName and ts.teeType = :teeType") }
 )
-@JsonIgnoreProperties({ "teeType", "scores", "course" })
 public class TeeSet extends BaseEntity implements Comparable<TeeSet> {
 
+	@JsonIgnore
+	@XmlTransient
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COURSE_ID", nullable = true)
 	private Course course;
 	
+	@JsonIgnore
+	@XmlTransient
 	@Enumerated(EnumType.STRING)
 	private TeeType teeType;
 	
@@ -48,6 +52,8 @@ public class TeeSet extends BaseEntity implements Comparable<TeeSet> {
 	@Column
 	private int slopeRating;
 
+	@JsonIgnore
+	@XmlTransient
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval=true,  fetch = FetchType.LAZY, mappedBy = "teeSet")
 	private List<Score> scores = new ArrayList<Score>();
 	
