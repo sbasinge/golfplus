@@ -17,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.jboss.seam.transaction.Transactional;
 import org.jboss.solder.logging.Logger;
 
@@ -41,7 +42,7 @@ public class TeetimeService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path(value = "/list")	
-    public ResultWrapper find(@QueryParam(value="limit") int limit, @QueryParam(value="skip") int skip) {
+    public JSONPObject find(@QueryParam(value="callback") String callback, @QueryParam(value="limit") int limit, @QueryParam(value="skip") int skip) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<TeeTime> query = builder.createQuery(TeeTime.class);
         Root<TeeTime> teeTime = query.from(TeeTime.class);
@@ -51,8 +52,8 @@ public class TeetimeService {
         
         List<TeeTime> results = entityManager.createQuery(query).setFirstResult(skip).setMaxResults(limit).getResultList();
         Long count = entityManager.createQuery(countQuery).getSingleResult();
-
-        return new ResultWrapper(count, results);
+        JSONPObject po = new JSONPObject(callback, new ResultWrapper(count, results));
+        return po;
     }
 
 	@GET
@@ -98,8 +99,7 @@ public class TeetimeService {
 		public void setTeetimes(List<TeeTime> teetimes) {
 			this.teetimes = teetimes;
 		}
-		
-		
+
 	}
 
 }
