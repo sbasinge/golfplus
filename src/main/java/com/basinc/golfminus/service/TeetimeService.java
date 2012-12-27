@@ -1,6 +1,5 @@
 package com.basinc.golfminus.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -13,6 +12,7 @@ import javax.persistence.criteria.Root;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -58,16 +58,16 @@ public class TeetimeService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path(value = "/strings")	
-	public List<String> findStrings() {
-		List<String> strings = new ArrayList<String>();
-		strings.add("Hello");
-		strings.add("World");
-		return strings;
+	@Path(value = "/get/{id}")	
+	public JSONPObject get(@QueryParam(value="callback") String callback, @PathParam("id") int id) {
+		TeeTime result = entityManager.find(TeeTime.class, id);
+        return new JSONPObject(callback, result);
 	}
 	
 	@DELETE
-	public void deleteTeeTime(int id) {
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path(value = "/delete/{id}")	
+	public void deleteTeeTime(@PathParam("id") int id) {
 		log.warn("Attempting to delete teetime: "+id);
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
 		entityManager.joinTransaction();
