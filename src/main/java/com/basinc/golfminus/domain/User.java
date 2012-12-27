@@ -43,6 +43,8 @@ public class User implements Serializable {
     @Pattern(regexp = "^\\w*$", message = "not a valid username")
     private String username;
     
+    @JsonIgnore
+	@XmlTransient
     @NotNull
     @Size(min = 5, max = 15)
     private String password;
@@ -327,6 +329,8 @@ public class User implements Serializable {
 		return true;
 	}
 	
+    @JsonIgnore
+	@XmlTransient
 	@Transient
 	public List<Score> getLast20Scores() {
 		List<Score> sortedDescScores = getScores();
@@ -360,6 +364,8 @@ public class User implements Serializable {
 		this.handicapHistory = handicapHistory;
 	}
 	
+    @JsonIgnore
+	@XmlTransient
 	@Transient
 	public String getLast20ScoreRowClasses() {
 		String retVal = "";
@@ -427,6 +433,8 @@ public class User implements Serializable {
 		return retVal;
 	}
 	
+    @JsonIgnore
+	@XmlTransient
 	public Score getLastScore() {
 		return getScores().size() > 0 ? getScores().get(0) : new Score();
 	}
