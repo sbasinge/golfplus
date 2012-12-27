@@ -36,6 +36,8 @@ public class TeetimeService {
 	
 	private Logger log = Logger.getLogger(getClass());
 
+	private static String DEFAULT_CALLBACK = "callback";
+	
 	@PersistenceContext(type=PersistenceContextType.EXTENDED)
     EntityManager entityManager; 
 
@@ -52,7 +54,7 @@ public class TeetimeService {
         
         List<TeeTime> results = entityManager.createQuery(query).setFirstResult(skip).setMaxResults(limit).getResultList();
         Long count = entityManager.createQuery(countQuery).getSingleResult();
-        JSONPObject po = new JSONPObject(callback, new ResultWrapper(count, results));
+        JSONPObject po = new JSONPObject(callback != null ? callback : DEFAULT_CALLBACK, new ResultWrapper(count, results));
         return po;
     }
 
@@ -61,7 +63,7 @@ public class TeetimeService {
 	@Path(value = "/get/{id}")	
 	public JSONPObject get(@QueryParam(value="callback") String callback, @PathParam("id") int id) {
 		TeeTime result = entityManager.find(TeeTime.class, id);
-        return new JSONPObject(callback, result);
+        return new JSONPObject(callback != null ? callback : DEFAULT_CALLBACK, result);
 	}
 	
 	@DELETE
