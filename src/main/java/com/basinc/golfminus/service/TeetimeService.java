@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -36,15 +37,12 @@ public class TeetimeService {
 	
 	private Logger log = Logger.getLogger(getClass());
 
-	private static String DEFAULT_CALLBACK = "callback";
-	
 	@PersistenceContext(type=PersistenceContextType.EXTENDED)
     EntityManager entityManager; 
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path(value = "/list")	
-    public JSONPObject find(@QueryParam(value="callback") String callback, @QueryParam(value="limit") int limit, @QueryParam(value="skip") int skip) {
+    public JSONPObject find(@QueryParam(value="callback") @DefaultValue(value="callback") String callback, @QueryParam(value="limit") int limit, @QueryParam(value="skip") int skip) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<TeeTime> query = builder.createQuery(TeeTime.class);
         Root<TeeTime> teeTime = query.from(TeeTime.class);
@@ -54,21 +52,21 @@ public class TeetimeService {
         
         List<TeeTime> results = entityManager.createQuery(query).setFirstResult(skip).setMaxResults(limit).getResultList();
         Long count = entityManager.createQuery(countQuery).getSingleResult();
-        JSONPObject po = new JSONPObject(callback != null ? callback : DEFAULT_CALLBACK, new ResultWrapper(count, results));
+        JSONPObject po = new JSONPObject(callback, new ResultWrapper(count, results));
         return po;
     }
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path(value = "/get/{id}")	
-	public JSONPObject get(@QueryParam(value="callback") String callback, @PathParam("id") int id) {
+	@Path(value = "/{id}")	
+	public JSONPObject get(@QueryParam(value="callback") @DefaultValue(value="callback") String callback, @PathParam("id") int id) {
 		TeeTime result = entityManager.find(TeeTime.class, id);
-        return new JSONPObject(callback != null ? callback : DEFAULT_CALLBACK, result);
+        return new JSONPObject(callback, result);
 	}
 	
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path(value = "/delete/{id}")	
+	@Path(value = "/{id}")	
 	public void deleteTeeTime(@PathParam("id") int id) {
 		log.warn("Attempting to delete teetime: "+id);
 		TeeTime teeTime = entityManager.find(TeeTime.class, id);
