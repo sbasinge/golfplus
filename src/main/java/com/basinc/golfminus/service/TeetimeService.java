@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -22,7 +23,10 @@ import org.codehaus.jackson.map.util.JSONPObject;
 import org.jboss.seam.transaction.Transactional;
 import org.jboss.solder.logging.Logger;
 
+import com.basinc.golfminus.domain.Course;
+import com.basinc.golfminus.domain.Course_;
 import com.basinc.golfminus.domain.TeeTime;
+import com.basinc.golfminus.domain.TeeTime_;
 
 @Transactional
 @Stateless
@@ -42,11 +46,29 @@ public class TeetimeService {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-    public JSONPObject find(@QueryParam(value="callback") @DefaultValue(value="callback") String callback, @QueryParam(value="limit") int limit, @QueryParam(value="skip") int skip) {
+    public JSONPObject find(@QueryParam(value="callback") @DefaultValue(value="callback") String callback, @QueryParam(value="limit") int limit, @QueryParam(value="skip") int skip, @QueryParam(value="orderBy") String orderBy, @QueryParam(value="orderAsc") boolean orderAsc) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<TeeTime> query = builder.createQuery(TeeTime.class);
         Root<TeeTime> teeTime = query.from(TeeTime.class);
-        
+        Join<TeeTime, Course> course = teeTime.join(TeeTime_.course);
+        if (orderBy != null) {
+        	if ("id".equalsIgnoreCase(orderBy) && orderAsc)
+        		query.orderBy(builder.asc(teeTime.get(TeeTime_.id)));
+        	else if ("id".equalsIgnoreCase(orderBy) && !orderAsc)
+        		query.orderBy(builder.desc(teeTime.get(TeeTime_.id)));
+        	else if ("date".equalsIgnoreCase(orderBy) && orderAsc)
+        		query.orderBy(builder.asc(teeTime.get(TeeTime_.date)));
+        	else if ("date".equalsIgnoreCase(orderBy) && !orderAsc)
+        		query.orderBy(builder.desc(teeTime.get(TeeTime_.date)));
+        	else if ("numPlayers".equalsIgnoreCase(orderBy) && orderAsc)
+        		query.orderBy(builder.asc(teeTime.get(TeeTime_.numPlayers)));
+        	else if ("numPlayers".equalsIgnoreCase(orderBy) && !orderAsc)
+        		query.orderBy(builder.desc(teeTime.get(TeeTime_.numPlayers)));
+        	else if ("course.name".equalsIgnoreCase(orderBy) && orderAsc)
+        		query.orderBy(builder.asc(course.get(Course_.name)));
+        	else if ("course.name".equalsIgnoreCase(orderBy) && !orderAsc)
+        		query.orderBy(builder.desc(course.get(Course_.name)));
+        }
         CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
         countQuery.select(builder.count(countQuery.from(TeeTime.class)));
         
