@@ -38,8 +38,8 @@ public class TeeSet extends BaseEntity implements Comparable<TeeSet> {
 	@JoinColumn(name = "COURSE_ID", nullable = true)
 	private Course course;
 	
-	@JsonIgnore
-	@XmlTransient
+//	@JsonIgnore
+//	@XmlTransient
 	@Enumerated(EnumType.STRING)
 	private TeeType teeType;
 	

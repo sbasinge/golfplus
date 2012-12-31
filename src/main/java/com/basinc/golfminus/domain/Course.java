@@ -12,18 +12,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.jboss.solder.core.Veto;
 
 @Entity
 @Veto
-@JsonIgnoreProperties({ "facility" })
 public class Course extends BaseEntity {
 
 	@Column
 	@NotNull
 	private String name;
 
+//	@XmlTransient
+//	@JsonIgnore
 //	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FACILITY_ID", nullable = true)

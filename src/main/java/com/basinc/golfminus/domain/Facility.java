@@ -11,19 +11,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.jboss.solder.core.Veto;
 
 @Entity
 @Veto
-@JsonIgnoreProperties({ "courses" })
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Facility extends BaseEntity {
 
 	@Column
 	@NotNull
 	private String name;
 	
+//	@XmlTransient
+//	@JsonIgnore
 //    @NotNull
     @OneToOne(cascade={CascadeType.ALL})
 	private Address address;
@@ -31,6 +35,8 @@ public class Facility extends BaseEntity {
     @Size(max=20)
     private String phone;
     
+	@XmlTransient
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="facility")
     private List<Course> courses = new ArrayList<Course>();
     
